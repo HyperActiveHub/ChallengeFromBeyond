@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public float offseter = 0.00005f;
     private float lastPosition;
     public Vector3 scalechage;
-
+    public Vector3 targetPosition;
 
 
 
@@ -35,6 +35,16 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), Time.deltaTime * 5);
+
+
         Vector2 movement_vector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (movement_vector != Vector2.zero)
         {
