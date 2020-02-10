@@ -6,6 +6,8 @@ public class Item : MonoBehaviour
 {
     [SerializeField] private ItemData itemData = null;
 
+    private SpriteRenderer spriteRenderer = null;
+
     private void OnValidate()
     {
         if(itemData == null)
@@ -19,13 +21,16 @@ public class Item : MonoBehaviour
         itemData.itemID = gameObject.GetInstanceID();
     }
 
+    public void SetItemID(byte itemID)
+    {
+        this.itemData.itemID = itemID;
+    }
+
+
+
     public static bool operator ==(Item item1, Item item2)
     {
-        if (item1.itemData.itemID == item2.itemData.itemID)
-        {
-            return true;
-        }
-        return false;
+        return item1.itemData.itemID == item2.itemData.itemID;
     }
 
     public static bool operator !=(Item item1, Item item2)
@@ -43,9 +48,9 @@ public class Item : MonoBehaviour
         return base.GetHashCode();
     }
 
-    public void SetItemID(byte itemID)
+    public override string ToString()
     {
-        this.itemData.itemID = itemID;
+        return itemData.displayText;
     }
 
 }

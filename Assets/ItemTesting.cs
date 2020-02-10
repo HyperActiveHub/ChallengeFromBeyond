@@ -9,6 +9,9 @@ public class ItemTesting : MonoBehaviour
 
     void Start()
     {
-
+        if(item1 == item2)
+        {
+            Debug.Log(item1);
+        }
     }
 }
