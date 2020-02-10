@@ -14,9 +14,12 @@ public class PlayerController : MonoBehaviour
     public float offseter = 0.00005f;
     private float lastPositionY;
     private float lastPositionX;
+    private Vector3 lastPosition;
     public Vector3 scalechage;
     public Vector3 targetPosition;
-
+    public float range = 0.5f;
+    public GameObject rayObject;
+    private RaycastHit2D hit;
 
 
 
@@ -32,6 +35,7 @@ public class PlayerController : MonoBehaviour
         camera = FindObjectOfType<Camera>();
         lastPositionY = transform.position.y;
         lastPositionX = transform.position.x;
+        lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
         targetPosition = transform.position;
     }
 
@@ -43,24 +47,22 @@ public class PlayerController : MonoBehaviour
         {
             targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
+
+
     }
 
 
     void FixedUpdate()
     {
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), Time.deltaTime * speed);
+        
 
-<<<<<<< HEAD
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-=======
->>>>>>> Hampus
+        
 
 
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), Time.deltaTime * 5);
 
-
+      
+        
         Vector2 movement_vector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (movement_vector != Vector2.zero)
         {
@@ -87,7 +89,6 @@ public class PlayerController : MonoBehaviour
         }
 
 
-       
 
 
 
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour
         distanceTravelled = Mathf.Abs(transform.position.y - lastPositionY);
 
         scalechage = new Vector3(transform.localScale.x, transform.localScale.y) * distanceTravelled;
+
 
 
         if ((transform.position.y - lastPositionY) > 0)
@@ -124,17 +126,37 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isWalking", true);
             anim.SetFloat("input_x", (transform.position.x - lastPositionX));
         }
+        
+
+       
 
 
         transform.localScale += scalechage;
        
         lastPositionY = transform.position.y;
         lastPositionX = transform.position.x;
+        lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
+        {
+            targetPosition = transform.position;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
+        {
+            targetPosition = transform.position;
+        }
     }
 
 
 
- 
-    
-    
+
+
 }
