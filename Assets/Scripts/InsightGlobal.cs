@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class InsightGlobal
 {
@@ -25,6 +26,31 @@ public static class InsightGlobal
         set { m_InsightMaximum = value; }
     }
 
+    private static bool initialized = false;
+    private static Camera camera;
+
+    // ensures you call this method from a script in your first loaded scene
+    public static void Initialize()
+    {
+        if (initialized == false)
+        {
+            initialized = true;
+            // adds this to the 'activeSceneChanged' callbacks if not already initialized.
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneWasLoaded;
+        }
+    }
+
+    // triggers when a new scene is loaded
+    private static void OnSceneWasLoaded(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
+    {
+        // fixes main camera if not null
+        if (camera)
+        {
+            Camera.main.cullingMask = camera.cullingMask;
+        }
+        camera = Camera.main;
+    }
+
     public static void ChangeInsight(int amount)
     {
         Mathf.Clamp(amount, -m_InsightLayerValue, m_InsightMaximum - m_InsightLayerValue);
@@ -44,7 +70,7 @@ public static class InsightGlobal
             }
             else
             {
-                Camera.main.cullingMask |= (toggle << LayerMask.NameToLayer(string.Format("{0} {1}", "Insight level ", amount + i)));
+                camera.cullingMask |= (toggle << LayerMask.NameToLayer(string.Format("{0} {1}", "Insight level ", amount + i)));
             }
         }
         
