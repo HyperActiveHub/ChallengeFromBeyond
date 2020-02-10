@@ -14,4 +14,9 @@ public class ItemTesting : MonoBehaviour
             Debug.Log(item1);
         }
     }
+    public void TestFunctionCall()
+    {
+
+    }
+
 }

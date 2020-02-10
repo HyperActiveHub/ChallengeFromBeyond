@@ -19,11 +19,24 @@ public class Item : MonoBehaviour
     private void Start()
     {
         itemData.itemID = gameObject.GetInstanceID();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //TODO: Should be done in editor and not in game. Fix when adding custom editor.
+        //if(itemData.itemSprite != null && spriteRenderer != null)
+        //{
+        //    spriteRenderer.sprite = itemData.itemSprite;
+        //}
     }
 
-    public void SetItemID(byte itemID)
+    public void SetItemID(int itemID)
     {
         this.itemData.itemID = itemID;
+    }
+
+    public void SetItem(ItemData item)
+    {
+        this.itemData = item;
     }
 
 
@@ -51,6 +64,11 @@ public class Item : MonoBehaviour
     public override string ToString()
     {
         return itemData.displayText;
+    }
+
+    public void PublicPrint(string printString)
+    {
+        Debug.Log(printString);
     }
 
 }
