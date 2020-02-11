@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     public List<Interaction> interactions;
+    public ItemData testItemToInteractWith;
 
     public void Interact(ItemData otherItem)
     {

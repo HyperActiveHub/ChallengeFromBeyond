@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public class InteractableObjectEditor : Editor
 {
     InteractableObject interactableObject;
-    [SerializeField] private ItemData testItemToInteractWith;
 
     public override void OnInspectorGUI()
     {
@@ -29,7 +28,7 @@ public class InteractableObjectEditor : Editor
 
         if (GUILayout.Button("Interact"))
         {
-            Interact(testItemToInteractWith);
+            Interact(interactableObject.testItemToInteractWith);
         }
     }
 
