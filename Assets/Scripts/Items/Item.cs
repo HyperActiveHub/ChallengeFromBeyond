@@ -22,6 +22,8 @@ public class Item : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
+        ReloadItem();
+
         //TODO: Should be done in editor and not in game. Fix when adding custom editor.
         //if(itemData.itemSprite != null && spriteRenderer != null)
         //{
@@ -29,15 +31,32 @@ public class Item : MonoBehaviour
         //}
     }
 
+    private void ReloadItem()
+    {
+        if(spriteRenderer != null)
+        {
+            spriteRenderer.sprite = itemData.itemSprite;
+        }
+    }
+
     public void SetItemID(int itemID)
     {
         this.itemData.itemID = itemID;
     }
 
+    public void SetItem(ItemData itemData)
+    {
+        this.itemData = itemData;
+        ReloadItem();
+    }
+
     public void CombineWithItem(ItemData item)
     {
         this.itemData = item;
+        ReloadItem();
     }
+
+
 
     public static bool operator ==(Item item1, Item item2)
     {

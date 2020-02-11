@@ -6,6 +6,8 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     public List<Interaction> interactions;
+
+    [Header("Tools for testing")]
     public ItemData testItemToInteractWith;
 
     public void Interact(ItemData otherItem)
