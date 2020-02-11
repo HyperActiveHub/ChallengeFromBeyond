@@ -34,12 +34,10 @@ public class Item : MonoBehaviour
         this.itemData.itemID = itemID;
     }
 
-    public void SetItem(ItemData item)
+    public void CombineWithItem(ItemData item)
     {
         this.itemData = item;
     }
-
-
 
     public static bool operator ==(Item item1, Item item2)
     {
