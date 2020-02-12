@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rbody = null;
     private new Camera camera;
     public float distanceTravelled = 0;
+    public float Moved = 0;
     public float offseter = 0.00005f;
     private float lastPositionY;
     private float lastPositionX;
@@ -20,7 +21,10 @@ public class PlayerController : MonoBehaviour
     public float range = 0.5f;
     public GameObject rayObject;
     private RaycastHit2D hit;
-
+    public Transform target;
+    public bool isMoving;
+    private Vector2 startPos;
+    private Vector2 finalPos;
 
 
 
@@ -29,8 +33,7 @@ public class PlayerController : MonoBehaviour
     public void Start()
     {
         firstSpeed = speed;
-        rbody = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        
         diagonalSpeed = (speed / 3) * 2;
         camera = FindObjectOfType<Camera>();
         lastPositionY = transform.position.y;
@@ -43,58 +46,44 @@ public class PlayerController : MonoBehaviour
     public void Update()
     {
         
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //}
+
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            target.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+           
         }
 
-
+        IsMoving();
     }
 
 
     void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), Time.deltaTime * speed);
-        
-
-        
-
-
-
-      
-        
-        Vector2 movement_vector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (movement_vector != Vector2.zero)
-        {
-            anim.SetBool("isWalking", true);
-            anim.SetFloat("input_x", movement_vector.x);
-            anim.SetFloat("input_y", movement_vector.y);
-
-
-
-            if (movement_vector.x != 0 && movement_vector.y != 0)
-            {
-                speed = diagonalSpeed;
-            }
-            else
-            {
-                speed = firstSpeed;
-            }
-
-
-        }
-        else
-        {
-            anim.SetBool("isWalking", false);
-        }
+        // transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), Time.deltaTime * speed);
 
 
 
 
 
-        rbody.MovePosition(rbody.position + movement_vector * speed * Time.deltaTime);
+
+       
+
+
+
+
+        target.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+
+
+       
 
         distanceTravelled = Mathf.Abs(transform.position.y - lastPositionY);
+        
+
 
         scalechage = new Vector3(transform.localScale.x, transform.localScale.y) * distanceTravelled;
 
@@ -126,9 +115,26 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isWalking", true);
             anim.SetFloat("input_x", (transform.position.x - lastPositionX));
         }
+        //if (rbody.IsSleeping())
+        //{
+        //    anim.SetBool("isWalking", false);
+        //}
+
+        if (isMoving == false)
+        {
+            anim.SetBool("isWalking", false);
+        }
+        else
+        {
+            anim.SetBool("isWalking", true);
+        }
+
+
+
+
+
         
 
-       
 
 
         transform.localScale += scalechage;
@@ -136,27 +142,49 @@ public class PlayerController : MonoBehaviour
         lastPositionY = transform.position.y;
         lastPositionX = transform.position.x;
         lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
+        
     }
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private IEnumerator IsMoving()
     {
-        if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
+
+        startPos = transform.position;
+        yield return new WaitForSeconds(1f);
+        finalPos = transform.position;
+
+        if ((finalPos - startPos).sqrMagnitude > 0.1)
         {
-            targetPosition = transform.position;
+            isMoving = true;
         }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
+        else
         {
-            targetPosition = transform.position;
+            isMoving = false;
         }
+    
     }
-
-
 
 
 
 }
+
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
+    //    {
+    //        targetPosition = transform.position;
+    //    }
+    //}
+
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
+    //    {
+    //        targetPosition = transform.position;
+    //    }
+    //}
+
+
+
+
+
