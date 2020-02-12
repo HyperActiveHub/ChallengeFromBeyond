@@ -23,8 +23,7 @@ public class PlayerController : MonoBehaviour
     private RaycastHit2D hit;
     public Transform target;
     public bool isMoving;
-    private Vector2 startPos;
-    private Vector2 finalPos;
+
 
 
 
@@ -58,7 +57,7 @@ public class PlayerController : MonoBehaviour
            
         }
 
-        IsMoving();
+        
     }
 
 
@@ -71,9 +70,9 @@ public class PlayerController : MonoBehaviour
 
 
 
-       
 
 
+        StartCoroutine("IsMoving");
 
 
         target.position = new Vector3(target.position.x, target.position.y, transform.position.z);
@@ -147,18 +146,18 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator IsMoving()
     {
+        
+        Vector3 startPos = transform.position;
+        yield return new WaitForSeconds(0.1f);
+        Vector3 finalPos = transform.position;
 
-        startPos = transform.position;
-        yield return new WaitForSeconds(1f);
-        finalPos = transform.position;
-
-        if ((finalPos - startPos).sqrMagnitude > 0.1)
+        if ((finalPos - startPos).sqrMagnitude < 0.005f)
         {
-            isMoving = true;
+            isMoving = false;
         }
         else
         {
-            isMoving = false;
+            isMoving = true;
         }
     
     }
