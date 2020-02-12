@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float distanceTravelled = 0;
     public float Moved = 0;
     public float offseter = 0.00005f;
-    private float lastPosition;
+    private Vector3 lastPosition;
     public Vector3 scalechage;
     public Vector3 targetPosition;
     public float range = 0.5f;
@@ -21,78 +21,51 @@ public class PlayerController : MonoBehaviour
     private RaycastHit2D hit;
     public Transform target;
     public bool isMoving;
-
-
-
-
-
-
-
+    float lastPositionY, lastPositionX;
 
     public void Start()
     {
         firstSpeed = speed;
-        
         diagonalSpeed = (speed / 3) * 2;
         camera = FindObjectOfType<Camera>();
-        lastPosition = transform.position.y;
-       
+        lastPosition = transform.position;
     }
-
 
     public void Update()
     {
-        
         //if (Input.GetKeyDown(KeyCode.Mouse0))
         //{
         //    targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //}
 
-
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             target.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-           
         }
-
-        
     }
-
 
     void FixedUpdate()
     {
         // transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), Time.deltaTime * speed);
 
-
-
-
-
-
-
+        lastPositionY = transform.position.y;
+        lastPositionX = transform.position.x;
 
         StartCoroutine("IsMoving");
 
-
         target.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 
-       
-
-       
-
         distanceTravelled = Mathf.Abs(transform.position.y - lastPositionY);
-        
-
 
         scalechage = new Vector3(transform.localScale.x, transform.localScale.y) * distanceTravelled;
 
-
-        if ((transform.position.y - lastPosition) > 0)
+        if ((transform.position.y - lastPositionY) > 0)
         {
             scalechage = -scalechage * offseter;
             transform.Translate(0, 0, distanceTravelled * offseter * Time.deltaTime);
 
         }
-        else if ((transform.position.y - lastPosition) < 0)
+        else if ((transform.position.y - lastPositionY) < 0)
         {
             scalechage = scalechage * offseter;
             transform.Translate(0, 0, -distanceTravelled * offseter * Time.deltaTime);
@@ -117,24 +90,13 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isWalking", true);
         }
 
-
-
-
-
-        
-
-
         transform.localScale += scalechage;
-       
-        lastPositionY = transform.position.y;
-        lastPositionX = transform.position.x;
+
         lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
-        
     }
 
     private IEnumerator IsMoving()
     {
-        
         Vector3 startPos = transform.position;
         yield return new WaitForSeconds(0.1f);
         Vector3 finalPos = transform.position;
@@ -147,31 +109,21 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = true;
         }
-    
     }
-
-
-
 }
 
+//private void OnCollisionEnter2D(Collision2D collision)
+//{
+//    if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
+//    {
+//        targetPosition = transform.position;
+//    }
+//}
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
-    //    {
-    //        targetPosition = transform.position;
-    //    }
-    //}
-
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
-    //    {
-    //        targetPosition = transform.position;
-    //    }
-    //}
-
-
-
-
-
+//private void OnCollisionStay2D(Collision2D collision)
+//{
+//    if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
+//    {
+//        targetPosition = transform.position;
+//    }
+//}

@@ -9,4 +9,6 @@ public class ItemData : ScriptableObject
     public Sprite itemSprite;
     public string displayText;
 
+    public ItemData combinedResult;
+
 }

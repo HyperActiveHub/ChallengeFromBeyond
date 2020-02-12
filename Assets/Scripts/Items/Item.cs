@@ -14,6 +14,8 @@ public class Item : MonoBehaviour
         {
             Debug.LogWarning("Item GameObject has no attached item. Please attach one.", this);
         }
+
+        ReloadItem();
     }
 
     private void Start()
@@ -37,6 +39,11 @@ public class Item : MonoBehaviour
         {
             spriteRenderer.sprite = itemData.itemSprite;
         }
+
+        if(itemData.displayText != "")
+        {
+            name = "item_" + itemData.displayText;
+        }
     }
 
     public void SetItemID(int itemID)
@@ -50,10 +57,11 @@ public class Item : MonoBehaviour
         ReloadItem();
     }
 
-    public void CombineWithItem(ItemData item)
+    public void CombineWithItem(Item item)
     {
-        this.itemData = item;
-        ReloadItem();
+        item.itemData = itemData.combinedResult;
+        Destroy(gameObject);
+        item.ReloadItem();
     }
 
 
