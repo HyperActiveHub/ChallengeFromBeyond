@@ -17,10 +17,7 @@ public class PlayerController : MonoBehaviour
     private float lastPositionX;
     private Vector3 lastPosition;
     public Vector3 scalechage;
-    public Vector3 targetPosition;
-    public float range = 0.5f;
-    public GameObject rayObject;
-    private RaycastHit2D hit;
+    public Vector3 targetPosition;     
     public Transform target;
     public bool isMoving;
 
