@@ -12,7 +12,7 @@ public class ClickAndDrag : MonoBehaviour
     private Vector3 offset;
     private Camera mainCamera;
     private Vector3 initialPosition;
-    [SerializeField] private Collider2D raycastCollider;
+    private Collider2D raycastCollider;
 
     void Start()
     {

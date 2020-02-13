@@ -19,7 +19,6 @@ public class InteractableObject : MonoBehaviour
                 bool wasInteractedWith = interactions[i].Interact(otherItem);
                 if (wasInteractedWith)
                 {
-                    Debug.Log("Interaction ok, interacted with " + interactions[i].interactedWithItem.displayText);
                     return interactions[i];
                 }
             }

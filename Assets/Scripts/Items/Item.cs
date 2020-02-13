@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class Item : MonoBehaviour
 {
     public ItemData itemData = null;
-
     private SpriteRenderer spriteRenderer = null;
 
     private void OnValidate()
@@ -20,7 +20,7 @@ public class Item : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        if(spriteRenderer != null && spriteRenderer.sprite == null)
+        if(spriteRenderer != null)
         {
             ReloadItem();
         }
@@ -29,14 +29,6 @@ public class Item : MonoBehaviour
     private void Start()
     {
         itemData.itemID = gameObject.GetInstanceID();
-
-        //ReloadItem();
-
-        //TODO: Should be done in editor and not in game. Fix when adding custom editor.
-        //if(itemData.itemSprite != null && spriteRenderer != null)
-        //{
-        //    spriteRenderer.sprite = itemData.itemSprite;
-        //}
     }
 
     private void ReloadItem()
@@ -62,9 +54,12 @@ public class Item : MonoBehaviour
     {
         Instantiate(prefab, transform.position, Quaternion.identity);
         Destroy(this.gameObject);   
-        //ReloadItem();
     }
 
+    private void OnDrawGizmos()
+    {
+        Handles.Label(transform.position, itemData.displayText);
+    }
 
     public static bool operator ==(Item item1, Item item2)
     {
@@ -90,10 +85,4 @@ public class Item : MonoBehaviour
     {
         return itemData.displayText;
     }
-
-    public void PublicPrint(string printString)
-    {
-        Debug.Log(printString);
-    }
-
 }
