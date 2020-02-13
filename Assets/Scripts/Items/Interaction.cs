@@ -7,7 +7,9 @@ using UnityEngine.Events;
 public class Interaction
 {
     public ItemData interactedWithItem;
+    public bool consumable = true;
     public UnityEvent onInteraction;
+    
 
     public bool Interact(ItemData item)
     {

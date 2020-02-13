@@ -10,7 +10,7 @@ public class InteractableObject : MonoBehaviour
     [Header("Tools for testing")]
     public ItemData testItemToInteractWith;
 
-    public bool Interact(ItemData otherItem)
+    public Interaction Interact(ItemData otherItem)
     {
         if (interactions != null)
         {
@@ -19,14 +19,15 @@ public class InteractableObject : MonoBehaviour
                 bool wasInteractedWith = interactions[i].Interact(otherItem);
                 if (wasInteractedWith)
                 {
-                    return wasInteractedWith;
+                    Debug.Log("Interaction ok, interacted with " + interactions[i].interactedWithItem.displayText);
+                    return interactions[i];
                 }
             }
         }
-        return false;
+        return null;
     }
 
-    public bool Interact(Item otherItem)
+    public Interaction Interact(Item otherItem)
     {
         return Interact(otherItem.itemData);
     }

@@ -14,15 +14,23 @@ public class Item : MonoBehaviour
         {
             Debug.LogWarning("Item GameObject has no attached item. Please attach one.", this);
         }
+
+        if(spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        if(spriteRenderer != null && spriteRenderer.sprite == null)
+        {
+            ReloadItem();
+        }
     }
 
     private void Start()
     {
         itemData.itemID = gameObject.GetInstanceID();
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        ReloadItem();
+        //ReloadItem();
 
         //TODO: Should be done in editor and not in game. Fix when adding custom editor.
         //if(itemData.itemSprite != null && spriteRenderer != null)
@@ -52,10 +60,8 @@ public class Item : MonoBehaviour
 
     public void CombineWithItem(GameObject prefab)
     {
-
         Instantiate(prefab, transform.position, Quaternion.identity);
-        Destroy(this.gameObject);
-        
+        Destroy(this.gameObject);   
         //ReloadItem();
     }
 

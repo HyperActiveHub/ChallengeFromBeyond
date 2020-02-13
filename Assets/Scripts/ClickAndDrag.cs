@@ -12,7 +12,7 @@ public class ClickAndDrag : MonoBehaviour
     private Vector3 offset;
     private Camera mainCamera;
     private Vector3 initialPosition;
-    private Collider2D raycastCollider;
+    [SerializeField] private Collider2D raycastCollider;
 
     void Start()
     {
@@ -29,6 +29,7 @@ public class ClickAndDrag : MonoBehaviour
         dragPlane.Raycast(camRay, out planeDist);
         offset = transform.position - camRay.GetPoint(planeDist) + Vector3.back;
         initialPosition = transform.position;
+        raycastCollider.enabled = false;
     }
 
     void OnMouseDrag()
@@ -48,7 +49,6 @@ public class ClickAndDrag : MonoBehaviour
         //Call interactableObject.Interact to see if the receiving item has an interaction-behaviour for the item currently hold by the player.
         //If interaction is valid, destroy this gameobject. The other gameobject is responsible for what is going to happen (instantiating a new object etc).
 
-        raycastCollider.enabled = false;
         Vector3 worldPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(worldPoint + Vector3.back, worldPoint);
 
@@ -57,21 +57,21 @@ public class ClickAndDrag : MonoBehaviour
             GameObject otherGameObject = hit.collider.gameObject;
             InteractableObject interactableObject = otherGameObject.GetComponent<InteractableObject>();
 
-            Debug.DrawRay(worldPoint + Vector3.back, hit.point, Color.red, 2.0f);
-
             if (interactableObject != null)
             {
-                if (interactableObject.Interact(GetComponent<Item>()))
+                Interaction interaction = interactableObject.Interact(GetComponent<Item>());
+
+                if (interaction != null)
                 {
-                    //Interaction ok, destroying this gameobject. (interactable.Interact() is responsible of what happens now... >:) )
-                    Destroy(this.gameObject);
-                    return;
+                    if (interaction.consumable)
+                    {
+                        //Interaction ok and object should be consumed, destroying this gameobject. (interactable.Interact() is responsible of what happens now... >:) )
+                        Destroy(this.gameObject);
+                        return;
+                    }
                 }
             }
-
-            Debug.Log(hit.collider.gameObject);
         }
-
         raycastCollider.enabled = true;
         transform.position = initialPosition;
     }
