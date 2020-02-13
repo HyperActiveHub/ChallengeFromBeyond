@@ -13,9 +13,7 @@ public class PlayerController : MonoBehaviour
     public float distanceTravelled = 0;
     public float Moved = 0;
     public float offseter = 0.00005f;
-    private float lastPositionY;
-    private float lastPositionX;
-    private Vector3 lastPosition;
+    private float lastPosition;
     public Vector3 scalechage;
     public Vector3 targetPosition;
     public float range = 0.5f;
@@ -29,16 +27,16 @@ public class PlayerController : MonoBehaviour
 
 
 
+
+
     public void Start()
     {
         firstSpeed = speed;
         
         diagonalSpeed = (speed / 3) * 2;
         camera = FindObjectOfType<Camera>();
-        lastPositionY = transform.position.y;
-        lastPositionX = transform.position.x;
-        lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
-        targetPosition = transform.position;
+        lastPosition = transform.position.y;
+       
     }
 
 
@@ -77,6 +75,7 @@ public class PlayerController : MonoBehaviour
 
         target.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 
+       
 
        
 
@@ -87,27 +86,17 @@ public class PlayerController : MonoBehaviour
         scalechage = new Vector3(transform.localScale.x, transform.localScale.y) * distanceTravelled;
 
 
-
-        if ((transform.position.y - lastPositionY) > 0)
+        if ((transform.position.y - lastPosition) > 0)
         {
             scalechage = -scalechage * offseter;
             transform.Translate(0, 0, distanceTravelled * offseter * Time.deltaTime);
-            anim.SetBool("isWalking", true);
-            anim.SetFloat("input_y", (transform.position.y - lastPositionY));
 
         }
-        else if ((transform.position.y - lastPositionY) < 0)
+        else if ((transform.position.y - lastPosition) < 0)
         {
             scalechage = scalechage * offseter;
             transform.Translate(0, 0, -distanceTravelled * offseter * Time.deltaTime);
-            anim.SetBool("isWalking", true);
-            anim.SetFloat("input_y", (transform.position.y - lastPositionY));
-        }
 
-        if ((transform.position.x - lastPositionX) > 0)
-        {
-            anim.SetBool("isWalking", true);
-            anim.SetFloat("input_x", (transform.position.x - lastPositionX));
         }
         else if ((transform.position.x - lastPositionX) < 0)
         {
@@ -133,7 +122,6 @@ public class PlayerController : MonoBehaviour
 
 
         
-
 
 
         transform.localScale += scalechage;
