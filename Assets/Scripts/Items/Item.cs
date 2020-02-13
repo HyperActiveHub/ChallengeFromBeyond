@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField] private ItemData itemData = null;
+    public ItemData itemData = null;
 
     private SpriteRenderer spriteRenderer = null;
 
@@ -50,12 +50,14 @@ public class Item : MonoBehaviour
         ReloadItem();
     }
 
-    public void CombineWithItem(ItemData item)
+    public void CombineWithItem(GameObject prefab)
     {
-        this.itemData = item;
-        ReloadItem();
-    }
 
+        Instantiate(prefab, transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
+        
+        //ReloadItem();
+    }
 
 
     public static bool operator ==(Item item1, Item item2)

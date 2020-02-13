@@ -10,14 +10,24 @@ public class InteractableObject : MonoBehaviour
     [Header("Tools for testing")]
     public ItemData testItemToInteractWith;
 
-    public void Interact(ItemData otherItem)
+    public bool Interact(ItemData otherItem)
     {
         if (interactions != null)
         {
             for (int i = 0; i < interactions.Count; i++)
             {
-                interactions[i].Interact(otherItem);
+                bool wasInteractedWith = interactions[i].Interact(otherItem);
+                if (wasInteractedWith)
+                {
+                    return wasInteractedWith;
+                }
             }
         }
+        return false;
+    }
+
+    public bool Interact(Item otherItem)
+    {
+        return Interact(otherItem.itemData);
     }
 }

@@ -9,12 +9,14 @@ public class Interaction
     public ItemData interactedWithItem;
     public UnityEvent onInteraction;
 
-    public void Interact(ItemData item)
+    public bool Interact(ItemData item)
     {
         if (EvaluateInteraction(item))
         {
             onInteraction.Invoke();
+            return true;
         }
+        return false;
     }
 
     public bool EvaluateInteraction(ItemData item)
