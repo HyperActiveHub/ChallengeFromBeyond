@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
 {
     public ItemData itemData = null;
     private SpriteRenderer spriteRenderer = null;
+    [HideInInspector] public bool isInInventory = false;
 
     private void OnValidate()
     {
@@ -23,6 +24,16 @@ public class Item : MonoBehaviour
         if(spriteRenderer != null)
         {
             ReloadItem();
+        }
+
+        if(itemData.displayText == "")
+        {
+            Debug.LogWarning(string.Format("The item \"{0}\" is missing a proper display text.", itemData.name), this);
+        }
+
+        if (itemData.itemSprite == null)
+        {
+            Debug.LogWarning(string.Format("The item \"{0}\" is missing a sprite.", itemData.name), this);
         }
     }
 
@@ -52,8 +63,25 @@ public class Item : MonoBehaviour
 
     public void CombineWithItem(GameObject prefab)
     {
-        Instantiate(prefab, transform.position, Quaternion.identity);
-        Destroy(this.gameObject);   
+        if (isInInventory)
+        {
+            InventoryManager.Instance.RemoveItem(this.gameObject);
+        }
+
+        GameObject instantiatedObject = Instantiate(prefab, transform.position, Quaternion.identity);
+        instantiatedObject.name = itemData.displayText;
+        InventoryManager.Instance.AddItem(instantiatedObject);
+        
+        Destroy(this.gameObject);
+    }
+
+    public void InsertToInventory()
+    {
+        if (!isInInventory)
+        {
+            //Debug.Log(string.Format("Inserting \"{0}\" to inventory", this.gameObject.name));
+            InventoryManager.Instance.AddItem(this.gameObject);
+        }
     }
 
     private void OnDrawGizmos()
@@ -63,7 +91,17 @@ public class Item : MonoBehaviour
 
     public static bool operator ==(Item item1, Item item2)
     {
-        return item1.itemData.itemID == item2.itemData.itemID;
+        if (object.ReferenceEquals(item1, null))
+        {
+            return object.ReferenceEquals(item1, null);
+        }
+
+        if (object.ReferenceEquals(null, item2))
+        {
+            return object.ReferenceEquals(item1, null);
+        }
+
+        return item1.Equals(item2);
     }
 
     public static bool operator !=(Item item1, Item item2)

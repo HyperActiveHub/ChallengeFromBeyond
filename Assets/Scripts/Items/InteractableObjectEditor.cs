@@ -26,10 +26,10 @@ public class InteractableObjectEditor : Editor
 
         base.OnInspectorGUI();
 
-        if (GUILayout.Button("Interact"))
-        {
-            Interact(interactableObject.testItemToInteractWith);
-        }
+        //if (GUILayout.Button("Interact"))
+        //{
+        //    Interact(interactableObject.testItemToInteractWith);
+        //}
     }
 
     private void AddItemInteraction()
@@ -46,8 +46,8 @@ public class InteractableObjectEditor : Editor
         }
     }
 
-    private void Interact(ItemData item)
-    {
-        interactableObject.Interact(item);
-    }
+    //private void Interact(ItemData item)
+    //{
+    //    interactableObject.Interact(item);
+    //}
 }

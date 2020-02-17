@@ -69,5 +69,24 @@ public class HelperToolsEditor : EditorWindow
                 }
             }
         }
+
+        GUILayout.FlexibleSpace();
+
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Add to inventory"))
+        {
+            GameObject selectedObject = Selection.gameObjects[0];
+            InventoryManager.Instance.AddItem(selectedObject);
+        }
+        if (GUILayout.Button("Remove from inventory"))
+        {
+            GameObject selectedObject = Selection.gameObjects[0];
+            InventoryManager.Instance.RemoveItem(selectedObject);
+        }
+        GUILayout.EndHorizontal();
+        if (GUILayout.Button("Sort inventory"))
+        {
+            InventoryManager.Instance.SortInventory();
+        }
     }
 }

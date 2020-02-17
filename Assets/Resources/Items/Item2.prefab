@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 8406028e57c7fb34bb653c1921c5f993, type: 2}
+  isInInventory: 0
 --- !u!114 &7516150868915402680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,24 +62,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactions:
-  - interactedWithItem: {fileID: 11400000, guid: 8406028e57c7fb34bb653c1921c5f993,
-      type: 2}
-    onInteraction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7516150868915402684}
-          m_MethodName: CombineWithItem
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 7516150868915402687}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: lol
-            m_BoolArgument: 0
-          m_CallState: 2
   - interactedWithItem: {fileID: 11400000, guid: dd7b58ee34ddfb440aa50b0145dbf469,
       type: 2}
+    consumable: 1
     onInteraction:
       m_PersistentCalls:
         m_Calls:
@@ -89,6 +75,22 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 7516150868915402687, guid: ba1e6b0220f4c480dbef93792e78815a,
               type: 3}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: lol
+            m_BoolArgument: 0
+          m_CallState: 2
+  - interactedWithItem: {fileID: 0}
+    consumable: 0
+    onInteraction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7516150868915402684}
+          m_MethodName: InsertToInventory
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -135,15 +137,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300022, guid: 8b23fcf48382ca642900306c77757a99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.3, y: 0.48}
+  m_Size: {x: 0.23, y: 0.46}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &7516150868915402683
@@ -163,8 +165,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3, y: 0.48}
-    newSize: {x: 0.3, y: 0.48}
+    oldSize: {x: 0.23, y: 0.46}
+    newSize: {x: 0.23, y: 0.46}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -184,3 +186,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e036b32d4493f745932c3dc487374c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickTolerance: 1
+  zOffset: -1

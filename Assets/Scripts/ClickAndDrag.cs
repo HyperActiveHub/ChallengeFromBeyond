@@ -4,75 +4,152 @@ using System.Collections;
 [RequireComponent(typeof(Collider2D))]
 public class ClickAndDrag : MonoBehaviour
 {
-    // The plane the object is currently being dragged on
-    private Plane dragPlane;
-
     // The difference between where the mouse is on the drag plane and 
     // where the origin of the object is on the drag plane
     private Vector3 offset;
     private Camera mainCamera;
     private Vector3 initialPosition;
-    private Collider2D raycastCollider;
+    private GameObject selectedObject = null;
+    private Collider2D rayCollider = null;
+    private InteractableObject interactableObjectComponent = null;
+    private Item itemComponent = null;
+
+    [Tooltip("How much the player is allowed to move the gameobject and it will still register as a click.")]
+    [SerializeField] private float clickTolerance = 13.0f;
+
+    [Tooltip("How far the object should move towards the camera while being moved. (Used to prevent unwanted intersections)")]
+    [SerializeField] private float zOffset = -1;
+
 
     void Start()
     {
-        raycastCollider = GetComponent<Collider2D>();
         mainCamera = Camera.main;
+        rayCollider = GetComponent<Collider2D>();
+        interactableObjectComponent = GetComponent<InteractableObject>();
+        itemComponent = GetComponent<Item>();
     }
 
-    void OnMouseDown()
+    void Update()
     {
-        dragPlane = new Plane(mainCamera.transform.forward, transform.position);
-        Ray camRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-
-        float planeDist;
-        dragPlane.Raycast(camRay, out planeDist);
-        offset = transform.position - camRay.GetPoint(planeDist) + Vector3.back;
-        initialPosition = transform.position;
-        raycastCollider.enabled = false;
-    }
-
-    void OnMouseDrag()
-    {
-        Ray camRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-
-        float planeDist;
-        dragPlane.Raycast(camRay, out planeDist);
-        transform.position = camRay.GetPoint(planeDist) + offset;
-    }
-
-    private void OnMouseUp()
-    {
-        //When mouse is released
-        //Cast ray from camera to game world
-        //If ray collides and that collision is an interactible object:
-        //Call interactableObject.Interact to see if the receiving item has an interaction-behaviour for the item currently hold by the player.
-        //If interaction is valid, destroy this gameobject. The other gameobject is responsible for what is going to happen (instantiating a new object etc).
-
-        Vector3 worldPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(worldPoint + Vector3.back, worldPoint);
-
-        if (hit.collider != null)
+        if (Input.GetMouseButtonDown(0))
         {
-            GameObject otherGameObject = hit.collider.gameObject;
-            InteractableObject interactableObject = otherGameObject.GetComponent<InteractableObject>();
+            MouseDown();
+        }
 
-            if (interactableObject != null)
+        if (Input.GetMouseButton(0))
+        {
+            MouseGrab();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            MouseUp();
+        }
+    }
+
+    private void MouseDown()
+    {
+        //Discard future actions if selectedObject is this gameObject.
+        selectedObject = GetGameObjectUnderCursor();
+        initialPosition = transform.position;
+
+        if(selectedObject == this.gameObject)
+        {
+            offset = new Vector3(0, 0, (transform.position.z - mainCamera.transform.position.z) + zOffset);
+        }
+    }
+
+    private void MouseGrab()
+    {
+        if (selectedObject == this.gameObject && GetComponent<Item>().isInInventory)
+        {
+            transform.position = mainCamera.ScreenToWorldPoint(Input.mousePosition) + offset;
+        }
+    }
+
+    private void MouseUp()
+    {
+        if(selectedObject == this.gameObject)
+        {
+            //Check if there's a gameObject under the currently selected object. (Trigger interaction)
+            rayCollider.enabled = false;
+            GameObject otherGameObject = GetGameObjectUnderCursor();
+
+            if (otherGameObject == null) //There's no object under the selected object; trigger self interaction. (Player clicked on the object)
             {
-                Interaction interaction = interactableObject.Interact(GetComponent<Item>());
-
-                if (interaction != null)
+                if(Vector2.Distance((Vector2)initialPosition, (Vector2)transform.position) < clickTolerance)
                 {
-                    if (interaction.consumable)
+                    //Trigger interaction with self.
+                    if (interactableObjectComponent != null)
                     {
-                        //Interaction ok and object should be consumed, destroying this gameobject. (interactable.Interact() is responsible of what happens now... >:) )
-                        Destroy(this.gameObject);
-                        return;
+                        Interaction interaction = interactableObjectComponent.Interact(null);
+                        ConsumeItem(interaction);
                     }
                 }
+                else
+                {
+                    ResetClick();
+                }
+            }
+            else //Trigger interaction with other gameobject.
+            {
+                InteractableObject otherInteractableObject = otherGameObject.GetComponent<InteractableObject>();
+                if(otherInteractableObject != null)
+                {
+                    Interaction interaction = otherInteractableObject.Interact(gameObject.GetComponent<Item>());
+                    ConsumeItem(interaction);
+                }
+                return;
             }
         }
-        raycastCollider.enabled = true;
+        rayCollider.enabled = true;
+        InventoryManager.Instance.SortInventory(); //TODO: Remove this quick-fix. Items will sometimes not reset to their initial location if they're in the inventory.
+    }
+
+    /// <summary>
+    /// Resets the selected object after being dragged by the player.
+    /// </summary>
+    private void ResetClick()
+    {
+        selectedObject = null;
+        rayCollider.enabled = true;
         transform.position = initialPosition;
+    }
+
+
+    /// <summary>
+    /// Return the GameObject that the cursor is hovering over. Returns null if no object was found.
+    /// </summary>
+    private GameObject GetGameObjectUnderCursor()
+    {
+        //Vector3 worldPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        //RaycastHit2D hit = Physics2D.Raycast(worldPoint + Vector3.back, worldPoint);
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+
+
+        if (hit)
+        {
+            return hit.collider.gameObject;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    ///<Summary>
+    ///Will consume the item if it is consumable, will also remove this item from the Inventory (if possible).
+    ///</Summary>
+    private void ConsumeItem(Interaction interaction)
+    {
+        if (interaction != null && interaction.consumable)
+        {
+            if (GetComponent<Item>().isInInventory)
+            {
+                InventoryManager.Instance.RemoveItem(this.gameObject);
+            }
+            Destroy(this.gameObject);
+        }
     }
 }
