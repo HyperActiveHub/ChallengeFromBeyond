@@ -3,35 +3,23 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-
     public float speed;
-    public float firstSpeed;
-    public float diagonalSpeed;
     public Animator anim;
-    public Rigidbody2D rbody = null;
-    private new Camera camera;
-    public float distanceTravelled = 0;
-    public float Moved = 0;
-    public float offseter = 0.00005f;
+    private Rigidbody2D rbody = null;
+    private float distanceTravelled = 0;
+    public float offseter = 0.08f;
     private float lastPositionY;
     private float lastPositionX;
     private Vector3 lastPosition;
-    public Vector3 scalechage;
-    public Vector3 targetPosition;     
+    private Vector3 scalechage;
+    private Vector3 targetPosition;
     public Transform target;
-    public bool isMoving;
-
-
-
-
+    private bool isMoving;
 
 
     public void Start()
     {
-        firstSpeed = speed;
-        
-        diagonalSpeed = (speed / 3) * 2;
-        camera = FindObjectOfType<Camera>();
+        rbody = gameObject.GetComponent<Rigidbody2D>();
         lastPositionY = transform.position.y;
         lastPositionX = transform.position.x;
         lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
@@ -39,52 +27,28 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void Update()
+    void Update()
     {
-        
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //}
 
 
+
+        //Vid Musklick så sätts musens position till target position
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             target.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-           
+
         }
 
-        
-    }
-
-
-    void FixedUpdate()
-    {
-        // transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), Time.deltaTime * speed);
-
-
-
-
-
-
-
-
+        //kollar om spelaren rör sig
         StartCoroutine("IsMoving");
-
 
         target.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 
-
-       
-
         distanceTravelled = Mathf.Abs(transform.position.y - lastPositionY);
-        
-
 
         scalechage = new Vector3(transform.localScale.x, transform.localScale.y) * distanceTravelled;
-
-
-
+                                   
+        //Håller koll på om spelaren rör sig i de olika axlarna och sköter animationernas värde
         if ((transform.position.y - lastPositionY) > 0)
         {
             scalechage = -scalechage * offseter;
@@ -111,11 +75,8 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isWalking", true);
             anim.SetFloat("input_x", (transform.position.x - lastPositionX));
         }
-        //if (rbody.IsSleeping())
-        //{
-        //    anim.SetBool("isWalking", false);
-        //}
-
+         
+        //Startar animationen om spelaren rör sig
         if (isMoving == false)
         {
             anim.SetBool("isWalking", false);
@@ -124,26 +85,19 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("isWalking", true);
         }
-
-
-
-
-
-        
-
-
+                                   
 
         transform.localScale += scalechage;
-       
+
         lastPositionY = transform.position.y;
         lastPositionX = transform.position.x;
         lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
-        
+
     }
 
     private IEnumerator IsMoving()
     {
-        
+        //Kollar ifall spelaren rör sig
         Vector3 startPos = transform.position;
         yield return new WaitForSeconds(0.1f);
         Vector3 finalPos = transform.position;
@@ -156,7 +110,7 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = true;
         }
-    
+
     }
 
 
@@ -164,21 +118,6 @@ public class PlayerController : MonoBehaviour
 }
 
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
-    //    {
-    //        targetPosition = transform.position;
-    //    }
-    //}
-
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "wall" && transform.position - lastPosition != Vector3.zero)
-    //    {
-    //        targetPosition = transform.position;
-    //    }
-    //}
 
 
 
