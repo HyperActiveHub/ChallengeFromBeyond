@@ -200,18 +200,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   firstSpeed: 0
-  diagonalSpeed: 0
   anim: {fileID: 1568445074}
   rbody: {fileID: 1310517962742475917}
   distanceTravelled: 0
   Moved: 0
   offseter: 0.08
-  scalechage: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
-  range: 0.5
-  rayObject: {fileID: 1568445072}
-  target: {fileID: 0}
-  isMoving: 0
 --- !u!95 &1310517962742475914
 Animator:
   serializedVersion: 3
@@ -258,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  radius: 0.25
+  radius: 0.23
   height: 2
   repathRate: 0.5
   canSearch: 1
