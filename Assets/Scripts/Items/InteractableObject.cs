@@ -7,9 +7,6 @@ public class InteractableObject : MonoBehaviour
 {
     public List<Interaction> interactions;
 
-    [Header("Tools for testing")]
-    public ItemData testItemToInteractWith;
-
     public Interaction Interact(Item otherItem)
     {
         if (interactions != null)
@@ -23,33 +20,6 @@ public class InteractableObject : MonoBehaviour
                 {
                     return interactions[i];
                 }
-
-                //if (otherItem == null)
-                //{
-                //    bool wasInteractedWith = interactions[i].Interact(null);
-                //    if (wasInteractedWith)
-                //    {
-                //        if (currentInteraction.consumable)
-                //        {
-                //            Debug.Log("Destroyed was called,");
-                //            Destroy(this.gameObject);
-                //        }
-                //        return interactions[i];
-                //    }
-                //}
-                //else
-                //{
-                //    bool wasInteractedWith = interactions[i].Interact(otherItem);
-                //    if (wasInteractedWith)
-                //    {
-                //        if (currentInteraction.consumable)
-                //        {
-                //            Debug.Log("Destroyed was called,");
-                //            Destroy(this.gameObject);
-                //        }
-                //        return interactions[i];
-                //    }
-                //}
             }
         }
         return null;

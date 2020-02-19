@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7516150868915402683}
   - component: {fileID: 7516150868915402681}
   m_Layer: 0
-  m_Name: Item2
+  m_Name: Item3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516150868915402687}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 3, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,8 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d053e1ded38134e9317b4ecdad1ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 8406028e57c7fb34bb653c1921c5f993, type: 2}
+  itemData: {fileID: 11400000, guid: 4e3b84b5847f74a5095c8b33b64fa75b, type: 2}
   isInInventory: 0
+  orderInLayerInInventory: 20
+  inventoryObject: {fileID: 11400000, guid: bc27e1c66e18447518842399f1880dfa, type: 2}
 --- !u!114 &7516150868915402680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,43 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b0cee1321ef4aa89a081fc89b93978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactions:
-  - interactedWithItem: {fileID: 11400000, guid: dd7b58ee34ddfb440aa50b0145dbf469,
-      type: 2}
-    consumable: 1
-    onInteraction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7516150868915402684}
-          m_MethodName: CombineWithItem
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 7516150868915402687, guid: ba1e6b0220f4c480dbef93792e78815a,
-              type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: lol
-            m_BoolArgument: 0
-          m_CallState: 2
-  - interactedWithItem: {fileID: 0}
-    consumable: 0
-    onInteraction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7516150868915402684}
-          m_MethodName: InsertToInventory
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  testItemToInteractWith: {fileID: 11400000, guid: 8406028e57c7fb34bb653c1921c5f993,
-    type: 2}
+  interactions: []
 --- !u!212 &7516150868915402682
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -137,7 +103,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300022, guid: 8b23fcf48382ca642900306c77757a99, type: 3}
+  m_Sprite: {fileID: 21300080, guid: 8b23fcf48382ca642900306c77757a99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,7 +131,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.23, y: 0.46}
+    oldSize: {x: 0.34, y: 0.36}
     newSize: {x: 0.23, y: 0.46}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

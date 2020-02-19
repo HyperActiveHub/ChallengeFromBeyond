@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Item))]
 public class ClickAndDrag : MonoBehaviour
 {
     // The difference between where the mouse is on the drag plane and 
@@ -69,6 +70,7 @@ public class ClickAndDrag : MonoBehaviour
 
     private void MouseUp()
     {
+        Interaction interaction = null;
         if(selectedObject == this.gameObject)
         {
             //Check if there's a gameObject under the currently selected object. (Trigger interaction)
@@ -82,7 +84,7 @@ public class ClickAndDrag : MonoBehaviour
                     //Trigger interaction with self.
                     if (interactableObjectComponent != null)
                     {
-                        Interaction interaction = interactableObjectComponent.Interact(null);
+                        interaction = interactableObjectComponent.Interact(null);
                         ConsumeItem(interaction);
                     }
                 }
@@ -96,14 +98,13 @@ public class ClickAndDrag : MonoBehaviour
                 InteractableObject otherInteractableObject = otherGameObject.GetComponent<InteractableObject>();
                 if(otherInteractableObject != null)
                 {
-                    Interaction interaction = otherInteractableObject.Interact(gameObject.GetComponent<Item>());
+                    interaction = otherInteractableObject.Interact(gameObject.GetComponent<Item>());
                     ConsumeItem(interaction);
                 }
                 return;
             }
         }
         rayCollider.enabled = true;
-        InventoryManager.Instance.SortInventory(); //TODO: Remove this quick-fix. Items will sometimes not reset to their initial location if they're in the inventory.
     }
 
     /// <summary>
@@ -126,8 +127,6 @@ public class ClickAndDrag : MonoBehaviour
         //RaycastHit2D hit = Physics2D.Raycast(worldPoint + Vector3.back, worldPoint);
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-
-
         if (hit)
         {
             return hit.collider.gameObject;
@@ -145,9 +144,9 @@ public class ClickAndDrag : MonoBehaviour
     {
         if (interaction != null && interaction.consumable)
         {
-            if (GetComponent<Item>().isInInventory)
+            if (itemComponent.isInInventory)
             {
-                InventoryManager.Instance.RemoveItem(this.gameObject);
+                itemComponent.inventoryObject.RemoveFromInventory(this.gameObject);
             }
             Destroy(this.gameObject);
         }

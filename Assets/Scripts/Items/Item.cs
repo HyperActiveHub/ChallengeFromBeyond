@@ -8,6 +8,10 @@ public class Item : MonoBehaviour
     public ItemData itemData = null;
     private SpriteRenderer spriteRenderer = null;
     [HideInInspector] public bool isInInventory = false;
+    [Tooltip("What order this object will be assigned when being added to inventory. A too low value might result in the item not being properly displayed in the inventory.")]
+    [SerializeField] private int orderInLayerInInventory = 20;
+    public InventoryObject inventoryObject = null;
+    private int initialOrderInLayer = -1;
 
     private void OnValidate()
     {
@@ -40,6 +44,11 @@ public class Item : MonoBehaviour
     private void Start()
     {
         itemData.itemID = gameObject.GetInstanceID();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer != null)
+        {
+            initialOrderInLayer = spriteRenderer.sortingOrder;
+        }
     }
 
     private void ReloadItem()
@@ -65,23 +74,55 @@ public class Item : MonoBehaviour
     {
         if (isInInventory)
         {
-            InventoryManager.Instance.RemoveItem(this.gameObject);
+            inventoryObject.RemoveFromInventory(this.gameObject);
         }
 
         GameObject instantiatedObject = Instantiate(prefab, transform.position, Quaternion.identity);
         instantiatedObject.name = itemData.displayText;
-        InventoryManager.Instance.AddItem(instantiatedObject);
+        InsertToInventory(instantiatedObject);
         
         Destroy(this.gameObject);
     }
 
-    public void InsertToInventory()
+    /// <summary>
+    /// Insert GameObject to the inventory.
+    /// </summary>
+    /// <param name="item">The item to insert to the inventory. If undefined, this object will be added to the inventory.</param>
+
+    public void InsertToInventory(GameObject item = null)
     {
-        if (!isInInventory)
+        if(this.gameObject.GetComponent<Item>() == null)
         {
-            //Debug.Log(string.Format("Inserting \"{0}\" to inventory", this.gameObject.name));
-            InventoryManager.Instance.AddItem(this.gameObject);
+            Debug.LogError("Tried to add non-item GameObject to inventory!");
+            return;
         }
+
+        if(inventoryObject == null)
+        {
+            Debug.LogError("This item does not have an attached inventory object. Can not add item to null-inventory", this);
+            return;
+        }
+
+        if (isInInventory)
+        {
+            Debug.Log("Item already in inventory, can not add item again.", this);
+            return;
+        }
+        else
+        {
+            item.gameObject.SetActive(false);
+            inventoryObject.AddToInventory(item);
+        }
+
+        if(spriteRenderer != null)
+        {
+            item.GetComponent<SpriteRenderer>().sortingOrder = orderInLayerInInventory;
+        }
+    }
+
+    public void InsertThisToInventory()
+    {
+        InsertToInventory(this.gameObject);
     }
 
     private void OnDrawGizmos()
@@ -91,14 +132,9 @@ public class Item : MonoBehaviour
 
     public static bool operator ==(Item item1, Item item2)
     {
-        if (object.ReferenceEquals(item1, null))
+        if (item1 is null || item2 is null)
         {
-            return object.ReferenceEquals(item1, null);
-        }
-
-        if (object.ReferenceEquals(null, item2))
-        {
-            return object.ReferenceEquals(item1, null);
+            return item1 is null;
         }
 
         return item1.Equals(item2);

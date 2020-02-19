@@ -7,6 +7,7 @@ public class HelperToolsEditor : EditorWindow
     private bool addItemComponent = true;
     private bool addInteractableObject = true;
     private bool overrideItemData = false;
+    [SerializeField] private InventoryObject inventoryObject = null;
 
     [MenuItem("Window/Helper Tools")]
     public static void ShowWindow()
@@ -72,21 +73,46 @@ public class HelperToolsEditor : EditorWindow
 
         GUILayout.FlexibleSpace();
 
+        inventoryObject = (InventoryObject)EditorGUILayout.ObjectField("Inventory Object", inventoryObject, typeof(InventoryObject), true);
+
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Add to inventory"))
         {
-            GameObject selectedObject = Selection.gameObjects[0];
-            InventoryManager.Instance.AddItem(selectedObject);
+            if(inventoryObject == null)
+            {
+                Debug.LogError("No Inventory Object selected, please attach one and try again.");
+                return;
+            }
+
+            GameObject[] selectedObjects = Selection.gameObjects;
+            for (int i = 0; i < selectedObjects.Length; i++)
+            {
+                inventoryObject.AddToInventory(selectedObjects[i]);
+            }
         }
         if (GUILayout.Button("Remove from inventory"))
         {
-            GameObject selectedObject = Selection.gameObjects[0];
-            InventoryManager.Instance.RemoveItem(selectedObject);
+            if (inventoryObject == null)
+            {
+                Debug.LogError("No Inventory Object selected, please attach one and try again.");
+                return;
+            }
+
+            GameObject[] selectedObjects = Selection.gameObjects;
+            for (int i = 0; i < selectedObjects.Length; i++)
+            {
+                inventoryObject.RemoveFromInventory(selectedObjects[i]);
+            }
         }
         GUILayout.EndHorizontal();
-        if (GUILayout.Button("Sort inventory"))
+        if (GUILayout.Button("Force inventory update"))
         {
-            InventoryManager.Instance.SortInventory();
+            if (inventoryObject == null)
+            {
+                Debug.LogError("No Inventory Object selected, please attach one and try again.");
+                return;
+            }
+            inventoryObject.onInventoryUpdate();
         }
     }
 }

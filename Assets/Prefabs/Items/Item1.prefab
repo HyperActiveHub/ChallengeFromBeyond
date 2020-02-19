@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516150868915402687}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 3, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: dd7b58ee34ddfb440aa50b0145dbf469, type: 2}
   isInInventory: 0
+  orderInLayerInInventory: 20
+  inventoryObject: {fileID: 11400000, guid: bc27e1c66e18447518842399f1880dfa, type: 2}
 --- !u!114 &7516150868915402680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,7 +74,7 @@ MonoBehaviour:
           m_MethodName: CombineWithItem
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 7516150868915402687, guid: 78692fa6aaa824bfd9f5f712bf973a27,
+            m_ObjectArgument: {fileID: 7516150868915402687, guid: 280cc7ec3903d4979a45c9afe4e5abf7,
               type: 3}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
@@ -86,7 +88,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 7516150868915402684}
-          m_MethodName: InsertToInventory
+          m_MethodName: InsertThisToInventory
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -96,8 +98,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  testItemToInteractWith: {fileID: 11400000, guid: 8406028e57c7fb34bb653c1921c5f993,
-    type: 2}
 --- !u!212 &7516150868915402682
 SpriteRenderer:
   m_ObjectHideFlags: 0

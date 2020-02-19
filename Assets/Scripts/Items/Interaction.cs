@@ -8,6 +8,7 @@ public class Interaction
 {
     public ItemData interactedWithItem;
     public bool consumable = true;
+    public bool invokeInInventory = true;
     public UnityEvent onInteraction;
     
 
@@ -15,6 +16,7 @@ public class Interaction
     {
         if (EvaluateInteraction(item))
         {
+
             onInteraction.Invoke();
             return true;
         }
