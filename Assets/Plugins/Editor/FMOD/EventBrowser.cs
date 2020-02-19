@@ -967,7 +967,7 @@ namespace FMODUnity
 
         public void OnEnable()
         {
-            SceneView.onSceneGUIDelegate += SceneUpdate;
+            SceneView.duringSceneGui += SceneUpdate;
             EditorApplication.hierarchyWindowItemOnGUI += HierachachyUpdate;
             instance = this;
         }
