@@ -7,21 +7,45 @@ using UnityEngine.Events;
 public class Interaction
 {
     public ItemData interactedWithItem;
+    public bool consumable = true;
+    public bool invokeInInventory = true;
     public UnityEvent onInteraction;
+    
 
-    public void Interact(ItemData item)
+    public bool Interact(Item item)
     {
         if (EvaluateInteraction(item))
         {
+
             onInteraction.Invoke();
+            return true;
         }
+        return false;
     }
 
-    public bool EvaluateInteraction(ItemData item)
+    private bool EvaluateInteraction(Item item)
     {
-        if (interactedWithItem == item)
+        if(interactedWithItem == null && item == null)
         {
             return true;
+        }
+
+        if(interactedWithItem == null && item != null)
+        {
+            return false;
+        }
+
+        if(interactedWithItem != null && item == null)
+        {
+            return false;
+        }
+
+        if(interactedWithItem != null)
+        {
+            if (interactedWithItem.itemID == item.itemData.itemID)
+            {
+                return true;
+            }
         }
         return false;
     }

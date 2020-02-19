@@ -7,17 +7,21 @@ public class InteractableObject : MonoBehaviour
 {
     public List<Interaction> interactions;
 
-    [Header("Tools for testing")]
-    public ItemData testItemToInteractWith;
-
-    public void Interact(ItemData otherItem)
+    public Interaction Interact(Item otherItem)
     {
         if (interactions != null)
         {
             for (int i = 0; i < interactions.Count; i++)
             {
-                interactions[i].Interact(otherItem);
+                Interaction currentInteraction = interactions[i];
+
+                bool wasInteractedWith = interactions[i].Interact(otherItem);
+                if (wasInteractedWith)
+                {
+                    return interactions[i];
+                }
             }
         }
+        return null;
     }
 }
