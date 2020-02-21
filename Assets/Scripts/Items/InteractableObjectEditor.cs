@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 using UnityEngine.Events;
-
 [CustomEditor(typeof(InteractableObject))]
 public class InteractableObjectEditor : Editor
 {
@@ -51,3 +51,4 @@ public class InteractableObjectEditor : Editor
         interactableObject.Interact(item);
     }
 }
+#endif
