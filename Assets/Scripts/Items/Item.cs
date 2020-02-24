@@ -9,9 +9,7 @@ public class Item : MonoBehaviour
     private SpriteRenderer spriteRenderer = null;
     [HideInInspector] public bool isInInventory = false;
     [Tooltip("What order this object will be assigned when being added to inventory. A too low value might result in the item not being properly displayed in the inventory.")]
-    [SerializeField] private int orderInLayerInInventory = 20;
     public InventoryObject inventoryObject = null;
-    private int initialOrderInLayer = -1;
 
     private void OnValidate()
     {
@@ -45,10 +43,6 @@ public class Item : MonoBehaviour
     {
         itemData.itemID = gameObject.GetInstanceID();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if(spriteRenderer != null)
-        {
-            initialOrderInLayer = spriteRenderer.sortingOrder;
-        }
     }
 
     private void ReloadItem()
@@ -112,11 +106,6 @@ public class Item : MonoBehaviour
         {
             item.gameObject.SetActive(false);
             inventoryObject.AddToInventory(item);
-        }
-
-        if(spriteRenderer != null)
-        {
-            item.GetComponent<SpriteRenderer>().sortingOrder = orderInLayerInInventory;
         }
     }
 

@@ -24,4 +24,28 @@ public class InteractableObject : MonoBehaviour
         }
         return null;
     }
+
+    public void DisableGameObject(GameObject gameObject)
+    {
+        if(gameObject != null)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void EnableGameObject(GameObject gameObject)
+    {
+        if (gameObject != null)
+        {
+            gameObject.SetActive(true);
+        }
+    }
+
+    public void ToggleGameObject(GameObject gameObject)
+    {
+        if (gameObject != null)
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
+        }
+    }
 }

@@ -99,6 +99,11 @@ public class ClickAndDrag : MonoBehaviour
                 if(otherInteractableObject != null)
                 {
                     interaction = otherInteractableObject.Interact(gameObject.GetComponent<Item>());
+                    if(interaction == null)
+                    {
+                        ResetClick();
+                        return;
+                    }
                     ConsumeItem(interaction);
                 }
                 return;
