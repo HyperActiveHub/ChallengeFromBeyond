@@ -5,9 +5,14 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    [Header("References")]
+    [Tooltip("The InventoryObject asset that this script will read inventory content from.")]
     [SerializeField] private InventoryObject inventory = null;
     [SerializeField] private GridLayoutGroup gridLayoutGroup = null;
+    [Tooltip("What each inventory slot should be instantiated as. This can be a empty game object with a rect transform.")]
     [SerializeField] private GameObject inventorySlotPrefab = null;
+    [Tooltip("This is the content rect transform that is scrolling. It's used to adapt the content area height to the number of inventory slots.")]
+    [SerializeField] private RectTransform content = null;
     private List<GameObject> inventorySlotTransforms = null;
 
     [Header("Inventory Slots")]
@@ -16,8 +21,10 @@ public class InventoryUI : MonoBehaviour
     [Tooltip("How many slots should be added each time the maximum cap is reached.")]
     [SerializeField] private int inventorySlotIncrements = 5;
 
-    [Header("Inventory Button")]
-    [SerializeField] private GameObject disableOnButtonPress = null;
+    [Header("Animation")]
+    [SerializeField] private string animationParameter = "";
+    Animator animator = null;
+    private bool inventoryIsActive = false;
 
     private void OnValidate()
     {
@@ -40,6 +47,7 @@ public class InventoryUI : MonoBehaviour
     private void Awake()
     {
         inventorySlotTransforms = new List<GameObject>();
+        animator = GetComponent<Animator>();
         for (int i = 0; i < initialInventorySlots; i++)
         {
             GameObject tempInventorySlot = Instantiate(inventorySlotPrefab, gridLayoutGroup.transform);
@@ -73,10 +81,12 @@ public class InventoryUI : MonoBehaviour
 
     public void ButtonWasPressed()
     {
-        if(disableOnButtonPress != null)
+        if(animator != null)
         {
-            disableOnButtonPress.SetActive(!disableOnButtonPress.activeSelf);
+            animator.SetBool(animationParameter, inventoryIsActive);
         }
+
+        inventoryIsActive = !inventoryIsActive;
     }
 
     #region Inventory Updates and Sorting
@@ -93,7 +103,6 @@ public class InventoryUI : MonoBehaviour
 
     private void ExpandInventoryIfNeeded()
     {
-        Debug.Log(string.Format("inventorySlotTransforms.Count: {0}, inventory.itemsInInventoryCount: {1}", inventorySlotTransforms.Count, inventory.itemsInInventory.Count));
         if (inventorySlotTransforms.Count <= inventory.itemsInInventory.Count)
         {
             for (int i = 0; i < inventorySlotIncrements; i++)

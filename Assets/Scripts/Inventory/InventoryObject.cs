@@ -8,8 +8,11 @@ public class InventoryObject : ScriptableObject
 {
     [SerializeField] private bool clearInventoryOnEnable = true;
     public List<GameObject> itemsInInventory;
-
     public UnityAction onInventoryUpdate = null;
+
+    [Tooltip("What order the items should be rendered at. -1 means no change.")]
+    [Range(-1, 100)]
+    [SerializeField] private int sortingOrder = -1;
 
     public void AddToInventory(GameObject item)
     {
@@ -33,7 +36,16 @@ public class InventoryObject : ScriptableObject
         if (onInventoryUpdate != null)
         {
             onInventoryUpdate.Invoke();
-        }        
+        }
+
+        if(sortingOrder != -1)
+        {
+            SpriteRenderer spriteRenderer = item.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.sortingOrder = sortingOrder;
+            }
+        }
     }
 
     public void RemoveFromInventory(GameObject item)
