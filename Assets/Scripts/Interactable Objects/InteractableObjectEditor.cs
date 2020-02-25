@@ -25,11 +25,6 @@ public class InteractableObjectEditor : Editor
         GUILayout.EndHorizontal();
 
         base.OnInspectorGUI();
-
-        if (GUILayout.Button("Interact"))
-        {
-            Interact(interactableObject.testItemToInteractWith);
-        }
     }
 
     private void AddItemInteraction()
@@ -44,11 +39,6 @@ public class InteractableObjectEditor : Editor
         {
             interactableObject.interactions.RemoveAt(interactableObject.interactions.Count - 1);
         }
-    }
-
-    private void Interact(ItemData item)
-    {
-        interactableObject.Interact(item);
     }
 }
 #endif
