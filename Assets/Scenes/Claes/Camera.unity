@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -373,6 +373,8 @@ MonoBehaviour:
   startTarget: {fileID: 746088926}
   startCameraFollowPosition: {fileID: 1316153671}
   cameraBorder: {x: -12, y: -5, z: 24, w: 10}
+  followPosition: {x: 0, y: 0, z: 0}
+  cameraMoveDir: {x: 0, y: 0, z: 0}
   borderTexture: {fileID: 2800000, guid: 9434488a4efb54da5986eba5d5619baf, type: 3}
 --- !u!114 &2044050292
 MonoBehaviour:
