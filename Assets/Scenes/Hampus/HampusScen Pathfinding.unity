@@ -127,7 +127,11 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 470699999}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 --- !u!1 &156100724
+=======
+--- !u!1 &340807279
+>>>>>>> Stashed changes
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,27 +139,73 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< Updated upstream
   - component: {fileID: 156100725}
   m_Layer: 0
   m_Name: TargetTransform
   m_TagString: Untagged
+=======
+  - component: {fileID: 340807281}
+  - component: {fileID: 340807280}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: stone
+>>>>>>> Stashed changes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< Updated upstream
 --- !u!4 &156100725
+=======
+--- !u!61 &340807280
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340807279}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 9.35, y: -23.65}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 38.4, y: 21.6}
+    newSize: {x: 38.4, y: 21.6}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 19.305, y: 21.6}
+  m_EdgeRadius: 0
+--- !u!4 &340807281
+>>>>>>> Stashed changes
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 156100724}
+=======
+  m_GameObject: {fileID: 340807279}
+>>>>>>> Stashed changes
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< Updated upstream
   m_RootOrder: 4
+=======
+  m_RootOrder: 5
+>>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &470699999
 PrefabInstance:
@@ -251,6 +301,7 @@ PrefabInstance:
       objectReference: {fileID: 156100725}
     - target: {fileID: 1310517962742475913, guid: ba0813fa92288a944a4101e52715279a,
         type: 3}
+<<<<<<< Updated upstream
       propertyPath: anim
       value: 
       objectReference: {fileID: 1568445074}
@@ -288,6 +339,20 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BodyType
       value: 0
+=======
+      propertyPath: inputSound
+      value: event:/TwoStepsOnWood
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310517962742475913, guid: ba0813fa92288a944a4101e52715279a,
+        type: 3}
+      propertyPath: currentTerrain
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310517962742475913, guid: ba0813fa92288a944a4101e52715279a,
+        type: 3}
+      propertyPath: InputFootsteps
+      value: event:/Footsteps
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 1310517962742475919, guid: ba0813fa92288a944a4101e52715279a,
         type: 3}
@@ -295,7 +360,11 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents:
+<<<<<<< Updated upstream
     - {fileID: 1310517962742475915, guid: ba0813fa92288a944a4101e52715279a, type: 3}
+=======
+    - {fileID: 1310517962742475916, guid: ba0813fa92288a944a4101e52715279a, type: 3}
+>>>>>>> Stashed changes
   m_SourcePrefab: {fileID: 100100000, guid: ba0813fa92288a944a4101e52715279a, type: 3}
 --- !u!1 &1205921434
 GameObject:
@@ -427,6 +496,7 @@ GameObject:
   - component: {fileID: 1535528759}
   - component: {fileID: 1535528758}
   - component: {fileID: 1535528761}
+  - component: {fileID: 1535528762}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -530,6 +600,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1535528762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535528757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b3a448b1a5f0496a9b30b4576617cee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!1 &1560012451
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,10 +625,9 @@ GameObject:
   - component: {fileID: 1560012452}
   - component: {fileID: 1560012454}
   - component: {fileID: 1560012455}
-  - component: {fileID: 1560012456}
   m_Layer: 8
   m_Name: Common room koncept v1
-  m_TagString: wall
+  m_TagString: wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -653,7 +735,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -23.65}
+  m_Offset: {x: -9.5, y: -23.65}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -664,33 +746,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 38.4, y: 21.6}
-  m_EdgeRadius: 0
---- !u!61 &1560012456
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560012451}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 38.4, y: 21.6}
-    newSize: {x: 38.4, y: 21.6}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 9.38, y: 20.4}
+  m_Size: {x: 19.305, y: 21.6}
   m_EdgeRadius: 0
 --- !u!1 &1568445072
 GameObject:

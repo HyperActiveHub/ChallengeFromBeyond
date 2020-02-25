@@ -25,7 +25,14 @@ public class PlayerController : MonoBehaviour
     public bool isMoving;
 
 
+    [FMODUnity.EventRef]
+    public string InputFootsteps;
+    FMOD.Studio.EventInstance FootstepsEvent;
+    FMOD.Studio.ParameterInstance WoodParameter;
+    FMOD.Studio.ParameterInstance StoneParameter;
 
+    private float WoodValue;
+    private float StoneValue;
 
 
 
@@ -39,16 +46,22 @@ public class PlayerController : MonoBehaviour
         lastPositionX = transform.position.x;
         lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
         targetPosition = transform.position;
+
+        FootstepsEvent = FMODUnity.RuntimeManager.CreateInstance(InputFootsteps);
+        FootstepsEvent.getParameter("Wood", out WoodParameter);
+        FootstepsEvent.getParameter("Stone", out StoneParameter);
+
+
+        InvokeRepeating("CallFootsteps", 0, 0.5f);
     }
 
 
-    public void Update()
+
+
+    void Update()
     {
-        
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //}
+        WoodParameter.setValue(WoodValue);
+        StoneParameter.setValue(StoneValue);
 
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -86,8 +99,7 @@ public class PlayerController : MonoBehaviour
 
         scalechage = new Vector3(transform.localScale.x, transform.localScale.y) * distanceTravelled;
 
-
-
+        //Håller koll på om spelaren rör sig i de olika axlarna och sköter animationernas värde
         if ((transform.position.y - lastPositionY) > 0)
         {
             scalechage = -scalechage * offseter;
@@ -114,11 +126,8 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isWalking", true);
             anim.SetFloat("input_x", (transform.position.x - lastPositionX));
         }
-        //if (rbody.IsSleeping())
-        //{
-        //    anim.SetBool("isWalking", false);
-        //}
 
+        //Startar animationen om spelaren rör sig
         if (isMoving == false)
         {
             anim.SetBool("isWalking", false);
@@ -126,14 +135,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("isWalking", true);
+         
         }
 
-
-
-
-
-        
-
+            DetermineTerrain();
 
 
         transform.localScale += scalechage;
@@ -161,6 +166,42 @@ public class PlayerController : MonoBehaviour
         }
     
     }
+
+    void CallFootsteps()
+    {
+        if (isMoving == true)
+        {
+            FootstepsEvent.start();
+            Debug.Log("Souning");
+        }
+     
+    }
+
+    private void DetermineTerrain()
+    {
+
+        float fadetime = 10;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 100.0f);
+
+
+
+        if (hit.transform.gameObject.tag == "wood")
+        {
+            Debug.Log("WOOD");
+            WoodValue = Mathf.Lerp(WoodValue, 1f, Time.deltaTime * fadetime);
+            StoneValue = Mathf.Lerp(StoneValue, 0f, Time.deltaTime * fadetime);
+        }
+        else if (hit.transform.gameObject.tag == "stone")
+        {
+            Debug.Log("STONE");
+            WoodValue = Mathf.Lerp(WoodValue, 0f, Time.deltaTime * fadetime);
+            StoneValue = Mathf.Lerp(StoneValue, 1f, Time.deltaTime * fadetime);
+        }
+
+    }
+
+
+
 
 
 
