@@ -2,7 +2,6 @@
 using System.Collections;
 
 [RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Item))]
 public class ClickAndDrag : MonoBehaviour
 {
     // The difference between where the mouse is on the drag plane and 
@@ -53,7 +52,7 @@ public class ClickAndDrag : MonoBehaviour
         //Discard future actions if selectedObject is this gameObject.
         selectedObject = GetGameObjectUnderCursor();
         initialPosition = transform.position;
-
+        Debug.Log(string.Format("Initial initialPosition: {0}", initialPosition), gameObject);
         if(selectedObject == this.gameObject)
         {
             offset = new Vector3(0, 0, (transform.position.z - mainCamera.transform.position.z) + zOffset);
@@ -62,7 +61,12 @@ public class ClickAndDrag : MonoBehaviour
 
     private void MouseGrab()
     {
-        if (selectedObject == this.gameObject && GetComponent<Item>().isInInventory)
+        if(itemComponent == null)
+        {
+            return;
+        }
+
+        if (selectedObject == this.gameObject && itemComponent.isInInventory)
         {
             transform.position = mainCamera.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
@@ -79,6 +83,8 @@ public class ClickAndDrag : MonoBehaviour
 
             if (otherGameObject == null) //There's no object under the selected object; trigger self interaction. (Player clicked on the object)
             {
+                Debug.Log(string.Format("initialPosition: {0}. transform.position{1}", (Vector2)initialPosition, (Vector2)transform.position), gameObject);
+                Debug.Log(Vector2.Distance((Vector2)initialPosition, (Vector2)transform.position));
                 if(Vector2.Distance((Vector2)initialPosition, (Vector2)transform.position) < clickTolerance)
                 {
                     //Trigger interaction with self.
@@ -98,7 +104,7 @@ public class ClickAndDrag : MonoBehaviour
                 InteractableObject otherInteractableObject = otherGameObject.GetComponent<InteractableObject>();
                 if(otherInteractableObject != null)
                 {
-                    interaction = otherInteractableObject.Interact(gameObject.GetComponent<Item>());
+                    interaction = otherInteractableObject.Interact(itemComponent);
                     if(interaction == null)
                     {
                         ResetClick();
@@ -149,7 +155,7 @@ public class ClickAndDrag : MonoBehaviour
     {
         if (interaction != null && interaction.consumable)
         {
-            if (itemComponent.isInInventory)
+            if (itemComponent != null && itemComponent.isInInventory)
             {
                 itemComponent.inventoryObject.RemoveFromInventory(this.gameObject);
             }
