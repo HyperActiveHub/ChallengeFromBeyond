@@ -1993,8 +1993,8 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1742546657}
   - {fileID: 1742546658}
+  - {fileID: 1742546657}
   suppressAllAutoSelections: 0
 --- !u!114 &1742546642
 MonoBehaviour:
@@ -2353,8 +2353,10 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks: []
-  selectedCommands: []
+  selectedBlocks:
+  - {fileID: 1742546641}
+  selectedCommands:
+  - {fileID: 1742546658}
   variables: []
   description: 
   stepPause: 0
