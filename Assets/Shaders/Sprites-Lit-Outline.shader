@@ -17,10 +17,10 @@ Shader "Universal Render Pipeline/2D/Outline/Sprite-Lit-Outline"
 	}
 
 		HLSLINCLUDE
-#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-			ENDHLSL
+		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+		ENDHLSL
 
-			SubShader
+		SubShader
 		{
 			Tags {"Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline" "PreviewType" = "Plane" "CanUseSpriteAtlas" = "True" "IgnoreProjector" = "True"}
 
@@ -28,7 +28,7 @@ Shader "Universal Render Pipeline/2D/Outline/Sprite-Lit-Outline"
 			Cull Off
 			ZWrite Off
 
-			Pass	//outline pass.. doesnt work as intended
+			Pass	//outline pass
 			{
 				Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" "PreviewType" = "Plane" "CanUseSpriteAtlas" = "True"}
 
@@ -48,43 +48,29 @@ Shader "Universal Render Pipeline/2D/Outline/Sprite-Lit-Outline"
 				{
 					fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
 
-				//If outline is enabled and there is no pixel
-				if (_Outline == 1 && c.a == 0)
-				{
-					fixed4 pixelUp = tex2D(_MainTex, IN.texcoord + fixed2(0, _MainTex_TexelSize.y));
-					fixed4 pixelDown = tex2D(_MainTex, IN.texcoord - fixed2(0, _MainTex_TexelSize.y));
-					fixed4 pixelRight = tex2D(_MainTex, IN.texcoord + fixed2(_MainTex_TexelSize.x, 0));
-					fixed4 pixelLeft = tex2D(_MainTex, IN.texcoord - fixed2(_MainTex_TexelSize.x, 0));
-
-					float totA = pixelUp.a + pixelDown.a + pixelRight.a + pixelLeft.a;
-
-					//Ceck if any of the surrounding pixels are colored
-					if (totA > 0)
+					//If outline is enabled and there is no pixel
+					if (_Outline == 1 && c.a == 0)
 					{
-						c.rgba = fixed4(1, 1, 1, 1) * _OutlineColor;
-					}
-				}
-				else if (_Outline == 2 && c.a > 0)
-				{
-					fixed4 pixelUp = tex2D(_MainTex, IN.texcoord + fixed2(0, _MainTex_TexelSize.y));
-					fixed4 pixelDown = tex2D(_MainTex, IN.texcoord - fixed2(0, _MainTex_TexelSize.y));
-					fixed4 pixelRight = tex2D(_MainTex, IN.texcoord + fixed2(_MainTex_TexelSize.x, 0));
-					fixed4 pixelLeft = tex2D(_MainTex, IN.texcoord - fixed2(_MainTex_TexelSize.x, 0));
+						fixed4 pixelUp = tex2D(_MainTex, IN.texcoord + fixed2(0, _MainTex_TexelSize.y));
+						fixed4 pixelDown = tex2D(_MainTex, IN.texcoord - fixed2(0, _MainTex_TexelSize.y));
+						fixed4 pixelRight = tex2D(_MainTex, IN.texcoord + fixed2(_MainTex_TexelSize.x, 0));
+						fixed4 pixelLeft = tex2D(_MainTex, IN.texcoord - fixed2(_MainTex_TexelSize.x, 0));
 
-					float totA = pixelUp.a * pixelDown.a * pixelRight.a * pixelLeft.a;
+						float totA = pixelUp.a + pixelDown.a + pixelRight.a + pixelLeft.a;
 
-					if (totA == 0)
-					{
-						c.rgba = fixed4(1, 1, 1, 1) * _OutlineColor;
+						//Ceck if any of the surrounding pixels are colored
+						if (totA > 0)
+						{
+							c.rgba = fixed4(1, 1, 1, 1) * _OutlineColor;
+						}
 					}
+
+					c.rgb *= c.a;
+					return c;
 				}
 
-				c.rgb *= c.a;
-				return c;
+				ENDCG
 			}
-
-			ENDCG
-		}
 			Pass
 			{
 				Tags { "LightMode" = "Universal2D" }
@@ -268,11 +254,5 @@ Shader "Universal Render Pipeline/2D/Outline/Sprite-Lit-Outline"
 				
 
 			}
-
-
-			
-
-
 		}
-
 }

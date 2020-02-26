@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class InteractableObject : MonoBehaviour
 {
-    public List<Interaction> interactions;
+    public List<Interaction> interactions = new List<Interaction>();
 
     public Interaction Interact(Item otherItem)
     {
