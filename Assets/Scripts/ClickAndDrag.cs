@@ -62,7 +62,7 @@ public class ClickAndDrag : MonoBehaviour
 
     private void MouseGrab()
     {
-        if (selectedObject == this.gameObject && GetComponent<Item>().isInInventory)
+        if (selectedObject == this.gameObject) // && GetComponent<Item>().isInInventory)
         {
             transform.position = mainCamera.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
