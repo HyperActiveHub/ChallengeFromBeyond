@@ -12,9 +12,18 @@ public class FungusConversationFunctions : MonoBehaviour
     public Sprite JasperPanel;
     public Sprite MaybellePanel;
 
-    private void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
         SayDialog = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Fungus/Resources/Prefabs/SayDialog.prefab", typeof(GameObject));
+        SayDialogPanel = SayDialog.transform.GetChild(0).gameObject;
+        StartCoroutine(LateStart(0.1f));
+    }
+
+    IEnumerator LateStart(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        SayDialog = GameObject.Find("SayDialog");
         SayDialogPanel = SayDialog.transform.GetChild(0).gameObject;
     }
 
