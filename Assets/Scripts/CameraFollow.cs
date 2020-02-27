@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     public Transform startTarget;
     [Tooltip("Position relative to target")]
     public Transform startCameraFollowPosition;
-    [Tooltip("xPos, yPos, xLength, yLength")]
+    [Tooltip("xMin, yMin, xMax, yMax")]
     public Vector4 cameraBorder;
     public static Vector3 cameraFollowPosition = Vector3.zero;
     //[Tooltip("How far away the mouse has to be for the camera to move ")]
@@ -17,16 +17,19 @@ public class CameraFollow : MonoBehaviour
     private Vector3 followPosition;
     private Vector3 cameraMoveDir;
 
+    private Camera camera;
+
     [Tooltip("Visual aid to know camera border in scene")]
     public Texture borderTexture;
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawGUITexture(new Rect(cameraBorder.x, cameraBorder.y, cameraBorder.z, cameraBorder.w), borderTexture);
+        Gizmos.DrawGUITexture(new Rect(cameraBorder.x, cameraBorder.y, cameraBorder.z - cameraBorder.x, cameraBorder.w - cameraBorder.y), borderTexture);
     }
 
     private void Awake()
     {
+        camera = Camera.main;
         if (startTarget)
         {
             target = startTarget;
@@ -54,9 +57,6 @@ public class CameraFollow : MonoBehaviour
 
         }*/
 
-        followPosition.x = Mathf.Clamp(followPosition.x, cameraBorder.x, cameraBorder.x + cameraBorder.z);
-        followPosition.y = Mathf.Clamp(followPosition.y, cameraBorder.y, cameraBorder.y + cameraBorder.w);
-
         cameraMoveDir = (followPosition - transform.position).normalized;
         float distance = Vector3.Distance(followPosition, transform.position);
 
@@ -71,6 +71,29 @@ public class CameraFollow : MonoBehaviour
                 transform.position = followPosition;
             }
         }
-        
+
+        Vector3 screenEdge = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
+
+        if (screenEdge.x < cameraBorder.x)
+        {
+            transform.position += new Vector3(cameraBorder.x - screenEdge.x, 0);
+        }
+
+        if (screenEdge.y < cameraBorder.y)
+        {
+            transform.position += new Vector3(0, cameraBorder.y - screenEdge.y);
+        }
+
+        screenEdge = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+
+        if (screenEdge.x > cameraBorder.z)
+        {
+            transform.position -= new Vector3(screenEdge.x - cameraBorder.z, 0);
+        }
+
+        if (screenEdge.y > cameraBorder.w)
+        {
+            transform.position -= new Vector3(0, screenEdge.y - cameraBorder.w);
+        }
     }
 }
