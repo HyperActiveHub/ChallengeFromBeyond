@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: dd7b58ee34ddfb440aa50b0145dbf469, type: 2}
+  isInInventory: 0
+  inventoryObject: {fileID: 0}
 --- !u!114 &3622402511715452986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +64,7 @@ MonoBehaviour:
   interactions:
   - interactedWithItem: {fileID: 11400000, guid: 8406028e57c7fb34bb653c1921c5f993,
       type: 2}
+    consumable: 1
     onInteraction:
       m_PersistentCalls:
         m_Calls:
@@ -76,8 +79,6 @@ MonoBehaviour:
             m_StringArgument: lol
             m_BoolArgument: 0
           m_CallState: 2
-  testItemToInteractWith: {fileID: 11400000, guid: 8406028e57c7fb34bb653c1921c5f993,
-    type: 2}
 --- !u!212 &3622402511715452984
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -117,15 +118,16 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1375403096896945041, guid: 11ed8460f8b6a6d4785b954e71411187,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.28125, y: 0.46875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &3622402511715452985
@@ -143,10 +145,10 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.28125, y: 0.46875}
+    newSize: {x: 0.28125, y: 0.46875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
