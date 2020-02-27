@@ -245,7 +245,7 @@ MonoBehaviour:
   nameColor: {r: 1, g: 0.7249408, b: 0.10849059, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 781e4191612058148a176df3975cb26a, type: 3}
+  - {fileID: 21300000, guid: de713d1afe7341a4186ace399c9d95b2, type: 3}
   portraitsFace: 1
   setSayDialog: {fileID: 0}
   description: 
@@ -538,7 +538,7 @@ MonoBehaviour:
   nameColor: {r: 0.14117643, g: 0.9607843, b: 0.6070028, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 608b11987eac4314ab8ed9bc49541659, type: 3}
+  - {fileID: 21300000, guid: fe4ba3fbc4bc0804fa1939d8b8685348, type: 3}
   portraitsFace: 1
   setSayDialog: {fileID: 0}
   description: 
@@ -603,7 +603,7 @@ MonoBehaviour:
   nameColor: {r: 0.23829652, g: 0.990566, b: 0.9489686, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 406113ffd7cf43747978d620e14d1c9a, type: 3}
+  - {fileID: 21300000, guid: fe8d17f33f3ae8d469bd9319301e343b, type: 3}
   portraitsFace: 2
   setSayDialog: {fileID: 0}
   description: 
@@ -805,7 +805,7 @@ GameObject:
   - component: {fileID: 865653890}
   - component: {fileID: 865653889}
   m_Layer: 0
-  m_Name: FungusInsightRaiser
+  m_Name: FungusFunctions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -820,10 +820,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 865653888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f88f2cfb8febd3d43a4474e7d7042a3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0809981e943c6c34f8e7322316f37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insight: 0
+  PlayerPanel: {fileID: 21300000, guid: 5f586f88d7fd9204282a7a7c0b7e2613, type: 3}
+  JasperPanel: {fileID: 21300000, guid: dfbb7edca0323d444b2d0e617639ff03, type: 3}
+  MaybellePanel: {fileID: 21300000, guid: db3f36a179e7b7243aa2b238864ece61, type: 3}
 --- !u!4 &865653890
 Transform:
   m_ObjectHideFlags: 0
@@ -1567,6 +1569,13 @@ GameObject:
   - component: {fileID: 1742546638}
   - component: {fileID: 1742546657}
   - component: {fileID: 1742546658}
+  - component: {fileID: 1742546660}
+  - component: {fileID: 1742546659}
+  - component: {fileID: 1742546663}
+  - component: {fileID: 1742546662}
+  - component: {fileID: 1742546661}
+  - component: {fileID: 1742546664}
+  - component: {fileID: 1742546665}
   m_Layer: 0
   m_Name: Conversation
   m_TagString: Untagged
@@ -1940,6 +1949,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1742546637}
+  - {fileID: 1742546659}
   - {fileID: 1742546636}
   - {fileID: 1742546635}
   suppressAllAutoSelections: 0
@@ -1982,9 +1992,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 548.56573
-    y: 136.21396
-    width: 139.41177
+    x: 549.9356
+    y: 135.03749
+    width: 134.9315
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1994,6 +2004,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1742546658}
+  - {fileID: 1742546661}
   - {fileID: 1742546657}
   suppressAllAutoSelections: 0
 --- !u!114 &1742546642
@@ -2198,8 +2209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 319.02026
-    y: 124.85038
+    x: 320.39014
+    y: 126.220245
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2210,6 +2221,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1742546642}
+  - {fileID: 1742546663}
   - {fileID: 1742546627}
   - {fileID: 1742546644}
   - {fileID: 1742546634}
@@ -2239,7 +2251,9 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
+  - {fileID: 1742546664}
   - {fileID: 1742546646}
+  - {fileID: 1742546662}
   - {fileID: 1742546626}
   - {fileID: 1742546640}
   - {fileID: 1742546651}
@@ -2321,6 +2335,8 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 1742546631}
   commandList:
+  - {fileID: 1742546660}
+  - {fileID: 1742546665}
   - {fileID: 1742546630}
   - {fileID: 1742546652}
   - {fileID: 1742546629}
@@ -2342,11 +2358,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -30.704708, y: 155.68448}
+  scrollPos: {x: 133.71686, y: 243.33028}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.8499999
+  zoom: 0.73
   scrollViewRect:
     serializedVersion: 2
     x: 0
@@ -2354,9 +2370,9 @@ MonoBehaviour:
     width: 0
     height: 0
   selectedBlocks:
-  - {fileID: 1742546641}
+  - {fileID: 1742546653}
   selectedCommands:
-  - {fileID: 1742546658}
+  - {fileID: 1742546665}
   variables: []
   description: 
   stepPause: 0
@@ -2446,10 +2462,10 @@ MonoBehaviour:
   indentLevel: 0
   description: 
   targetObject: {fileID: 865653888}
-  targetComponentAssemblyName: FungusInsight, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
+  targetComponentAssemblyName: FungusConversationFunctions, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
   targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: FungusInsight
+  targetComponentText: FungusConversationFunctions
   targetMethod: ChangeInsight
   targetMethodText: 'ChangeInsight (Int32): Void'
   methodParameters:
@@ -2461,6 +2477,321 @@ MonoBehaviour:
       boolValue: 0
       floatValue: 0
       stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1742546659
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742546625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 39
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 865653888}
+  targetComponentAssemblyName: FungusConversationFunctions, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: FungusConversationFunctions
+  targetMethod: ChangeSayDialog
+  targetMethodText: 'ChangeSayDialog (String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: Maybelle
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1742546660
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742546625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 38
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 865653888}
+  targetComponentAssemblyName: FungusConversationFunctions, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: FungusConversationFunctions
+  targetMethod: ChangeSayDialog
+  targetMethodText: 'ChangeSayDialog (String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: Jasper
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1742546661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742546625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 42
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 865653888}
+  targetComponentAssemblyName: FungusConversationFunctions, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: FungusConversationFunctions
+  targetMethod: ChangeSayDialog
+  targetMethodText: 'ChangeSayDialog (String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: Player
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1742546662
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742546625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 41
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 865653888}
+  targetComponentAssemblyName: FungusConversationFunctions, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: FungusConversationFunctions
+  targetMethod: ChangeSayDialog
+  targetMethodText: 'ChangeSayDialog (String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: Jasper
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1742546663
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742546625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 40
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 865653888}
+  targetComponentAssemblyName: FungusConversationFunctions, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: FungusConversationFunctions
+  targetMethod: ChangeSayDialog
+  targetMethodText: 'ChangeSayDialog (String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: Jasper
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1742546664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742546625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 43
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 865653888}
+  targetComponentAssemblyName: FungusConversationFunctions, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: FungusConversationFunctions
+  targetMethod: ChangeSayDialog
+  targetMethodText: 'ChangeSayDialog (String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: Player
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1742546665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742546625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 44
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 865653888}
+  targetComponentAssemblyName: FungusConversationFunctions, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: FungusConversationFunctions
+  targetMethod: ChangeSayDialog
+  targetMethodText: 'ChangeSayDialog (String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: Player
       colorValue: {r: 0, g: 0, b: 0, a: 0}
       gameObjectValue: {fileID: 0}
       materialValue: {fileID: 0}
