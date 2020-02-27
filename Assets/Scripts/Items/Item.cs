@@ -74,7 +74,7 @@ public class Item : MonoBehaviour
         GameObject instantiatedObject = Instantiate(prefab, transform.position, Quaternion.identity);
         instantiatedObject.name = itemData.displayText;
         InsertToInventory(instantiatedObject);
-        
+
         Destroy(this.gameObject);
     }
 
@@ -105,6 +105,7 @@ public class Item : MonoBehaviour
         else
         {
             item.gameObject.SetActive(false);
+            item.GetComponent<SpriteRenderer>().sortingLayerName = "TestForeground";
             inventoryObject.AddToInventory(item);
         }
     }
@@ -114,11 +115,18 @@ public class Item : MonoBehaviour
         InsertToInventory(this.gameObject);
     }
 
+    public void ResetTransform()
+    {
+        gameObject.transform.localScale = Vector3.one;
+        gameObject.transform.rotation = Quaternion.identity;
+    }
+
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Handles.Label(transform.position, itemData.displayText);
     }
-
+#endif
     public static bool operator ==(Item item1, Item item2)
     {
         if (item1 is null || item2 is null)

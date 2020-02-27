@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(BoxCollider2D))]
+//[RequireComponent(typeof(SpriteOutline))]
 public class InteractableObject : MonoBehaviour
 {
     public List<Interaction> interactions = new List<Interaction>();

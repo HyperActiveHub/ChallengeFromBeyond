@@ -54,15 +54,16 @@ public class ClickAndDrag : MonoBehaviour
         selectedObject = GetGameObjectUnderCursor();
         initialPosition = transform.position;
 
-        if(selectedObject == this.gameObject)
+        if (selectedObject == this.gameObject)
         {
-            offset = new Vector3(0, 0, (transform.position.z - mainCamera.transform.position.z) + zOffset);
+            offset = new Vector3(0, 0, (transform.position.z - mainCamera.transform.position.z));//+ zOffset);  
+            //Cant add zOffset since it will move the object by the offset on each mouse click. (eventually it wont be visible anymore).
         }
     }
 
     private void MouseGrab()
     {
-        if (selectedObject == this.gameObject) // && GetComponent<Item>().isInInventory)
+        if (selectedObject == this.gameObject && GetComponent<Item>().isInInventory)
         {
             transform.position = mainCamera.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
@@ -71,15 +72,18 @@ public class ClickAndDrag : MonoBehaviour
     private void MouseUp()
     {
         Interaction interaction = null;
-        if(selectedObject == this.gameObject)
+        if (selectedObject == this.gameObject)
         {
             //Check if there's a gameObject under the currently selected object. (Trigger interaction)
             rayCollider.enabled = false;
-            GameObject otherGameObject = GetGameObjectUnderCursor();
 
+            //This needs to be re-worked. Interactions with other objects should only happen if the selected one is in inventory.
+            //Currently, when two or more items are on top of eachother, nothing happens when clicked(/or they probably try to interact with eachother)
+            //Should pick up the fore-most item, i.e trigger self interaction.
+            GameObject otherGameObject = GetGameObjectUnderCursor();
             if (otherGameObject == null) //There's no object under the selected object; trigger self interaction. (Player clicked on the object)
             {
-                if(Vector2.Distance((Vector2)initialPosition, (Vector2)transform.position) < clickTolerance)
+                if (Vector2.Distance((Vector2)initialPosition, (Vector2)transform.position) < clickTolerance)
                 {
                     //Trigger interaction with self.
                     if (interactableObjectComponent != null)
@@ -96,10 +100,10 @@ public class ClickAndDrag : MonoBehaviour
             else //Trigger interaction with other gameobject.
             {
                 InteractableObject otherInteractableObject = otherGameObject.GetComponent<InteractableObject>();
-                if(otherInteractableObject != null)
+                if (otherInteractableObject != null)
                 {
                     interaction = otherInteractableObject.Interact(gameObject.GetComponent<Item>());
-                    if(interaction == null)
+                    if (interaction == null)
                     {
                         ResetClick();
                         return;
@@ -124,9 +128,9 @@ public class ClickAndDrag : MonoBehaviour
 
 
     /// <summary>
-    /// Return the GameObject that the cursor is hovering over. Returns null if no object was found.
+    /// Needs to be re-worked. Return the GameObject that the cursor is hovering over. Returns null if no object was found.
     /// </summary>
-    private GameObject GetGameObjectUnderCursor()
+    private GameObject GetGameObjectUnderCursor()   //This needs changes..
     {
         //Vector3 worldPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         //RaycastHit2D hit = Physics2D.Raycast(worldPoint + Vector3.back, worldPoint);
@@ -140,6 +144,31 @@ public class ClickAndDrag : MonoBehaviour
         {
             return null;
         }
+        //RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+        //int frontObjectIndex = 0, lastSortOrder = int.MaxValue;
+
+        //for (int i = 0; i < hits.Length; i++)
+        //{
+        //    SpriteRenderer sr = hits[i].collider.GetComponent<SpriteRenderer>();
+
+        //    if (sr.sortingOrder < lastSortOrder)
+        //    {
+        //        lastSortOrder = sr.sortingOrder;
+        //        frontObjectIndex = i;
+        //    }
+        //}
+
+        //if (hits.Length != 0)
+        //{
+        //    //Outline this object aswell (GetComponent<SpriteOutline>())
+        //    return hits[frontObjectIndex].collider.gameObject;
+        //}
+        //else
+        //{
+        //    return null;
+        //}
+
     }
 
     ///<Summary>
