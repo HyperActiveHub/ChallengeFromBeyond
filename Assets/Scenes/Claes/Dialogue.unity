@@ -1569,13 +1569,14 @@ GameObject:
   - component: {fileID: 1742546638}
   - component: {fileID: 1742546657}
   - component: {fileID: 1742546658}
-  - component: {fileID: 1742546660}
   - component: {fileID: 1742546659}
   - component: {fileID: 1742546663}
   - component: {fileID: 1742546662}
   - component: {fileID: 1742546661}
   - component: {fileID: 1742546664}
+  - component: {fileID: 1742546666}
   - component: {fileID: 1742546665}
+  - component: {fileID: 1742546660}
   m_Layer: 0
   m_Name: Conversation
   m_TagString: Untagged
@@ -2335,13 +2336,14 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 1742546631}
   commandList:
-  - {fileID: 1742546660}
-  - {fileID: 1742546665}
   - {fileID: 1742546630}
+  - {fileID: 1742546666}
   - {fileID: 1742546652}
+  - {fileID: 1742546665}
   - {fileID: 1742546629}
   - {fileID: 1742546648}
   - {fileID: 1742546647}
+  - {fileID: 1742546660}
   - {fileID: 1742546628}
   - {fileID: 1742546656}
   suppressAllAutoSelections: 0
@@ -2369,10 +2371,8 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks:
-  - {fileID: 1742546653}
-  selectedCommands:
-  - {fileID: 1742546665}
+  selectedBlocks: []
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -2548,7 +2548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 38
+  itemId: 46
   indentLevel: 0
   description: 
   targetObject: {fileID: 865653888}
@@ -2583,7 +2583,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &1742546661
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2718,7 +2718,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &1742546664
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2763,7 +2763,52 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &1742546665
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742546625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 45
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 865653888}
+  targetComponentAssemblyName: FungusConversationFunctions, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: FungusConversationFunctions
+  targetMethod: ChangeSayDialog
+  targetMethodText: 'ChangeSayDialog (String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: Maybelle
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1742546666
+MonoBehaviour:
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
