@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(ClickAndDrag))]
+[RequireComponent(typeof(InteractableObject))]
+[RequireComponent(typeof(SpriteOutline))]
 public class Item : MonoBehaviour
 {
     public ItemData itemData = null;
@@ -13,22 +17,22 @@ public class Item : MonoBehaviour
 
     private void OnValidate()
     {
-        if(itemData == null)
+        if (itemData == null)
         {
             Debug.LogWarning("Item GameObject has no attached item. Please attach one.", this);
         }
 
-        if(spriteRenderer == null)
+        if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        if(spriteRenderer != null)
+        if (spriteRenderer != null)
         {
             ReloadItem();
         }
 
-        if(itemData.displayText == "")
+        if (itemData.displayText == "")
         {
             Debug.LogWarning(string.Format("The item \"{0}\" is missing a proper display text.", itemData.name), this);
         }
@@ -43,11 +47,25 @@ public class Item : MonoBehaviour
     {
         itemData.itemID = gameObject.GetInstanceID();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        //spriteRenderer.sortingLayerName = itemLayer
+
+        //Dont use this in build... only meant to simplify testing.
+        //if (GetComponent<InteractableObject>().interactions.Count == 0)
+        //{
+        //    Debug.LogWarning("Added pickup interaction for this item, should be done beforehand.", this);
+        //    Interaction pickup = new Interaction();
+        //    pickup.consumable = false;
+        //    pickup.onInteraction = new UnityEngine.Events.UnityEvent();
+        //    pickup.onInteraction.AddListener(InsertThisToInventory);  //Since this is a "non-persistent listener", it will not show up in inspector
+        //    GetComponent<InteractableObject>().interactions.Add(pickup);
+        //}
+        //Dont use this in build... only meant to simplify testing.
+
     }
 
     private void ReloadItem()
     {
-        if(spriteRenderer != null)
+        if (spriteRenderer != null)
         {
             spriteRenderer.sprite = itemData.itemSprite;
         }
@@ -74,7 +92,7 @@ public class Item : MonoBehaviour
         GameObject instantiatedObject = Instantiate(prefab, transform.position, Quaternion.identity);
         instantiatedObject.name = itemData.displayText;
         InsertToInventory(instantiatedObject);
-        
+
         Destroy(this.gameObject);
     }
 
@@ -85,13 +103,13 @@ public class Item : MonoBehaviour
 
     public void InsertToInventory(GameObject item = null)
     {
-        if(this.gameObject.GetComponent<Item>() == null)
+        if (this.gameObject.GetComponent<Item>() == null)
         {
             Debug.LogError("Tried to add non-item GameObject to inventory!");
             return;
         }
 
-        if(inventoryObject == null)
+        if (inventoryObject == null)
         {
             Debug.LogError("This item does not have an attached inventory object. Can not add item to null-inventory", this);
             return;
@@ -105,8 +123,32 @@ public class Item : MonoBehaviour
         else
         {
             item.gameObject.SetActive(false);
+            item.GetComponent<SpriteRenderer>().sortingLayerName = "TestForeground";    //temp
             inventoryObject.AddToInventory(item);
+            item.GetComponent<SpriteOutline>().SetMaterial(false);
         }
+    }
+
+    public void AddPrefabToInventory(GameObject prefab = null)
+    {
+        GameObject itemObj = Instantiate(prefab);
+
+        if (itemObj.gameObject.GetComponent<Item>() == null)
+        {
+            Debug.LogError("Tried to add non-item GameObject to inventory!");
+            return;
+        }
+
+        if (inventoryObject == null)
+        {
+            Debug.LogError("This item does not have an attached inventory object. Can not add item to null-inventory", this);
+            return;
+        }
+
+        itemObj.SetActive(false);
+        itemObj.GetComponent<SpriteRenderer>().sortingLayerName = "TestForeground";    //temp
+        inventoryObject.AddToInventory(itemObj);
+        itemObj.GetComponent<SpriteOutline>().SetMaterial(false);
     }
 
     public void InsertThisToInventory()
@@ -114,11 +156,18 @@ public class Item : MonoBehaviour
         InsertToInventory(this.gameObject);
     }
 
+    public void ResetTransform()
+    {
+        gameObject.transform.localScale = Vector3.one;
+        gameObject.transform.rotation = Quaternion.identity;
+    }
+
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Handles.Label(transform.position, itemData.displayText);
     }
-
+#endif
     public static bool operator ==(Item item1, Item item2)
     {
         if (item1 is null || item2 is null)
