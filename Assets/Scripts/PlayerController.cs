@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private float WoodValue;
     private float StoneValue;
 
-
+    public GameObject backgroundTilemap;
 
     public void Start()
     {
@@ -106,11 +106,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("isWalking", true);
-         
-        }
-                                   
 
-            DetermineTerrain();
+        }
+
+
+        DetermineTerrain(backgroundTilemap);
 
 
         transform.localScale += scalechage;
@@ -144,44 +144,41 @@ public class PlayerController : MonoBehaviour
         if (isMoving == true)
         {
             FootstepsEvent.start();
-            Debug.Log("Souning");
+            //Debug.Log("Souning");
         }
-     
+
     }
 
-    private void DetermineTerrain()
+    private void DetermineTerrain(GameObject background)
     {
 
         float fadetime = 10;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 100.0f);
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.back, 100.0f);
+        GameObject hit = background;
 
-
-
-        if (hit.transform.gameObject.tag == "wood")
+        if (hit != null)
         {
-            Debug.Log("WOOD");
-            WoodValue = Mathf.Lerp(WoodValue, 1f, Time.deltaTime * fadetime);
-            StoneValue = Mathf.Lerp(StoneValue, 0f, Time.deltaTime * fadetime);
+            if (hit/*.transform.gameObject*/.tag == "wood")
+            {
+                //Debug.Log("WOOD");
+                WoodValue = Mathf.Lerp(WoodValue, 1f, Time.deltaTime * fadetime);
+                StoneValue = Mathf.Lerp(StoneValue, 0f, Time.deltaTime * fadetime);
+            }
+            else if (hit/*.transform.gameObject*/.tag == "stone")
+            {
+                //Debug.Log("STONE");
+                WoodValue = Mathf.Lerp(WoodValue, 0f, Time.deltaTime * fadetime);
+                StoneValue = Mathf.Lerp(StoneValue, 1f, Time.deltaTime * fadetime);
+            }
+            else
+            {
+                Debug.LogError("Floor is missing tag. Floor needs tags to determine what audio to play for footsteps.", this);
+            }
         }
-        else if (hit.transform.gameObject.tag == "stone")
+        else
         {
-            Debug.Log("STONE");
-            WoodValue = Mathf.Lerp(WoodValue, 0f, Time.deltaTime * fadetime);
-            StoneValue = Mathf.Lerp(StoneValue, 1f, Time.deltaTime * fadetime);
+            Debug.LogWarning("Background Object not assigned.", this);
         }
 
     }
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
