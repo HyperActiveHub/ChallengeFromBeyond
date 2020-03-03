@@ -4,8 +4,19 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(SpriteOutline))]
+[RequireComponent(typeof(ClickAndDrag))]
 public class InteractableObject : MonoBehaviour
 {
+    [Tooltip("How close the player must be to interact with this object")]
+    [Range(0.5f, 5)] public float proximityRange = 1;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, proximityRange);
+    }
+
+
     public List<Interaction> interactions = new List<Interaction>();
 
     public Interaction Interact(Item otherItem)
@@ -34,7 +45,7 @@ public class InteractableObject : MonoBehaviour
 
     public void DisableGameObject(GameObject gameObject)
     {
-        if(gameObject != null)
+        if (gameObject != null)
         {
             gameObject.SetActive(false);
         }
