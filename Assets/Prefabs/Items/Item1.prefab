@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d053e1ded38134e9317b4ecdad1ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: dd7b58ee34ddfb440aa50b0145dbf469, type: 2}
+  itemData: {fileID: 11400000, guid: 8a96d7a0faaf71147ba6844ebae8451a, type: 2}
   isInInventory: 0
   inventoryObject: {fileID: 11400000, guid: bc27e1c66e18447518842399f1880dfa, type: 2}
 --- !u!114 &7516150868915402680
@@ -63,8 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactions:
-  - interactedWithItem: {fileID: 11400000, guid: 8406028e57c7fb34bb653c1921c5f993,
-      type: 2}
+  - interactedWithItem: {fileID: 0}
     consumable: 1
     onInteraction:
       m_PersistentCalls:
@@ -136,7 +135,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8b23fcf48382ca642900306c77757a99, type: 3}
+  m_Sprite: {fileID: 1375403096896945041, guid: 11ed8460f8b6a6d4785b954e71411187,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -164,7 +164,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.46875, y: 0.75}
+    oldSize: {x: 0.28125, y: 0.46875}
     newSize: {x: 0.3, y: 0.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Item))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class ClickAndDrag : MonoBehaviour
 {
     // The difference between where the mouse is on the drag plane and 
@@ -11,21 +10,20 @@ public class ClickAndDrag : MonoBehaviour
     private Camera mainCamera;
     private Vector3 initialPosition;
     private GameObject selectedObject = null;
-    private Collider2D rayCollider = null;
+    private BoxCollider2D rayCollider = null;
     private InteractableObject interactableObjectComponent = null;
     private Item itemComponent = null;
 
     [Tooltip("How much the player is allowed to move the gameobject and it will still register as a click.")]
     [SerializeField] private float clickTolerance = 13.0f;
 
-    [Tooltip("How far the object should move towards the camera while being moved. (Used to prevent unwanted intersections)")]
-    [SerializeField] private float zOffset = -1;
-
+    //[Tooltip("How far the object should move towards the camera while being moved. (Used to prevent unwanted intersections)")]
+    //[SerializeField] private float zOffset = -1;
 
     void Start()
     {
         mainCamera = Camera.main;
-        rayCollider = GetComponent<Collider2D>();
+        rayCollider = GetComponent<BoxCollider2D>();
         interactableObjectComponent = GetComponent<InteractableObject>();
         itemComponent = GetComponent<Item>();
     }
@@ -63,7 +61,7 @@ public class ClickAndDrag : MonoBehaviour
 
     private void MouseGrab()
     {
-        if (selectedObject == this.gameObject && GetComponent<Item>().isInInventory)
+        if (selectedObject == this.gameObject && GetComponent<Item>() != null && GetComponent<Item>().isInInventory)
         {
             transform.position = mainCamera.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
@@ -74,13 +72,15 @@ public class ClickAndDrag : MonoBehaviour
         Interaction interaction = null;
         if (selectedObject == this.gameObject)
         {
-            //Check if there's a gameObject under the currently selected object. (Trigger interaction)
             rayCollider.enabled = false;
 
             //This needs to be re-worked. Interactions with other objects should only happen if the selected one is in inventory.
-            //Currently, when two or more items are on top of eachother, nothing happens when clicked(/or they probably try to interact with eachother)
+            //Currently, when two or more items are on top of eachother, nothing happens when clicked(/or they probably try to interact with eachother?)
             //Should pick up the fore-most item, i.e trigger self interaction.
+            
+            //Check if there's a gameObject under the currently selected object. (Trigger interaction)
             GameObject otherGameObject = GetGameObjectUnderCursor();
+
             if (otherGameObject == null) //There's no object under the selected object; trigger self interaction. (Player clicked on the object)
             {
                 if (Vector2.Distance((Vector2)initialPosition, (Vector2)transform.position) < clickTolerance)
@@ -89,7 +89,9 @@ public class ClickAndDrag : MonoBehaviour
                     if (interactableObjectComponent != null)
                     {
                         interaction = interactableObjectComponent.Interact(null);
-                        ConsumeItem(interaction);
+                        ConsumeItem(interaction);   //Should never consume if interaction is pickup... 
+                                                    //and should anything ever be consumed when otherItem is null? i.e clicked on something
+                        ResetClick();
                     }
                 }
                 else
@@ -123,27 +125,37 @@ public class ClickAndDrag : MonoBehaviour
     {
         selectedObject = null;
         rayCollider.enabled = true;
-        transform.position = initialPosition;
+
+        if (GetComponent<Item>() != null && GetComponent<Item>().isInInventory)
+        {
+            transform.localPosition = Vector3.zero;
+        }
+        else
+            transform.position = initialPosition;
     }
 
-
     /// <summary>
-    /// Needs to be re-worked. Return the GameObject that the cursor is hovering over. Returns null if no object was found.
+    /// Return the GameObject that the cursor is hovering over. Returns null if no object was found.
     /// </summary>
     private GameObject GetGameObjectUnderCursor()   //This needs changes..
     {
-        //Vector3 worldPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        //RaycastHit2D hit = Physics2D.Raycast(worldPoint + Vector3.back, worldPoint);
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
         if (hit)
         {
-            return hit.collider.gameObject;
+            if (hit.collider.GetComponent<InteractableObject>() != null)
+            {
+                return hit.collider.gameObject;
+            }
+            else
+                return null;
         }
         else
         {
             return null;
         }
+
+        #region proposed rework, WIP
         //RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
         //int frontObjectIndex = 0, lastSortOrder = int.MaxValue;
@@ -161,13 +173,14 @@ public class ClickAndDrag : MonoBehaviour
 
         //if (hits.Length != 0)
         //{
-        //    //Outline this object aswell (GetComponent<SpriteOutline>())
+        //    //Outline this object (GetComponent<SpriteOutline>())
         //    return hits[frontObjectIndex].collider.gameObject;
         //}
         //else
         //{
         //    return null;
         //}
+        #endregion
 
     }
 

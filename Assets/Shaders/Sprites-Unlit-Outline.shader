@@ -59,26 +59,11 @@ Shader "Universal Render Pipeline/2D/Outline/Sprite-Unlit-Outline"
 					float totA = pixelUp.a + pixelDown.a + pixelRight.a + pixelLeft.a;
 
 					//Ceck if any of the surrounding pixels are colored
-					if (totA >= 1)
+					if (totA > 0)
 					{
 						c.rgba = fixed4(1, 1, 1, 1) * _OutlineColor;
 					}
 				}
-				else if (_Outline == 2 && c.a > 0)
-				{
-					fixed4 pixelUp = tex2D(_MainTex, IN.texcoord + fixed2(0, _MainTex_TexelSize.y));
-					fixed4 pixelDown = tex2D(_MainTex, IN.texcoord - fixed2(0, _MainTex_TexelSize.y));
-					fixed4 pixelRight = tex2D(_MainTex, IN.texcoord + fixed2(_MainTex_TexelSize.x, 0));
-					fixed4 pixelLeft = tex2D(_MainTex, IN.texcoord - fixed2(_MainTex_TexelSize.x, 0));
-
-					float totA = pixelUp.a * pixelDown.a * pixelRight.a * pixelLeft.a;
-
-					if (totA == 0)
-					{
-						c.rgba = fixed4(1, 1, 1, 1) * _OutlineColor;
-					}
-				}
-
 
 				c.rgb *= c.a;
 				return c;

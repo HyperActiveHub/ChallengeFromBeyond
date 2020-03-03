@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 6335241419254071011}
   - component: {fileID: 6335241419254071023}
   - component: {fileID: 6335241419254071022}
-  - component: {fileID: 229033932}
+  - component: {fileID: 1155802742}
+  - component: {fileID: 1155802743}
+  - component: {fileID: 1155802748}
   m_Layer: 0
   m_Name: PP Camera
   m_TagString: MainCamera
@@ -137,7 +139,7 @@ MonoBehaviour:
   m_CropFrameX: 1
   m_CropFrameY: 1
   m_StretchFill: 1
---- !u!114 &229033932
+--- !u!114 &1155802742
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,8 +148,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 6335241419254071010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b77a5795a2567a46949fbb5c13f0a51, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b3a448b1a5f0496a9b30b4576617cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followObj: {fileID: 0}
-  offset: {x: 0, y: 2.5938}
+  ListenerNumber: 0
+--- !u!114 &1155802743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6335241419254071010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 651edccfe4306a146ba791b49a13cc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraMoveSpeed: 2
+  startTarget: {fileID: 0}
+  startCameraFollowPosition: {fileID: 0}
+  cameraBorder: {x: -2.3, y: 0.11, z: 41.01, w: 10}
+  borderTexture: {fileID: 2800000, guid: 9434488a4efb54da5986eba5d5619baf, type: 3}
+--- !u!114 &1155802748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6335241419254071010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8d167a8e78f438388ff7d49d6f6425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Music/Normal
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0

@@ -38,7 +38,7 @@ public class InventoryObject : ScriptableObject
             onInventoryUpdate.Invoke();
         }
 
-        if(sortingOrder != -1)
+        if(sortingOrder != -1)  //better to set sortingLayer to an item-specific one
         {
             SpriteRenderer spriteRenderer = item.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)

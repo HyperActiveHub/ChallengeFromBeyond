@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-//[RequireComponent(typeof(SpriteOutline))]
+[RequireComponent(typeof(SpriteOutline))]
 public class InteractableObject : MonoBehaviour
 {
     public List<Interaction> interactions = new List<Interaction>();
@@ -24,6 +24,12 @@ public class InteractableObject : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private void Start()
+    {
+        BoxCollider2D col = GetComponent<BoxCollider2D>();
+        col.size = GetComponent<SpriteRenderer>().bounds.size;      //Set the box collider to be the same as the sr bounds
     }
 
     public void DisableGameObject(GameObject gameObject)
