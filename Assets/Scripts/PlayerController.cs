@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     public Transform target;
     private bool isMoving;
 
-
     [FMODUnity.EventRef]
     public string InputFootsteps;
     FMOD.Studio.EventInstance FootstepsEvent;
@@ -52,13 +51,26 @@ public class PlayerController : MonoBehaviour
         WoodParameter.setValue(WoodValue);
         StoneParameter.setValue(StoneValue);
 
-
-
-        //Vid Musklick så sätts musens position till target position
+        //Vid Musklick så sätts musens position till target position, om musen inte är över inventoryt.
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            target.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            bool hitInventory = false;
+
+            var hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
+            foreach (var hit in hits)
+            {
+                if (hit.collider.GetComponent<InventoryUI>() != null)
+                {
+                    hitInventory = true;
+                }
+            }
+
+            if (hitInventory == false)
+            {
+                target.position = mousePos;
+            }
         }
 
         //kollar om spelaren rör sig
