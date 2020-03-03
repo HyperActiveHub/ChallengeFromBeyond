@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
     private Vector3 followPosition;
     private Vector3 cameraMoveDir;
 
-    private Camera camera;
+    private Camera cam;
 
     [Tooltip("Visual aid to know camera border in scene")]
     public Texture borderTexture;
@@ -29,7 +29,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Awake()
     {
-        camera = Camera.main;
+        cam = Camera.main;
         if (startTarget)
         {
             target = startTarget;
