@@ -12,12 +12,12 @@ public class CameraFollow : MonoBehaviour
     [Tooltip("xMin, yMin, xMax, yMax")]
     public Vector4 cameraBorder;
     public static Vector3 cameraFollowPosition = Vector3.zero;
-    //[Tooltip("How far away the mouse has to be for the camera to move ")]
-    //public float mouseMovingDistance = 30;
+    //[Tooltip("How far away the mouse has to be for the camera to move ")] 
+    //public float mouseMovingDistance = 30; 
     private Vector3 followPosition;
     private Vector3 cameraMoveDir;
 
-    private Camera camera;
+    private Camera cam;
 
     [Tooltip("Visual aid to know camera border in scene")]
     public Texture borderTexture;
@@ -29,16 +29,16 @@ public class CameraFollow : MonoBehaviour
 
     private void Awake()
     {
-        camera = Camera.main;
+        cam = Camera.main;
         if (startTarget)
         {
             target = startTarget;
             cameraFollowPosition = new Vector3(-target.position.x, -target.position.y);
         }
-        cameraFollowPosition += new Vector3 (startCameraFollowPosition.position.x, startCameraFollowPosition.position.y, transform.position.z);
+        cameraFollowPosition += new Vector3(startCameraFollowPosition.position.x, startCameraFollowPosition.position.y, transform.position.z);
     }
 
-    // Update is called once per frame
+    // Update is called once per frame 
     void Update()
     {
         followPosition = cameraFollowPosition;
@@ -48,14 +48,8 @@ public class CameraFollow : MonoBehaviour
             followPosition += new Vector3(target.position.x, target.position.y);
         }
 
-        /*Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = transform.position.z;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-        if (Vector3.Distance())
-        {
-
-        }*/
+        followPosition.x = Mathf.Clamp(followPosition.x, cameraBorder.x, cameraBorder.x + cameraBorder.z);
+        followPosition.y = Mathf.Clamp(followPosition.y, cameraBorder.y, cameraBorder.y + cameraBorder.w);
 
         cameraMoveDir = (followPosition - transform.position).normalized;
         float distance = Vector3.Distance(followPosition, transform.position);
@@ -72,28 +66,29 @@ public class CameraFollow : MonoBehaviour
             }
         }
 
-        Vector3 screenEdge = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
+        //Vector3 screenEdge = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));    //this...isnt working
 
-        if (screenEdge.x < cameraBorder.x)
-        {
-            transform.position += new Vector3(cameraBorder.x - screenEdge.x, 0);
-        }
+        //if (screenEdge.x < cameraBorder.x)
+        //{
+        //    transform.position += new Vector3(cameraBorder.x - screenEdge.x, 0);
+        //}
 
-        if (screenEdge.y < cameraBorder.y)
-        {
-            transform.position += new Vector3(0, cameraBorder.y - screenEdge.y);
-        }
+        //if (screenEdge.y < cameraBorder.y)
+        //{
+        //    transform.position += new Vector3(0, cameraBorder.y - screenEdge.y);
+        //}
 
-        screenEdge = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+        //screenEdge = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
 
-        if (screenEdge.x > cameraBorder.z)
-        {
-            transform.position -= new Vector3(screenEdge.x - cameraBorder.z, 0);
-        }
+        //if (screenEdge.x > cameraBorder.z)
+        //{
+        //    transform.position -= new Vector3(screenEdge.x - cameraBorder.z, 0);
+        //}
 
-        if (screenEdge.y > cameraBorder.w)
-        {
-            transform.position -= new Vector3(0, screenEdge.y - cameraBorder.w);
-        }
+        //if (screenEdge.y > cameraBorder.w)
+        //{
+        //    transform.position -= new Vector3(0, screenEdge.y - cameraBorder.w);
+        //}
+
     }
 }
