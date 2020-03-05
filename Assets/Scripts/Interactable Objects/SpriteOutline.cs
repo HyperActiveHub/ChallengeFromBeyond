@@ -2,6 +2,8 @@
 
 //[ExecuteInEditMode]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(InteractableObject))]
+[RequireComponent(typeof(ClickAndDrag))]
 public class SpriteOutline : MonoBehaviour
 {
     [Tooltip("Should this object be illuminated by 2D-Lighting?")]
@@ -57,7 +59,7 @@ public class SpriteOutline : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Ray ray = new Ray(mousePos, Vector3.back);
 
-        if (spriteRenderer.bounds.IntersectRay(ray))
+        if (spriteRenderer.bounds.IntersectRay(ray))    //Should enable outline from ClickAndDrag, to only outline the clickable (fore-most) object.
         {
             if (GameManagerScript.Instance != null)
             {
