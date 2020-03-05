@@ -10,6 +10,11 @@ public class InteractableObject : MonoBehaviour
     [Tooltip("How close the player must be to interact with this object")]
     [Range(0.5f, 5)] public float proximityRange = 1;
 
+    [Tooltip("Drag the flowchart here. It needs to contain a block with a 'Say' command.")]
+    public Fungus.Say sayObject;
+
+    [TextArea] public string[] inspectText;
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -18,6 +23,19 @@ public class InteractableObject : MonoBehaviour
 
 
     public List<Interaction> interactions = new List<Interaction>();
+
+
+    int GetInsightLevel()
+    {
+        return 0; // temp
+    }
+
+    public void InspectDialog()
+    {
+
+        sayObject.SetStandardText(inspectText[GetInsightLevel()]);
+        sayObject.Execute();
+    }
 
     public Interaction Interact(Item otherItem)
     {
