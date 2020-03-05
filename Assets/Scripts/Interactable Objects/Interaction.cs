@@ -8,7 +8,7 @@ public class Interaction
 {
     public ItemData interactedWithItem;
     [Tooltip("If true the other item (interactedWithItem) will be destroyed when interacting with this object. (This box should be ticked for 99.9% of cases.)")]
-    public bool consumable = true;
+    public bool consumable = true;      //Warning!!! Maybe add a warning or outright disable "consumable" when the interaction is add to inverntory...
     //public bool invokeInInventory = true;
     public UnityEvent onInteraction;
     
