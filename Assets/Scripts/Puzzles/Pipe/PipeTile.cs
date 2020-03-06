@@ -1,31 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [System.Serializable]
 public class PipeTile : MonoBehaviour
 {
-    [SerializeField] private Sprite sprite;
-    [SerializeField] private Sprite activeSprite;
-    public float rotation = 0;
-    //top, right, down, left
-    //private PipeTile[] connectedTiles;
-    public Vector2Int gridPosition;
+    public Sprite sprite;
+    public Sprite activeSprite;
+    private SpriteRenderer sr = null;
+
     [SerializeField] private bool lockRotation = false;
+    [SerializeField] private float rotation = 0;
 
-    [SerializeField] public bool top = false;
-    [SerializeField] public bool right = false;
-    [SerializeField] public bool bottom = false;
-    [SerializeField] public bool left = false;
+    [HideInInspector] public bool top = false;
+    [HideInInspector] public bool right = false;
+    [HideInInspector] public bool bottom = false;
+    [HideInInspector] public bool left = false;
 
-    public bool activeFlow = false;
-    public bool alreadyActive = false;
+    //if this tile is currently part of the flow
+    [HideInInspector] public bool activeFlow = false;
+    //if this tile was activated this validation pass
+    [HideInInspector] public bool alreadyActive = false;
 
-    SpriteRenderer sr = null;
+    [Tooltip("The required insight level in order to trigger win condition. This will only be applied if this pipe is attached to the \"Pipe Puzzle component\".")]
+    [Range(0.0f,1.0f)]
+    [SerializeField] public float requiredInsightLevel = 0.0f;
 
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        rotation = transform.rotation.eulerAngles.z;
     }
 
     public void Rotate()
@@ -40,12 +45,6 @@ public class PipeTile : MonoBehaviour
         left = bottom;
         bottom = right;
         right = temp;
-
-        //bool temp = top;
-        //top = right;
-        //right = bottom;
-        //bottom = left;
-        //left = temp;
 
         rotation = (rotation - 90.0f) % 360.0f;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
@@ -81,7 +80,6 @@ public class PipeTile : MonoBehaviour
             SetFlowState(true);
             return left;
         }
-
         return false;
     }
 
@@ -92,11 +90,17 @@ public class PipeTile : MonoBehaviour
         if (activeFlow)
         {
             alreadyActive = true;
-            sr.color = new Color(0, 0, 0, 0.5f);
+            if(sr != null && activeSprite != null)
+            {
+                sr.sprite = activeSprite;
+            }
         }
         else
         {
-            sr.color = new Color(0, 0, 0, 1.0f);
+            if(sr != null && activeSprite != null)
+            {
+                sr.sprite = sprite;
+            }
         }
     }
 
@@ -106,5 +110,19 @@ public class PipeTile : MonoBehaviour
         this.right = right;
         this.bottom = bottom;
         this.left = left;
+    }
+}
+
+[CustomEditor(typeof(PipeTile))]
+public class PipeTileEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        if (GUILayout.Button("Rotate"))
+        {
+            PipeTile pipeTile = (PipeTile)target;
+            pipeTile.Rotate();
+        }
     }
 }

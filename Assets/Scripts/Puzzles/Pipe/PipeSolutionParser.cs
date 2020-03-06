@@ -73,6 +73,11 @@ public class PipeSolutionParserEditor : Editor
             psp = (PipeSolutionParser)target;
         }
 
+        if (GUILayout.Button("Reset"))
+        {
+            ClearImage();
+        }
+
         psp.selectedTexture = (Texture2D)EditorGUILayout.ObjectField("Solution Texture:", psp.selectedTexture, typeof(Texture2D), false);
 
         if(psp.selectedTexture != null && psp.selectedTexture.width != psp.imageResolution.x)
@@ -112,8 +117,6 @@ public class PipeSolutionParserEditor : Editor
             PipePuzzle pipePuzzleComponent = pipePuzzleGO.AddComponent<PipePuzzle>();
             pipePuzzleComponent.Initialize(new Vector2Int(psp.tileGrid.GetLength(0), psp.tileGrid.GetLength(1)));
 
-//            Debug.Log(string.Format("tileGrid.GetLength() = X:{0} Y:{1}", psp.tileGrid.GetLength(0), psp.tileGrid.GetLength(1)));
-
             pipePuzzleComponent.boardGridSize = new Vector2Int(psp.imageResolution.x / 3, psp.imageResolution.y / 3);
 
             for (int y = 0; y < psp.tileGrid.GetLength(1); y++)
@@ -130,19 +133,14 @@ public class PipeSolutionParserEditor : Editor
                     PipeTile pipeTile = newPipe.GetComponent<PipeTile>();
 
                     //TODO: ALLOW MANUAL ROTATION.
-                    for (int i = 0; i < Random.Range(0,5); i++)
-                    {
-                        pipeTile.Rotate();
-                    }
-                    pipeTile.gridPosition = new Vector2Int(x,y);
+                    //for (int i = 0; i < Random.Range(0,5); i++)
+                    //{
+                    //    pipeTile.Rotate();
+                    //}
                     pipePuzzleComponent.InsertPipeTile(pipeTile, new Vector2Int(x,y));
                     psp.pipeTiles[x, y] = pipeTile;
                 }
             }
-
-//            Debug.Log(string.Format("psp pipeTiles = {0}", psp.pipeTiles));
-
-            
         }
 
         //DRAW ONLY IF VALUES ARE SAVED
@@ -170,10 +168,10 @@ public class PipeSolutionParserEditor : Editor
             {
                 Color[] currentTile = psp.selectedTexture.GetPixels(x * 3, y * 3, 3, 3);
                 PipeAsset generatedPipeAsset = GenerateTileFromPixels(currentTile);
-                if(generatedPipeAsset == null)
-                {
-                    Debug.LogWarning(string.Format("Pipe on the tile X:{0} Y:{1} could not be recognized as a pipe, please make sure all pipes are in the pipe assets array.", x, y), this);
-                }
+                //if(generatedPipeAsset == null)
+                //{
+                //    Debug.LogWarning(string.Format("Tile X:{0} Y:{1} could not be recognized as a pipe. Was this intended? :^)", x, y), this);
+                //}
                 psp.tileGrid[x, y] = generatedPipeAsset;
             }
         }
@@ -343,6 +341,7 @@ public class PipeSolutionParserEditor : Editor
 
     private void ClearImage()
     {
+        psp.uniqueColors = new List<Color>();
         psp.selectedTexture = null;
         psp.imageResolution = new Vector2Int(0, 0);
     }

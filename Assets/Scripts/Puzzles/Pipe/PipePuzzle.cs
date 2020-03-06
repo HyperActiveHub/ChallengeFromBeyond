@@ -5,15 +5,18 @@ using UnityEngine;
 [System.Serializable]
 public class PipePuzzle : MonoBehaviour
 {
-    public Vector2Int boardGridSize;
-    private int[,] gameBoard;
+    [HideInInspector] public Vector2Int boardGridSize;
 
     [Header("References")]
     [SerializeField] private Camera puzzleCamera = null;
-    [SerializeField] private PipeTile inflow = null;
-    [SerializeField] private PipeTile outflow;
-
+    [SerializeField] private PipeTile inflowPipe = null;
+    [SerializeField] private List<PipeTile> outflowPipes = null;
     [SerializeField] private Array2D pipeTiles;
+
+    private void OnEnable()
+    {
+        ValidateFlow();
+    }
 
     private void OnValidate()
     {
@@ -21,13 +24,19 @@ public class PipePuzzle : MonoBehaviour
             Debug.LogError("Please attach a camera to this pipe puzzle!", this);
         }
 
-        if (inflow == null){
-            Debug.LogError("Please attach a inflow pipe tile to this pipe puzzle!", this);
+        if (inflowPipe == null){
+            Debug.LogError("Please attach an inflow pipe tile to this pipe puzzle!", this);
+        }
+
+        if (outflowPipes == null)
+        {
+            Debug.LogError("Please attach an outflow pipe tile to this pipe puzzle!", this);
         }
     }
 
     private void ValidateFlow()
     {
+        //Reset previous solution
         for (int y = 0; y < boardGridSize.y; y++)
         {
             for (int x = 0; x < boardGridSize.x; x++)
@@ -41,56 +50,74 @@ public class PipePuzzle : MonoBehaviour
             }
         }
 
-        if(inflow != null)
-        {
-            inflow.SetFlowState(true);
-        }
+        //Do it all again. TODO: Only validate relevant parts. No need to validate everything again.
 
-        RecursiveValidation(inflow);
+        inflowPipe.SetFlowState(true);
+        RecursiveValidation(inflowPipe);
+        CheckWinCondition();
     }
+
+    private void CheckWinCondition()
+    {
+        for (int i = 0; i < outflowPipes.Count; i++)
+        {
+            if (outflowPipes[i].activeFlow)
+            {
+                if (InsightGlobal.InsightValue >= outflowPipes[i].requiredInsightLevel)
+                {
+                    Debug.LogError("Win osv");
+                }
+            }
+        }
+    }
+        
 
     private void RecursiveValidation(PipeTile pipeTile)
     {
         PipeTile[,] surroundingTiles = GetSurroundingTiles(pipeTiles.GetPosition(pipeTile));
 
-        //top
+        //The tile on TOP of the current tile.
         if (pipeTile.top)
         {
             if (surroundingTiles[1, 2] != null)
             {
+                //If the tile above is able to make a connection DOWN.
                 if (surroundingTiles[1, 2].ValidateConnection("bottom"))
                 {
                     RecursiveValidation(surroundingTiles[1, 2]);
                 }
             }
         }
-        //right
+        //The tile to the RIGHT of the current tile.
         if (pipeTile.right)
         {
             if (surroundingTiles[2, 1] != null)
             {
+                //If the tile to the right is able to make a connection to the LEFT.
                 if (surroundingTiles[2, 1].ValidateConnection("left"))
                 {
                     RecursiveValidation(surroundingTiles[2, 1]);
                 }
             }
         }
-        //bottom
+        //The tile on the BOTTOM of the current tile.
         if (pipeTile.bottom)
         {
             if (surroundingTiles[1, 0] != null)
             {
+                //If the tile below is able to make a connection UP.
                 if (surroundingTiles[1, 0].ValidateConnection("top"))
                 {
                     RecursiveValidation(surroundingTiles[1, 0]);
                 }
             }
         }
-        //left
+        //The tile to the LEFT of the current tile.
         if (pipeTile.left)
         {
             if (surroundingTiles[0, 1] != null)
             {
+                //If the tile to the right is able to make a connection to the RIGHT.
                 if (surroundingTiles[0, 1].ValidateConnection("right"))
                 {
                     RecursiveValidation(surroundingTiles[0, 1]);
@@ -123,12 +150,6 @@ public class PipePuzzle : MonoBehaviour
 
     public void Initialize(Vector2Int gridSize)
     {
-        //if (pipeTiles == null)
-        //{
-        //    this.pipeTiles = new PipeTile[gridSize.x, gridSize.y];
-        //    Debug.Log("pipeTiles Initialized!");
-        //}
-
         pipeTiles = new Array2D(gridSize.x, gridSize.y);
     }
 
@@ -137,17 +158,11 @@ public class PipePuzzle : MonoBehaviour
         pipeTiles.SetTile(position.x, position.y, pipeTile);
     }
 
-    public void PrintInfo()
-    {
-        //Debug.Log(pipeTiles2[0].pipeTileArray[0]);
-    }
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(puzzleCamera.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
-            Debug.DrawRay(puzzleCamera.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Color.red, 4.0f);
 
             if (hit)
             {

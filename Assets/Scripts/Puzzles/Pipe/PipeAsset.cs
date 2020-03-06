@@ -8,8 +8,8 @@ using UnityEngine.Events;
 public class PipeAsset : ScriptableObject
 {
     //public bool canRotate;
-    public Sprite sprite = null;
-    public Sprite activeSprite = null;
+    [SerializeField] public Sprite sprite = null;
+    [SerializeField] public Sprite activeSprite = null;
 
     public bool top = false;
     public bool right = false;
@@ -48,18 +48,26 @@ public class PipeAsset : ScriptableObject
         GameObject newPipe = new GameObject(string.Format("PipeTile ({0},{1})", position.x, position.y));
         newPipe.transform.position = position;
         SpriteRenderer spriteRenderer = newPipe.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = sprite;
 
-        newPipe.AddComponent<BoxCollider2D>();
+        BoxCollider2D collider = newPipe.AddComponent<BoxCollider2D>();
+        collider.size = new Vector2(1.0f, 1.0f);
 
         PipeTile pipeTile = newPipe.AddComponent<PipeTile>();
         pipeTile.SetRotationMask(this.top, this.right, this.bottom, this.left);
+
+        pipeTile.sprite = sprite;
+        pipeTile.activeSprite = activeSprite;
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = pipeTile.sprite;
+        }
         return newPipe;
     }
 }
 
 #region Editor
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
 [CustomEditor(typeof(PipeAsset))]
 public class PipeAssetEditor : Editor
 {
@@ -72,6 +80,7 @@ public class PipeAssetEditor : Editor
         }
 
         targetTile.sprite = (Sprite)EditorGUILayout.ObjectField("Sprite:", targetTile.sprite, typeof(Sprite), false);
+        targetTile.activeSprite = (Sprite)EditorGUILayout.ObjectField("Active Sprite:", targetTile.activeSprite, typeof(Sprite), false);
 
         GUILayout.Label("Flow configuration");
         GUILayout.BeginHorizontal();
@@ -95,5 +104,5 @@ public class PipeAssetEditor : Editor
         EditorGUILayout.Space();
     }
 }
-//#endif
+#endif
 #endregion

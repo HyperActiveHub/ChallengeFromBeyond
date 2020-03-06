@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 242ccbde1846a45239a55e22909fdaee, type: 3}
-  m_Name: New Puzzle Layout
+  m_Name: PL_1
   m_EditorClassIdentifier: 
-  selectedTexture: {fileID: 2800000, guid: fa71e8e46221244249d4f8df35f71b99, type: 3}
-  imageResolution: {x: 21, y: 12}
+  selectedTexture: {fileID: 2800000, guid: 187ee0ab760494dbfb767b32daaba06f, type: 3}
+  imageResolution: {x: 27, y: 18}
   tiles:
-  - color: {r: 0.37254903, g: 0.8039216, b: 0.89411765, a: 1}
+  - color: {r: 0, g: 0.6313726, b: 1, a: 1}
     tileType: 1
+  - color: {r: 0.37254903, g: 0.8039216, b: 0.89411765, a: 1}
+    tileType: 0
   - color: {r: 0.89411765, g: 0.37254903, b: 0.37254903, a: 1}
     tileType: 0
   - color: {r: 1, g: 1, b: 1, a: 1}
@@ -24,8 +26,10 @@ MonoBehaviour:
   pipeAssets:
   - {fileID: 11400000, guid: 8c45df35d23cd495e9646a84334f7eef, type: 2}
   - {fileID: 11400000, guid: 41ff63e24ac1c4bd19175042d40de304, type: 2}
+  - {fileID: 11400000, guid: 17e0600c52afd4d0780e460a0d008765, type: 2}
   uniqueColors:
+  - {r: 0, g: 0.6313726, b: 1, a: 1}
   - {r: 0.37254903, g: 0.8039216, b: 0.89411765, a: 1}
   - {r: 0.89411765, g: 0.37254903, b: 0.37254903, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
-  tileInfo: 010000000000000000000000
+  tileInfo: 01000000000000000000000000000000

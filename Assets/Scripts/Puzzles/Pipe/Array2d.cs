@@ -30,7 +30,7 @@ public class Array2D
 
     public PipeTile GetTile(int x, int y)
     {
-        if(x < 0 || x > externalArray.Length - 1)
+        if (x < 0 || x > externalArray.Length - 1)
         {
             return null;
         }
@@ -39,7 +39,7 @@ public class Array2D
         {
             return null;
         }
-        Debug.Log(string.Format("Returning tile at {0}, {1}", x, y));
+
         return externalArray[x].pipeTiles[y];
     }
 
