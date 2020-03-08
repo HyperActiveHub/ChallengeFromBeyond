@@ -11,27 +11,19 @@ public class DropDownFunction : ButtonFunction
     public Dropdown dropdown;
     public virtual void SetValue(int value)
     {
-        ExitDropDown();
+        menuButton.ExitDropDown();
     }
 
     public override void Press()
     {
         EnterDropDown();
+        menuButton.ExitDropDown();
     }
 
     public void EnterDropDown()
     {
-        menuButtonController.inDropDown = true;
-        menuButton.countUp = false;
+        menuButton.EnterDropDown();
         DisplayDropdownOptions();
-        Debug.Log("Entered");
-    }
-    
-    public void ExitDropDown()
-    {
-        menuButton.sinceDroppedDown = 0;
-        menuButton.countUp = true;
-        Debug.Log("Exited");
     }
 
     public void DisplayDropdownOptions()
