@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 878715425652007526}
   - component: {fileID: 418643924015851770}
   - component: {fileID: 430300636}
+  - component: {fileID: 6411530776803752518}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -69,6 +70,7 @@ MonoBehaviour:
   isSlider: 0
   animatorButtonFunctions: {fileID: 418643924015851770}
   thisIndex: 0
+  countUp: 0
 --- !u!95 &878715425652007526
 Animator:
   serializedVersion: 3
@@ -115,6 +117,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 
+--- !u!114 &6411530776803752518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4409553631096140992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5385582647198072080}
+          m_MethodName: mouseDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5385582647198072080}
+          m_MethodName: mouseEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5385582647198072080}
+          m_MethodName: mouseExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5223167684078213102
 GameObject:
   m_ObjectHideFlags: 0
