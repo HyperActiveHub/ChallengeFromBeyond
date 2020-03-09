@@ -29,6 +29,19 @@ public static class InsightGlobal
     private static bool initialized = false;
     private static Camera camera;
 
+    static void Awake()
+    {
+        if (InsightMaximum<=0)
+        {
+            InsightMaximum = 10;
+        }
+
+        if (InsightMaximum <= 0)
+        {
+            InsightMaximum = 10;
+        }
+    }
+
     // ensures you call this method from a script in your first loaded scene
     public static void Initialize()
     {
@@ -54,7 +67,8 @@ public static class InsightGlobal
     public static void ChangeInsight(int amount)
     {
         Mathf.Clamp(amount, -m_InsightLayerValue, m_InsightMaximum - m_InsightLayerValue);
-        for (int i = 0; i < Mathf.Abs(amount); i++)
+        InsightValue += amount;
+        /*for (int i = 0; i < Mathf.Abs(amount); i++)
         {
             int toggle;
             if(amount > 0)
@@ -72,7 +86,7 @@ public static class InsightGlobal
             {
                 camera.cullingMask |= (toggle << LayerMask.NameToLayer(string.Format("{0} {1}", "Insight level ", amount + i)));
             }
-        }
-        
+        }*/
+
     }
 }

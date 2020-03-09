@@ -11,8 +11,6 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GridLayoutGroup gridLayoutGroup = null;
     [Tooltip("What each inventory slot should be instantiated as. This can be a empty game object with a rect transform.")]
     [SerializeField] private GameObject inventorySlotPrefab = null;
-
-    //TODO: Implement this:
     //[Tooltip("This is the content rect transform that is scrolling. It's used to adapt the content area height to the number of inventory slots.")]
     //[SerializeField] private RectTransform content = null;
     private List<GameObject> inventorySlotTransforms = null;
