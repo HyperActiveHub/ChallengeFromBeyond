@@ -10,7 +10,23 @@ public class MenuButtonController : MonoBehaviour
 	[SerializeField] bool keyDown;
 	public bool inDropDown = false;
 	[SerializeField] int maxIndex;
+	public GameObject[] sliders;
 
+	private void OnDisable()
+	{
+		foreach (GameObject slider in sliders)
+		{
+			slider.SetActive(false);
+		}
+	}
+
+	private void OnEnable()
+	{
+		foreach (GameObject slider in sliders)
+		{
+			slider.SetActive(true);
+		}
+	}
 
 	// Update is called once per frame
 	void Update()

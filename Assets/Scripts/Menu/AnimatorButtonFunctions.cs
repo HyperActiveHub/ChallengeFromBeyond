@@ -11,6 +11,8 @@ public class AnimatorButtonFunctions : MonoBehaviour
 	{
 		if (!disableOnce)
 		{
+			FMOD.Studio.Bus masterBus = FMODUnity.RuntimeManager.GetBus("bus:/");
+			masterBus.stopAllEvents(FMOD.Studio.STOP_MODE.IMMEDIATE);
 			FMODUnity.RuntimeManager.PlayOneShotAttached(filePath, menuButtonController);
 		}
 		else
