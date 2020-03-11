@@ -9,11 +9,10 @@ public class InteractableObject : MonoBehaviour
 {
     [Tooltip("How close the player must be to interact with this object")]
     [Range(0.5f, 5)] public float proximityRange = 1;
-
     [Tooltip("Drag the flowchart here. It needs to contain a block with a 'Say' command.")]
-    public Fungus.Say sayObject;
-
-    [TextArea] public string[] inspectText;
+    [SerializeField] Fungus.Say sayObject;
+    [TextArea] public string inspectText;
+    public List<Interaction> interactions = new List<Interaction>();
 
     private void OnDrawGizmos()
     {
@@ -21,19 +20,14 @@ public class InteractableObject : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, proximityRange);
     }
 
-
-    public List<Interaction> interactions = new List<Interaction>();
-
-
-    int GetInsightLevel()
+    public void SetInspectText(string newInspectText)
     {
-        return 0; // temp
+        inspectText = newInspectText;
     }
 
     public void InspectDialog()
     {
-
-        sayObject.SetStandardText(inspectText[GetInsightLevel()]);
+        sayObject.SetStandardText(inspectText);
         sayObject.Execute();
     }
 
@@ -57,6 +51,7 @@ public class InteractableObject : MonoBehaviour
 
     private void Start()
     {
+        SetInspectText(inspectText);
         BoxCollider2D col = GetComponent<BoxCollider2D>();
         col.size = GetComponent<SpriteRenderer>().bounds.size;      //Set the box collider to be the same as the sr bounds
     }
