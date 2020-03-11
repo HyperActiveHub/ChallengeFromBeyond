@@ -113,6 +113,7 @@ public class PipeTile : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(PipeTile))]
 public class PipeTileEditor : Editor
 {
@@ -126,3 +127,4 @@ public class PipeTileEditor : Editor
         }
     }
 }
+#endif
