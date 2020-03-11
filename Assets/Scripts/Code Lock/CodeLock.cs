@@ -8,6 +8,7 @@ public class CodeLock : MonoBehaviour
     [SerializeField] private List<CodeLockDigit> digits;
     [SerializeField] private int[] solution;
     [HideInInspector] public UnityEvent onUpdate;
+    [SerializeField] private UnityEvent onWin;
 
     private void OnEnable()
     {
@@ -22,7 +23,7 @@ public class CodeLock : MonoBehaviour
     private void CheckWinCondition()
     {
         if (ValidateSolution()) {
-            Debug.Log("Win");
+            onWin.Invoke();
         }
     }
 
@@ -30,6 +31,12 @@ public class CodeLock : MonoBehaviour
     {
         if(digits.Count == 0)
         {
+            return false;
+        }
+
+        if(digits.Count != solution.Length)
+        {
+            Debug.LogError(string.Format("Number of digits: {0}, no. digits in the solution {1}. They need to match!", digits.Count, solution.Length));
             return false;
         }
 
