@@ -151,7 +151,6 @@ public class MenuButton : MonoBehaviour
 	public void mouseEnter()
 	{
 		hovering = true;
-		Debug.Log(hovering);
 		selected();
 	}
 
