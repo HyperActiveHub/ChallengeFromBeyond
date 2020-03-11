@@ -11,16 +11,36 @@ public class MenuButton : MonoBehaviour
 	[SerializeField] bool isSlider = false;
 	[SerializeField] AnimatorButtonFunctions animatorButtonFunctions;
 	[SerializeField] int thisIndex;
-	public int sinceDroppedDown = 4;
+	private int sinceDroppedDown = 4;
 	public bool countUp = false;
-	private int countDown = 4;
+	private bool releasedButton = true;
+	private int countDown = 2;
+	private bool hovering = false;
+
+	public void ExitDropDown()
+	{
+		sinceDroppedDown = 0;
+		countUp = true;
+		if (Input.GetAxis("Submit") != 0)
+		{
+			releasedButton = false;
+		}
+	}
+
+	public void EnterDropDown()
+	{
+		countUp = false;
+		sinceDroppedDown = 0;
+		menuButtonController.inDropDown = true;
+	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (sinceDroppedDown >= countDown)
+		if (sinceDroppedDown >= countDown && countUp && releasedButton)
 		{
 			menuButtonController.inDropDown = false;
+			countUp = false;
 		}
 		if (!menuButtonController.inDropDown)
 		{
@@ -28,16 +48,12 @@ public class MenuButton : MonoBehaviour
 			{
 				if (menuButtonController.index == thisIndex)
 				{
-					animator.SetBool("selected", true);
+					selected();
 					if (!isSlider)
 					{
 						if (Input.GetAxis("Submit") == 1)
 						{
-							animator.SetBool("pressed", true);
-							if (buttonFunction)
-							{
-								buttonFunction.Press();
-							}
+							pressed();
 						}
 						else if (animator.GetBool("pressed"))
 						{
@@ -50,10 +66,10 @@ public class MenuButton : MonoBehaviour
 						float input = Input.GetAxis("Horizontal");
 						if (input != 0)
 						{
-							animator.SetBool("pressed", true);
+							pressed();
 							if (sliderFunction)
 							{
-								sliderFunction.ChangeValue(input);
+								sliderFunction.SetValue(input);
 							}
 						}
 						else if (animator.GetBool("pressed"))
@@ -65,7 +81,7 @@ public class MenuButton : MonoBehaviour
 				}
 				else
 				{
-					animator.SetBool("selected", false);
+					notSelected();
 				}
 			}
 			else
@@ -76,10 +92,7 @@ public class MenuButton : MonoBehaviour
 					{
 						if (Input.GetAxis("Submit") == 1)
 						{
-							if (buttonFunction)
-							{
-								buttonFunction.Press();
-							}
+							pressed();
 						}
 					}
 					else
@@ -89,7 +102,7 @@ public class MenuButton : MonoBehaviour
 						{
 							if (sliderFunction)
 							{
-								sliderFunction.ChangeValue(input);
+								sliderFunction.SetValue(input);
 							}
 						}
 					}
@@ -100,6 +113,55 @@ public class MenuButton : MonoBehaviour
 		if (countUp)
 		{
 			sinceDroppedDown++;
+			if (Input.GetAxis("Submit") == 0)
+			{
+				releasedButton = true;
+			}
 		}
+	}
+
+	private void selected()
+	{
+		if (animator)
+		{
+			animator.SetBool("selected", true);
+		}
+	}
+
+	private void notSelected()
+	{
+		if (animator && !hovering)
+		{
+			animator.SetBool("selected", false);
+		}
+	}
+
+	private void pressed()
+	{
+		if (animator)
+		{
+			animator.SetBool("pressed", true);
+		}
+		if (buttonFunction)
+		{
+			buttonFunction.Press();
+		}
+	}
+
+	public void mouseEnter()
+	{
+		hovering = true;
+		selected();
+	}
+
+	public void mouseExit()
+	{
+		hovering = false;
+		notSelected();
+	}
+
+	public void mouseDown()
+	{
+		pressed();
 	}
 }
