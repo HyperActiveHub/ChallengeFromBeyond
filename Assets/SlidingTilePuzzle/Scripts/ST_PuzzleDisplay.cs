@@ -37,8 +37,12 @@ public class ST_PuzzleDisplay : MonoBehaviour
 	// has the puzzle been completed?
 	public bool Complete = false;
 
-	// Use this for initialization
-	void Start () 
+    [FMODUnity.EventRef]
+    public string InputSliderSound;
+    FMOD.Studio.EventInstance SlidingEvent;
+
+    // Use this for initialization
+    void Start () 
 	{
 		// create the games puzzle tiles from the provided image.
 		CreatePuzzleTiles();
@@ -51,8 +55,45 @@ public class ST_PuzzleDisplay : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		// move the puzzle to the position set in the inspector.
-		this.transform.localPosition = PuzzlePosition;
+        if (Complete)
+        {
+            TileDisplayArray[0, 0].GetComponent<ST_PuzzleTile>().Active = true;
+            TileDisplayArray[0, 0].GetComponent<ST_PuzzleTile>().GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
+            TileDisplayArray[0, 0].GetComponent<ST_PuzzleTile>().GetComponent<MeshRenderer>().enabled = true;
+            if (SeperationBetweenTiles > 0f)
+            {
+            SeperationBetweenTiles = Mathf.Lerp(SeperationBetweenTiles, 0f, Time.deltaTime * 2);
+
+            }
+            
+            for (int j = Height - 1; j >= 0; j--)
+            {
+                for (int i = 0; i < Width; i++)
+                {
+                    // calculate the position of this tile all centred around Vector3(0.0f, 0.0f, 0.0f).
+                    Position = new Vector3(((Scale.x * (i + 0.5f)) - (Scale.x * (Width / 2.0f))) * (10.0f + SeperationBetweenTiles),
+                                           0.0f,
+                                          ((Scale.z * (j + 0.5f)) - (Scale.z * (Height / 2.0f))) * (10.0f + SeperationBetweenTiles));
+
+                    // set this location on the display grid.
+                    DisplayPositions.Add(Position);
+
+
+                    // set and increment the display number counter.
+                    ST_PuzzleTile thisTile = TileDisplayArray[i, j].GetComponent<ST_PuzzleTile>();
+                    thisTile.ArrayLocation = new Vector2(i, j);
+                    thisTile.GridLocation = new Vector2(i, j);
+                    thisTile.LaunchPositionCoroutine(Position);
+                    
+
+              
+                }
+            }
+            
+        }
+
+                // move the puzzle to the position set in the inspector.
+                this.transform.localPosition = PuzzlePosition;
 
 		// set the scale of the entire puzzle object as set in the inspector.
 		this.transform.localScale = PuzzleScale;
@@ -73,6 +114,8 @@ public class ST_PuzzleDisplay : MonoBehaviour
 			// move the empty tile into this tiles current position.
 			MoveTo.LaunchPositionCoroutine(thisTile.TargetPosition);
 			MoveTo.GridLocation = GridLocation;
+
+            SlidingEvent.start();
 
 			// return the new target position.
 			return TargetPos;
@@ -180,12 +223,12 @@ public class ST_PuzzleDisplay : MonoBehaviour
 
 	private IEnumerator JugglePuzzle()
 	{
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(0.0f);
 
 		// hide a puzzle tile (one is always missing to allow the puzzle movement).
 		TileDisplayArray[0,0].GetComponent<ST_PuzzleTile>().Active = false;
 
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(0.0f);
 
 		for(int k = 0; k < 20; k++)
 		{
@@ -197,7 +240,7 @@ public class ST_PuzzleDisplay : MonoBehaviour
 					// attempt to execute a move for this tile.
 					TileDisplayArray[i,j].GetComponent<ST_PuzzleTile>().ExecuteAdditionalMove();
 
-					yield return new WaitForSeconds(0.02f);
+					yield return new WaitForSeconds(0.0f);
 				}
 			}
 		}
@@ -311,13 +354,6 @@ public class ST_PuzzleDisplay : MonoBehaviour
 			}
 		}
 
-		/*
-		// Enable an impossible puzzle for fun!
-		// switch the second and third grid location textures.
-		Material thisTileMaterial2 = TileDisplayArray[1,3].GetComponent<Renderer>().material;
-		Material thisTileMaterial3 = TileDisplayArray[2,3].GetComponent<Renderer>().material;
-		TileDisplayArray[1,3].GetComponent<Renderer>().material = thisTileMaterial3;
-		TileDisplayArray[2,3].GetComponent<Renderer>().material = thisTileMaterial2;
-		*/
+	
 	}
 }
