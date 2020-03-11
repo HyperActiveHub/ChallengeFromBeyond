@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FungusInsight : MonoBehaviour
 {
-    public int insight;
+    public float insight;
 
-    public void ChangeInsight(int amount)
+    public void ChangeInsight(float amount)
     {
-        InsightGlobal.ChangeInsight(amount);
+        InsightGlobal.AddInsight(amount);
         insight = InsightGlobal.InsightValue;
         Debug.Log("raised insight");
     }
