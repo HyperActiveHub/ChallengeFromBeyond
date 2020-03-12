@@ -8,6 +8,7 @@ public class HelperToolsEditor : EditorWindow
     private bool addInteractableObject = true;
     private bool overrideItemData = false;
     [SerializeField] private InventoryObject inventoryObject = null;
+    private PipePuzzle pipePuzzle;
 
     [MenuItem("Window/Helper Tools")]
     public static void ShowWindow()
