@@ -46,7 +46,7 @@ public class FungusConversationFunctions : MonoBehaviour
 
     public void ChangeInsight(int amount)
     {
-        InsightGlobal.ChangeInsight(amount);
+        InsightGlobal.AddInsight(amount);
         Debug.Log("raised insight");
     }
 }
