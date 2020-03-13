@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //TEMP, REMOVE LATER
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 //TEMP, REMOVE LATER
 public class GameManagerScript : MonoBehaviour
 {
@@ -30,13 +30,18 @@ public class GameManagerScript : MonoBehaviour
     [HideInInspector]
     public Material litOutlineMat, unlitOutlineMat;
 
+    Animator transision;
+    public float transisionTime = 1;
+    [HideInInspector] public bool hasAwakened;
+
     private void Awake()
     {
         if (_instance == null)
         {
             _instance = this;
+            DontDestroyOnLoad(this);
         }
-        else if(_instance != null)
+        else if (_instance != null)
         {
             Destroy(this.gameObject);
         }
@@ -49,7 +54,13 @@ public class GameManagerScript : MonoBehaviour
         //item.AddComponent<Item>().SetItem(Resources.Load<ItemData>("Items/I_Lamp_Stand"));
         //item.GetComponent<Item>().inventoryObject = Resources.FindObjectsOfTypeAll<InventoryObject>()[0];
         //item.GetComponent<SpriteRenderer>().sortingOrder = 5;
-        
+
+        transision = GameObject.Find("Crossfade").GetComponent<Animator>();
+        if (transision == null)
+        {
+            Debug.LogError("Crossfade object (animator) not found. Please add Crossfade (with that exact name) to the scene.", this);
+        }
+
     }
 
     public float GetOutlineMode()
@@ -57,12 +68,27 @@ public class GameManagerScript : MonoBehaviour
         return (float)outlineMode;
     }
 
+    public void ChangeScene(string sceneName)
+    {
+        StartCoroutine(LoadLevel(sceneName));
+    }
+
+    IEnumerator LoadLevel(string name)
+    {
+        transision.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transisionTime);
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene(name);
+    }
+
     private void Start()
     {
+
     }
 
     void Update()
     {
-        
+
     }
 }
