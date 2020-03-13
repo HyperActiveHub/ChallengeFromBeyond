@@ -8,7 +8,7 @@ public class FungusInsight : MonoBehaviour
 
     public void ChangeInsight(float amount)
     {
-        InsightGlobal.AddInsight(amount);
+        InsightGlobal.AddInsight(amount, this);
         insight = InsightGlobal.InsightValue;
         Debug.Log("raised insight");
     }
