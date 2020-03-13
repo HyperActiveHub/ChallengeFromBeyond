@@ -24,7 +24,7 @@ public class PipeTile : MonoBehaviour
     [HideInInspector] public bool alreadyActive = false;
 
     [Tooltip("The required insight level in order to trigger win condition. This will only be applied if this pipe is attached to the \"Pipe Puzzle component\".")]
-    [Range(0.0f,1.0f)]
+    [Range(0.0f, 1.0f)]
     [SerializeField] public float requiredInsightLevel = 0.0f;
 
     [Header("Animation")]
@@ -89,7 +89,7 @@ public class PipeTile : MonoBehaviour
             return true;
         }
 
-        if(top & direction == "top")
+        if (top & direction == "top")
         {
             SetFlowState(true);
             return top;
@@ -115,8 +115,25 @@ public class PipeTile : MonoBehaviour
         return false;
     }
 
-        rotation = (rotation - 90.0f) % 360.0f;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
+    public void SetFlowState(bool newState)
+    {
+        activeFlow = newState;
+
+        if (activeFlow)
+        {
+            alreadyActive = true;
+            if (sr != null && activeSprite != null)
+            {
+                sr.sprite = activeSprite;
+            }
+        }
+        else
+        {
+            if (sr != null && activeSprite != null)
+            {
+                sr.sprite = sprite;
+            }
+        }
     }
 
     public void SetRotationMask(bool top, bool right, bool bottom, bool left)
@@ -146,11 +163,10 @@ public class PipeTile : MonoBehaviour
         right = temp;
 
         rotation = (rotation - 90.0f) % 360.0f;
-        transform.rotation = Quaternion.Euler(new Vector3(0,0,rotation));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
     }
 }
 
-#if UNITY_EDITOR
 
 [CustomEditor(typeof(PipeTile))]
 public class PipeTileEditor : Editor
@@ -165,14 +181,3 @@ public class PipeTileEditor : Editor
         }
     }
 }
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        if (GUILayout.Button("Rotate"))
-        {
-            PipeTile pipeTile = (PipeTile)target;
-        }
-    }
-}
-#endif
