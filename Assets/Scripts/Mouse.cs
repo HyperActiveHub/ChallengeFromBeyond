@@ -19,10 +19,13 @@ public class Mouse : MonoBehaviour
         Puzzle
     }
 
-    public Sprite Default, Bag, Bubble, BubbleText, Front, Magnifier, Left, Right, Puzzle;
+    public Sprite Default, Bag, Bubble, BubbleText, Magnifier, Up, Left, Right, Puzzle;
 
     public static mouseSprite mouse;
     public mouseSprite previousMouse;
+
+    public Vector2 defaultOffset, bagOffset, bubbleOffset, bubbleTextOffset, magnifierOffset, upOffset, leftOffset, rightOffset, puzzleOffset;
+    private Vector2 offset;
 
     // Start is called before the first frame update
     void Start()
@@ -34,30 +37,39 @@ public class Mouse : MonoBehaviour
         {
             case mouseSprite.Default:
                 renderer.sprite = Default;
+                offset = defaultOffset;
                 break;
             case mouseSprite.Bag:
                 renderer.sprite = Bag;
+                offset = bagOffset;
                 break;
             case mouseSprite.Bubble:
                 renderer.sprite = Bubble;
+                offset = bubbleOffset;
                 break;
             case mouseSprite.BubbleText:
                 renderer.sprite = BubbleText;
+                offset = bubbleTextOffset;
                 break;
             case mouseSprite.Magnifier:
                 renderer.sprite = Magnifier;
+                offset = magnifierOffset;
                 break;
             case mouseSprite.Front:
-                renderer.sprite = Front;
+                renderer.sprite = Up;
+                offset = upOffset;
                 break;
             case mouseSprite.Left:
                 renderer.sprite = Left;
+                offset = leftOffset;
                 break;
             case mouseSprite.Right:
                 renderer.sprite = Right;
+                offset = rightOffset;
                 break;
             case mouseSprite.Puzzle:
                 renderer.sprite = Puzzle;
+                offset = puzzleOffset;
                 break;
             default:
                 Debug.Log("NOTHING FOR MOUSE");
@@ -68,6 +80,10 @@ public class Mouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Cursor.visible)
+        {
+            Cursor.visible = false;
+        }
         if (previousMouse != mouse)
         {
             switch (mouse)
@@ -88,7 +104,7 @@ public class Mouse : MonoBehaviour
                     renderer.sprite = Magnifier;
                     break;
                 case mouseSprite.Front:
-                    renderer.sprite = Front;
+                    renderer.sprite = Up;
                     break;
                 case mouseSprite.Left:
                     renderer.sprite = Left;
@@ -105,8 +121,12 @@ public class Mouse : MonoBehaviour
             }
             previousMouse = mouse;
         }
-        
+
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (offset != null)
+        {
+            mousePos += offset;
+        }
         transform.position = mousePos;
     }
 }
