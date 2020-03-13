@@ -10,7 +10,7 @@ public class ChangeInsight : Command
 
     public override void OnEnter()
     {
-        InsightGlobal.AddInsight(insight);
+        InsightGlobal.AddInsight(insight, this);
         Debug.Log("raised insight");
         Continue();
     }
