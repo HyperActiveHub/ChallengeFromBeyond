@@ -27,6 +27,14 @@ public class CodeLock : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            this.gameObject.SetActive(false);
+        }
+    }
+
     private bool ValidateSolution()
     {
         if(digits.Count == 0)
