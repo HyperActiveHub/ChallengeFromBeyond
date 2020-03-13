@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class PipePuzzle : MonoBehaviour
@@ -12,6 +13,8 @@ public class PipePuzzle : MonoBehaviour
     [SerializeField] private PipeTile inflowPipe = null;
     [SerializeField] private List<PipeTile> outflowPipes = null;
     [SerializeField] private Array2D pipeTiles;
+
+    [SerializeField] private UnityEvent onWin;
 
     private void OnEnable()
     {
@@ -65,7 +68,7 @@ public class PipePuzzle : MonoBehaviour
             {
                 if (InsightGlobal.InsightValue >= outflowPipes[i].requiredInsightLevel)
                 {
-                    Debug.LogError("Win osv");
+                    onWin.Invoke();
                 }
             }
         }
