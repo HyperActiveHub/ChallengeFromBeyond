@@ -27,6 +27,11 @@ public class PipeTile : MonoBehaviour
     [Range(0.0f,1.0f)]
     [SerializeField] public float requiredInsightLevel = 0.0f;
 
+    [Header("Animation")]
+    [SerializeField] private float totalAnimationLength = 0.2f;
+    [SerializeField] private AnimationCurve animationCurve;
+    private bool animationComplete = true;
+
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -40,6 +45,11 @@ public class PipeTile : MonoBehaviour
             return;
         }
 
+        if (!animationComplete)
+        {
+            return;
+        }
+
         bool temp = top;
         top = left;
         left = bottom;
@@ -47,7 +57,29 @@ public class PipeTile : MonoBehaviour
         right = temp;
 
         rotation = (rotation - 90.0f) % 360.0f;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
+        //transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
+        StartCoroutine(RotationAnimation());
+    }
+
+    private IEnumerator RotationAnimation()
+    {
+        float timeSinceAnimationStart = 0.0f;
+
+        //Update sprites
+        animationComplete = false;
+
+        Quaternion initialRotation = transform.rotation;
+
+        //Animate
+        while (timeSinceAnimationStart < totalAnimationLength)
+        {
+            timeSinceAnimationStart += Time.deltaTime;
+            float lerpRotation = animationCurve.Evaluate(timeSinceAnimationStart / totalAnimationLength);
+            transform.rotation = Quaternion.Lerp(initialRotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotation), lerpRotation);
+            //transform.rotation = Quaternion.Euler(0,0,rotation);
+            yield return null;
+        }
+        animationComplete = true;
     }
 
     public bool ValidateConnection(string direction)
@@ -83,25 +115,8 @@ public class PipeTile : MonoBehaviour
         return false;
     }
 
-    public void SetFlowState(bool newState)
-    {
-        activeFlow = newState;
-
-        if (activeFlow)
-        {
-            alreadyActive = true;
-            if(sr != null && activeSprite != null)
-            {
-                sr.sprite = activeSprite;
-            }
-        }
-        else
-        {
-            if(sr != null && activeSprite != null)
-            {
-                sr.sprite = sprite;
-            }
-        }
+        rotation = (rotation - 90.0f) % 360.0f;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
     }
 
     public void SetRotationMask(bool top, bool right, bool bottom, bool left)
@@ -111,9 +126,32 @@ public class PipeTile : MonoBehaviour
         this.bottom = bottom;
         this.left = left;
     }
+
+    public void EditorRotate()
+    {
+        if (lockRotation)
+        {
+            return;
+        }
+
+        if (!animationComplete)
+        {
+            return;
+        }
+
+        bool temp = top;
+        top = left;
+        left = bottom;
+        bottom = right;
+        right = temp;
+
+        rotation = (rotation - 90.0f) % 360.0f;
+        transform.rotation = Quaternion.Euler(new Vector3(0,0,rotation));
+    }
 }
 
 #if UNITY_EDITOR
+
 [CustomEditor(typeof(PipeTile))]
 public class PipeTileEditor : Editor
 {
@@ -123,7 +161,17 @@ public class PipeTileEditor : Editor
         if (GUILayout.Button("Rotate"))
         {
             PipeTile pipeTile = (PipeTile)target;
-            pipeTile.Rotate();
+            pipeTile.EditorRotate();
+        }
+    }
+}
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        if (GUILayout.Button("Rotate"))
+        {
+            PipeTile pipeTile = (PipeTile)target;
         }
     }
 }
