@@ -7,12 +7,19 @@ using UnityEngine;
 [RequireComponent(typeof(ClickAndDrag))]
 public class InteractableObject : MonoBehaviour
 {
+    [Header("Inspect")]
     [Tooltip("How close the player must be to interact with this object")]
     [Range(0.5f, 5)] public float proximityRange = 1;
     [Tooltip("Drag the flowchart here. It needs to contain a block with a 'Say' command.")]
     [SerializeField] Fungus.Say sayObject;
     [TextArea] public string inspectText;
+    [Tooltip("How much insight is gained when inspecting this object (first level).")]
+    [SerializeField] float insightWorth;
+    bool hasAddedInsight;
+
+    [Header("Interactions")]
     public List<Interaction> interactions = new List<Interaction>();
+
 
     private void OnDrawGizmos()
     {
@@ -29,6 +36,35 @@ public class InteractableObject : MonoBehaviour
     {
         sayObject.SetStandardText(inspectText);
         sayObject.Execute();
+    }
+
+    public void AddInsight()
+    {
+        if (!hasAddedInsight)
+        {
+            InsightGlobal.AddInsight(insightWorth, this);
+            Debug.Log("insight: " + InsightGlobal.InsightValue * 100 + "%");
+            hasAddedInsight = true;
+        }
+    }
+
+    public void SetInsightWorth(float newValue)
+    {
+        insightWorth = newValue;
+        hasAddedInsight = false;
+    }
+
+    public void PlaySoundIfEnabled()
+    {
+        var obj = GetComponent<FMODUnity.StudioEventEmitter>();
+        if (obj.enabled)
+        {
+            if(obj.IsPlaying())
+            {
+                obj.Stop();
+            }
+            obj.Play();
+        }
     }
 
     public Interaction Interact(Item otherItem)

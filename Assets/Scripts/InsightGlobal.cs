@@ -25,15 +25,15 @@ public static class InsightGlobal
     }
 
 
-    public static void AddInsight(float amount)
+    public static void AddInsight(float amount, UnityEngine.Object calledFrom)
     {
         if (amount <= 0)
         {
-            Debug.LogError("added insight amount must be more than 0.");
+            Debug.LogError("added insight amount must be more than 0.", calledFrom);
         }
         else if (amount >= 1)
         {
-            Debug.LogError("Can't add more than 100%, add a value between 0 and 1.");
+            Debug.LogError("Can't add more than 100%, add a value between 0 and 1.", calledFrom);
         }
         else
             m_InsightValue += amount;
