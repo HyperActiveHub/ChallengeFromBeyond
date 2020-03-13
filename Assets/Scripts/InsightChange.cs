@@ -33,7 +33,6 @@ public class InsightChange : MonoBehaviour
 
     void Start()
     {
-        //InsightGlobal.AddInsight(0.5f);
     }
 
     void Update()

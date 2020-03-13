@@ -1,23 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Fungus;
 
-public static class GetVariable
+public class GetVariable : MonoBehaviour
 {
-    public static int getInt(string variableName , Flowchart flowchart)
+    public VariablePortObject variablePort = null;
+
+    public void OnEnable()
     {
-        int variable = flowchart.GetIntegerVariable(variableName);
-        return variable;
+        if (variablePort == null)
+        {
+            variablePort = Resources.Load<VariablePortObject>("Fungus/VariablePort");
+        }
+        variablePort.onVariable += OnVariable;
     }
-    public static float getFloat(string variableName, Flowchart flowchart)
+
+    public void OnDisable()
     {
-        float variable = flowchart.GetFloatVariable(variableName);
-        return variable;
+        variablePort.onVariable -= OnVariable;
     }
-    public static string getString(string variableName, Flowchart flowchart)
+
+    public void OnVariable(VariablePortObject variablePort, string variableName, string variable)
     {
-        string variable = flowchart.GetStringVariable(variableName);
-        return variable;
+        float outputFloat;
+        bool success = float.TryParse(variable, out outputFloat);
+        if (success)
+        {
+            int outputInt;
+            success = int.TryParse(variable, out outputInt);
+            if (success)
+            {
+                gameObject.SendMessage(variableName, outputInt);
+            }
+            else
+            {
+                gameObject.SendMessage(variableName, outputFloat);
+            }
+        }
+        else
+        {
+            gameObject.SendMessage(variableName, variable);
+        }
     }
 }

@@ -36,16 +36,16 @@ public class ST_PuzzleDisplay : MonoBehaviour
 
 	// has the puzzle been completed?
 	public bool Complete = false;
-/*
+
     [FMODUnity.EventRef]
     public string InputSliderSound;
     FMOD.Studio.EventInstance SlidingEvent;
-    */
+    
     // Use this for initialization
     void Start () 
 	{
 
-       // SlidingEvent = FMODUnity.RuntimeManager.CreateInstance(InputSliderSound);
+       SlidingEvent = FMODUnity.RuntimeManager.CreateInstance(InputSliderSound);
         // create the games puzzle tiles from the provided image.
         CreatePuzzleTiles();
 
@@ -117,7 +117,7 @@ public class ST_PuzzleDisplay : MonoBehaviour
 			MoveTo.LaunchPositionCoroutine(thisTile.TargetPosition);
 			MoveTo.GridLocation = GridLocation;
 
-            //SlidingEvent.start();
+            SlidingEvent.start();
 
 			// return the new target position.
 			return TargetPos;

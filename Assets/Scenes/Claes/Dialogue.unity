@@ -731,6 +731,7 @@ GameObject:
   - component: {fileID: 488579694}
   - component: {fileID: 488579695}
   - component: {fileID: 488579696}
+  - component: {fileID: 488579697}
   m_Layer: 0
   m_Name: ConversationRouter
   m_TagString: Untagged
@@ -764,6 +765,7 @@ MonoBehaviour:
   eventHandler: {fileID: 488579691}
   commandList:
   - {fileID: 488579696}
+  - {fileID: 488579697}
   - {fileID: 488579695}
   - {fileID: 488579690}
   - {fileID: 488579689}
@@ -1214,7 +1216,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 488579681}
   selectedCommands:
-  - {fileID: 488579686}
+  - {fileID: 488579697}
   variables:
   - {fileID: 488579684}
   description: 
@@ -1309,6 +1311,23 @@ MonoBehaviour:
   itemId: 11
   indentLevel: 0
   talker: 0
+--- !u!114 &488579697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488579680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7942eea1b5ee2434ebc4b6f3d17e20fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  variablePort: {fileID: 0}
+  variableName: Conversations
+  variableType: 0
 --- !u!1 &518510325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,7 +1591,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794752410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.3, y: 2.74, z: -1.8514946}
+  m_LocalPosition: {x: -6.5, y: 2.74, z: -1.8514946}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 488579693}
@@ -1880,6 +1899,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1030903470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1030903473}
+  - component: {fileID: 1030903472}
+  - component: {fileID: 1030903471}
+  m_Layer: 0
+  m_Name: Tester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1030903471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030903470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bee11a072c1234499e6fe6bf9154ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  variablePort: {fileID: 0}
+--- !u!114 &1030903472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030903470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce055f3e1684e7b45aecad0d57f86e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1030903473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030903470}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 229.4527, y: 118.25668, z: -137.5625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1259685683
 GameObject:
@@ -2581,6 +2657,7 @@ GameObject:
   - component: {fileID: 1742546685}
   - component: {fileID: 1742546687}
   - component: {fileID: 1742546631}
+  - component: {fileID: 1742546688}
   m_Layer: 0
   m_Name: Conversation
   m_TagString: Untagged
@@ -2740,7 +2817,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &1742546631
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3005,7 +3082,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 549.9356
     y: 135.03749
-    width: 139.11392
+    width: 140.1818
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3073,6 +3150,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1742546631}
+  - {fileID: 1742546688}
   - {fileID: 1742546681}
   - {fileID: 1742546680}
   - {fileID: 1742546677}
@@ -3382,11 +3460,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -2.401833, y: -153.16}
+  scrollPos: {x: 124.08195, y: 11.795077}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.78999996
+  zoom: 0.5500002
   scrollViewRect:
     serializedVersion: 2
     x: 0
@@ -3394,9 +3472,8 @@ MonoBehaviour:
     width: 0
     height: 0
   selectedBlocks:
-  - {fileID: 1742546643}
-  selectedCommands:
-  - {fileID: 1742546631}
+  - {fileID: 1742546653}
+  selectedCommands: []
   variables:
   - {fileID: 1742546667}
   - {fileID: 1742546683}
@@ -4335,7 +4412,7 @@ MonoBehaviour:
     vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &1742546687
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4354,6 +4431,23 @@ MonoBehaviour:
     booleanRef: {fileID: 0}
     booleanVal: 0
   targetGameObjectOLD: {fileID: 0}
+--- !u!114 &1742546688
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742546625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7942eea1b5ee2434ebc4b6f3d17e20fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 84
+  indentLevel: 0
+  variablePort: {fileID: 0}
+  variableName: TalkPoints
+  variableType: 0
 --- !u!1 &1757643230
 GameObject:
   m_ObjectHideFlags: 0
