@@ -17,14 +17,14 @@ public class Item : MonoBehaviour
 
     private void OnValidate()
     {
-        if (itemData == null)
-        {
-            Debug.LogWarning("Item GameObject has no attached item. Please attach one.", this);
-        }
-
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        if (itemData == null)
+        {
+            Debug.LogWarning("Item GameObject has no attached item. Please attach one.", this);
         }
 
         if (spriteRenderer != null)
@@ -45,22 +45,29 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
+        var items = FindObjectsOfType<Item>();
+
+        //need to keep track of if item is already picked-up, used or others. Prevent items from spawning in scenes if already used/picked up.
+        //currently, if items are used, they will spawn in scenes. 
+        //Duplicates will NOT spawn if the item exists already, hopefully in inventory.
+        foreach (var item in items)
+        {
+            //unsure of itemID usage...
+            if (item.itemData == itemData && gameObject != item.gameObject)  //same itemData, but not same object
+            {
+                Debug.LogWarning("A copy of item: '" + itemData.displayText + "' was found in the scene, and was removed.");
+                if (isInInventory)
+                {
+                    Destroy(item.gameObject);
+                }
+                else
+                    Destroy(gameObject);
+            }
+
+        }
+
         itemData.itemID = gameObject.GetInstanceID();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        //spriteRenderer.sortingLayerName = itemLayer
-
-        //Dont use this in build... only meant to simplify testing.
-        //if (GetComponent<InteractableObject>().interactions.Count == 0)
-        //{
-        //    Debug.LogWarning("Added pickup interaction for this item, should be done beforehand.", this);
-        //    Interaction pickup = new Interaction();
-        //    pickup.consumable = false;
-        //    pickup.onInteraction = new UnityEngine.Events.UnityEvent();
-        //    pickup.onInteraction.AddListener(InsertThisToInventory);  //Since this is a "non-persistent listener", it will not show up in inspector
-        //    GetComponent<InteractableObject>().interactions.Add(pickup);
-        //}
-        //Dont use this in build... only meant to simplify testing.
-
     }
 
     private void ReloadItem()
@@ -86,14 +93,14 @@ public class Item : MonoBehaviour
     {
         if (isInInventory)
         {
-            inventoryObject.RemoveFromInventory(this.gameObject);
+            inventoryObject.RemoveFromInventory(gameObject);
         }
 
         GameObject instantiatedObject = Instantiate(prefab, transform.position, Quaternion.identity);
         instantiatedObject.name = itemData.displayText;
         InsertToInventory(instantiatedObject);
 
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -123,7 +130,7 @@ public class Item : MonoBehaviour
         else
         {
             item.gameObject.SetActive(false);
-            item.GetComponent<SpriteRenderer>().sortingLayerName = "TestForeground";    //temp
+            item.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";    //temp
             inventoryObject.AddToInventory(item);
             item.GetComponent<SpriteOutline>().SetMaterial(false);
         }
@@ -146,7 +153,7 @@ public class Item : MonoBehaviour
         }
 
         itemObj.SetActive(false);
-        itemObj.GetComponent<SpriteRenderer>().sortingLayerName = "TestForeground";    //temp
+        itemObj.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";    //temp
         inventoryObject.AddToInventory(itemObj);
         itemObj.GetComponent<SpriteOutline>().SetMaterial(false);
     }
