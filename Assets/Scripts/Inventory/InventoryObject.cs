@@ -8,6 +8,7 @@ public class InventoryObject : ScriptableObject
 {
     [SerializeField] private bool clearInventoryOnEnable = true;
     public List<GameObject> itemsInInventory;
+    public List<ItemData> itemDataInInventory;
     public UnityAction onInventoryUpdate = null;
 
     [Tooltip("What order the items should be rendered at. -1 means no change.")]
@@ -32,6 +33,7 @@ public class InventoryObject : ScriptableObject
 
         itemComponent.isInInventory = true;
         itemsInInventory.Add(item);
+        //itemDataInInventory.Add(item.GetComponent<Item>().itemData);    //adds itself again..
 
         if (onInventoryUpdate != null)
         {
@@ -67,6 +69,7 @@ public class InventoryObject : ScriptableObject
         if (clearInventoryOnEnable)
         {
             itemsInInventory = new List<GameObject>();
+            //itemDataInInventory = new List<ItemData>();
         }
     }
 }
