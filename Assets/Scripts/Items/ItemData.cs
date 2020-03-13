@@ -10,4 +10,7 @@ public class ItemData : ScriptableObject
     [Tooltip("Will change to this sprite when item is added to inventory. Will not replace sprite if left empty.")]
     public Sprite itemSpriteInventory;
     public string displayText;
+    [HideInInspector] public InteractableObject interactableData;
+
+
 }

@@ -17,43 +17,62 @@ public class Item : MonoBehaviour
 
     private void OnValidate()
     {
-        if (itemData == null)
-        {
-            Debug.LogWarning("Item GameObject has no attached item. Please attach one.", this);
-        }
-
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        if (spriteRenderer != null)
-        {
-            ReloadItem();
-        }
+        //temp turned off
+        //if (itemData == null)
+        //{
+        //    Debug.LogWarning("Item GameObject has no attached item. Please attach one.", this);
+        //}
 
-        if (itemData.displayText == "")
-        {
-            Debug.LogWarning(string.Format("The item \"{0}\" is missing a proper display text.", itemData.name), this);
-        }
+        //if (spriteRenderer != null)
+        //{
+        //    ReloadItem(); 
+        //}
 
-        if (itemData.itemSprite == null)
-        {
-            Debug.LogWarning(string.Format("The item \"{0}\" is missing a sprite.", itemData.name), this);
-        }
+        //if (itemData.displayText == "")
+        //{
+        //    Debug.LogWarning(string.Format("The item \"{0}\" is missing a proper display text.", itemData.name), this);
+        //}
+
+        //if (itemData.itemSprite == null)
+        //{
+        //    Debug.LogWarning(string.Format("The item \"{0}\" is missing a sprite.", itemData.name), this);
+        //}
     }
 
     private void Start()
     {
         itemData.itemID = gameObject.GetInstanceID();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (itemData.interactableData != null)
+        {
+            var type = itemData.interactableData.GetType();
+            var fields = type.GetFields();
+            InteractableObject copy = GetComponent<InteractableObject>();
+
+            foreach (var field in fields)
+            {
+                //maybe deal with fields in itemData to not have to do this as often
+                field.SetValue(copy, field.GetValue(itemData.interactableData));
+            }
+        }
+        else
+        {
+            itemData.interactableData = GetComponent<InteractableObject>(); //this may be needed to be done just before scene-change..
+        }
+
         //spriteRenderer.sortingLayerName = itemLayer
 
         //Dont use this in build... only meant to simplify testing.
         //if (GetComponent<InteractableObject>().interactions.Count == 0)
         //{
         //    Debug.LogWarning("Added pickup interaction for this item, should be done beforehand.", this);
-        //    Interaction pickup = new Interaction();
+        //    Interaction pickup = new Interaction();< 
         //    pickup.consumable = false;
         //    pickup.onInteraction = new UnityEngine.Events.UnityEvent();
         //    pickup.onInteraction.AddListener(InsertThisToInventory);  //Since this is a "non-persistent listener", it will not show up in inspector
@@ -123,7 +142,7 @@ public class Item : MonoBehaviour
         else
         {
             item.gameObject.SetActive(false);
-            item.GetComponent<SpriteRenderer>().sortingLayerName = "TestForeground";    //temp
+            item.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";    //temp
             inventoryObject.AddToInventory(item);
             item.GetComponent<SpriteOutline>().SetMaterial(false);
         }
@@ -146,7 +165,7 @@ public class Item : MonoBehaviour
         }
 
         itemObj.SetActive(false);
-        itemObj.GetComponent<SpriteRenderer>().sortingLayerName = "TestForeground";    //temp
+        itemObj.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";    //temp
         inventoryObject.AddToInventory(itemObj);
         itemObj.GetComponent<SpriteOutline>().SetMaterial(false);
     }

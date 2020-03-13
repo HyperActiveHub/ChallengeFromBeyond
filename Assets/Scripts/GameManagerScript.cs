@@ -29,8 +29,6 @@ public class GameManagerScript : MonoBehaviour
     const string unlitMatPath = "Materials/UnlitSpriteOutline";
     [HideInInspector]
     public Material litOutlineMat, unlitOutlineMat;
-
-    Animator transision;
     public float transisionTime = 1;
     [HideInInspector] public bool hasAwakened;
 
@@ -40,11 +38,21 @@ public class GameManagerScript : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(this);
+            FindObjectOfType<InventoryUI>().inventory.itemDataInInventory.Clear();
+            print("Cleared saved inventory");
         }
         else if (_instance != null)
         {
             Destroy(this.gameObject);
         }
+
+        
+
+        //if (/*game started.*/)
+        //{
+        //FindObjectOfType<InventoryUI>().inventory.itemDataInInventory.Clear();
+        //print("ree");
+        //}
 
         litOutlineMat = Resources.Load<Material>(litMatPath);
         unlitOutlineMat = Resources.Load<Material>(unlitMatPath);
@@ -55,11 +63,6 @@ public class GameManagerScript : MonoBehaviour
         //item.GetComponent<Item>().inventoryObject = Resources.FindObjectsOfTypeAll<InventoryObject>()[0];
         //item.GetComponent<SpriteRenderer>().sortingOrder = 5;
 
-        transision = GameObject.Find("Crossfade").GetComponent<Animator>();
-        if (transision == null)
-        {
-            Debug.LogError("Crossfade object (animator) not found. Please add Crossfade (with that exact name) to the scene.", this);
-        }
 
     }
 
@@ -75,7 +78,21 @@ public class GameManagerScript : MonoBehaviour
 
     IEnumerator LoadLevel(string name)
     {
+        //Need to get animator each time LoadLevel call, since its difference animator objects in each scene.
+        Animator transision = GameObject.Find("Crossfade").GetComponent<Animator>();
+        if (transision == null)
+        {
+            Debug.LogError("Crossfade object (animator) not found. Please add Crossfade (with that exact name) to the scene.", this);
+        }
         transision.SetTrigger("Start");
+
+        var inv = FindObjectOfType<InventoryUI>().inventory;
+
+        inv.itemDataInInventory.Clear();
+        foreach (var item in inv.itemsInInventory)  //Save itemData to re-initialize inventory on next scene.
+        {
+            inv.itemDataInInventory.Add(item.GetComponent<Item>().itemData);
+        }
 
         yield return new WaitForSeconds(transisionTime);
 
