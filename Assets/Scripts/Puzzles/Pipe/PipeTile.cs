@@ -115,25 +115,8 @@ public class PipeTile : MonoBehaviour
         return false;
     }
 
-    public void SetFlowState(bool newState)
-    {
-        activeFlow = newState;
-
-        if (activeFlow)
-        {
-            alreadyActive = true;
-            if(sr != null && activeSprite != null)
-            {
-                sr.sprite = activeSprite;
-            }
-        }
-        else
-        {
-            if(sr != null && activeSprite != null)
-            {
-                sr.sprite = sprite;
-            }
-        }
+        rotation = (rotation - 90.0f) % 360.0f;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotation));
     }
 
     public void SetRotationMask(bool top, bool right, bool bottom, bool left)
@@ -167,6 +150,7 @@ public class PipeTile : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 
 [CustomEditor(typeof(PipeTile))]
 public class PipeTileEditor : Editor
@@ -181,3 +165,14 @@ public class PipeTileEditor : Editor
         }
     }
 }
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        if (GUILayout.Button("Rotate"))
+        {
+            PipeTile pipeTile = (PipeTile)target;
+        }
+    }
+}
+#endif

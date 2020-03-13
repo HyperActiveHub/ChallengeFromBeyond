@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.Events;
+#if UNITY_EDITOR
 using UnityEditor.UI;
+#endif
 
 [CreateAssetMenu(fileName = "New Puzzle Layout", menuName = "Custom Assets/Puzzle/Pipe Puzzle Layout")]
 public class PipeSolutionParser : ScriptableObject
@@ -50,7 +52,7 @@ public class TileColor
 }
 
 #region Editor
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
 [CustomEditor(typeof(PipeSolutionParser))]
 public class PipeSolutionParserEditor : Editor
 {
@@ -348,5 +350,5 @@ public class PipeSolutionParserEditor : Editor
 
 }
 
-//#endif
+#endif
 #endregion

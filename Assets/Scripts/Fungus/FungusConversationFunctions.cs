@@ -15,23 +15,34 @@ public class FungusConversationFunctions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SayDialog = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Fungus/Resources/Prefabs/SayDialog.prefab", typeof(GameObject));
-        SayDialogPanel = SayDialog.transform.GetChild(0).gameObject;
-        StartCoroutine(LateStart(0.1f));
+        SayDialog = GameObject.Find("SayDialog");
+        if (!SayDialog)
+        {
+            SayDialog = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Fungus/Resources/Prefabs/SayDialog.prefab", typeof(GameObject));
+            SayDialogPanel = SayDialog.transform.GetChild(0).gameObject;
+            ChangeSayDialog("Player");
+            StartCoroutine(LateStart(0.1f));
+        }
     }
 
     IEnumerator LateStart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         SayDialog = GameObject.Find("SayDialog");
-        SayDialogPanel = SayDialog.transform.GetChild(0).gameObject;
+        if (SayDialog)
+        {
+            SayDialogPanel = SayDialog.transform.GetChild(0).gameObject;
+        }
+        else
+        {
+            StartCoroutine(LateStart(0.1f));
+        }
     }
 
     public void ChangeSayDialog(string talker)
     {
         if(talker == "Player")
         {
-            Debug.Log("Player");
             SayDialogPanel.GetComponent<Image>().sprite = PlayerPanel;
         }
         if (talker == "Jasper")
@@ -46,7 +57,7 @@ public class FungusConversationFunctions : MonoBehaviour
 
     public void ChangeInsight(int amount)
     {
-        InsightGlobal.ChangeInsight(amount);
+        InsightGlobal.AddInsight(amount, this);
         Debug.Log("raised insight");
     }
 }

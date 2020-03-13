@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public float cameraMoveSpeed = 50f;
+    public float cameraMoveSpeed = 2f;
     public static Transform target;
     public Transform startTarget;
     [Tooltip("Position relative to target")]
