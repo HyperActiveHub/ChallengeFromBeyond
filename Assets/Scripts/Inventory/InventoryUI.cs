@@ -7,7 +7,7 @@ public class InventoryUI : MonoBehaviour
 {
     [Header("References")]
     [Tooltip("The InventoryObject asset that this script will read inventory content from.")]
-    [SerializeField] private InventoryObject inventory = null;
+    [SerializeField] public InventoryObject inventory = null;
     [SerializeField] private GridLayoutGroup gridLayoutGroup = null;
     [Tooltip("What each inventory slot should be instantiated as. This can be a empty game object with a rect transform.")]
     [SerializeField] private GameObject inventorySlotPrefab = null;
@@ -28,21 +28,23 @@ public class InventoryUI : MonoBehaviour
 
     private void OnValidate()
     {
-        if(gridLayoutGroup == null)
+        if (gridLayoutGroup == null)
         {
             Debug.LogWarning("Please attach a Grid Layout Group to this Inventory UI", this);
         }
 
-        if(inventory == null)
+        if (inventory == null)
         {
             Debug.LogWarning("Please attach a Inventory Object to this Inventory UI", this);
         }
 
-        if(inventorySlotPrefab == null)
+        if (inventorySlotPrefab == null)
         {
             Debug.LogWarning("Please attach a Inventory Slot Prefab to this Inventory UI", this);
         }
     }
+
+
 
     private void Awake()
     {
@@ -57,17 +59,56 @@ public class InventoryUI : MonoBehaviour
 
     private void OnEnable()
     {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         inventory.onInventoryUpdate += EnableGameObjects;
         inventory.onInventoryUpdate += SortInventory;
-
-        EnableGameObjects();
-        SortInventory();
     }
+
+
 
     private void OnDisable()
     {
         inventory.onInventoryUpdate -= SortInventory;
         inventory.onInventoryUpdate -= EnableGameObjects;
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    {
+        //foreach (var go in inventory.itemsInInventory)
+        //{
+        //    Destroy(go);
+        //}
+
+        //Fucked up combine, itemlists are not updated..
+
+        RePopulateInventory();
+
+        EnableGameObjects();
+        SortInventory();
+    }
+
+    private void RePopulateInventory()
+    {
+        inventory.itemsInInventory.Clear();
+
+        var itemDatas = inventory.itemDataInInventory;
+        foreach (var item in itemDatas)
+        {
+            GameObject newItem = Resources.Load<GameObject>("ItemPrefabs/" + item.displayText);
+            if(newItem == null)
+            {
+                Debug.LogError("Item prefab not found. Make sure that the item is prefabbed in Resources/ItemPrefabs, " +
+                    "and has the exact same name as 'displayText' on its itemData.", this);
+            }
+
+            newItem = Instantiate(newItem);
+            newItem.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";
+            newItem.GetComponent<SpriteOutline>().UseLighting = false;
+
+            inventory.AddToInventory(newItem);
+            newItem.transform.localScale = Vector3.one;
+        }
     }
 
     private void EnableGameObjects()
@@ -81,7 +122,7 @@ public class InventoryUI : MonoBehaviour
 
     public void ButtonWasPressed()
     {
-        if(animator != null)
+        if (animator != null)
         {
             animator.SetBool(animationParameter, inventoryIsActive);
         }
