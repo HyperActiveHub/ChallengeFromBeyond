@@ -4,7 +4,7 @@ using UnityEngine;
 using Fungus;
 
 [CommandInfo("Variable", "Send variable", "Sends the variable and its name")]
-public class SendVariables : Command
+public class SendVariable : Command
 {
     [Tooltip("If it isn't the default")] public VariablePortObject variablePort = null;
     public string variableName;
