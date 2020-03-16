@@ -27,6 +27,15 @@ public class PlayerController : MonoBehaviour
 
     public GameObject backgroundTilemap;
 
+    private void Awake()
+    {
+        if (GameManagerScript.Instance.hasAwakened == false)
+        {
+            anim.SetTrigger("WakeUp");
+            GameManagerScript.Instance.hasAwakened = true;
+        }
+    }
+
     public void Start()
     {
         rbody = gameObject.GetComponent<Rigidbody2D>();
@@ -41,6 +50,8 @@ public class PlayerController : MonoBehaviour
 
 
         InvokeRepeating("CallFootsteps", 0, 0.5f);
+
+        
     }
 
 

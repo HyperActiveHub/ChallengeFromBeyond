@@ -174,8 +174,8 @@ public class ClickAndDrag : MonoBehaviour
             //The object could not be interacted with, inform the player.
             ResetClick();
         }
-        else //if(otherItem != null)    //if object was clicked (otherItem == null), nothing should be consumed?
-            ConsumeItem(action);
+        else if(otherItem != null)    //if object was clicked (otherItem == null), nothing should be consumed
+            ConsumeItem(action, otherGameObject, otherItem);
     }
 
     /// <summary>
@@ -245,17 +245,18 @@ public class ClickAndDrag : MonoBehaviour
     }
 
     ///<Summary>
-    ///Will consume the item if it is consumable, will also remove this item from the Inventory (if possible).
+    ///Will consume the other item if the interaction is consumable
     ///</Summary>
-    private void ConsumeItem(Interaction interaction)
+    private void ConsumeItem(Interaction interaction, GameObject consumedItemObject, Item consumedItem)
     {
         if (interaction != null && interaction.consumable)
         {
+            //var itemComp = consumedItem.GetComponent<Item>();
             if (itemComponent.isInInventory)
             {
-                itemComponent.inventoryObject.RemoveFromInventory(this.gameObject);
+                itemComponent.inventoryObject.RemoveFromInventory(gameObject);
             }
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

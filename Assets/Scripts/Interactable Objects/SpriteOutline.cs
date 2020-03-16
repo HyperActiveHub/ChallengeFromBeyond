@@ -61,6 +61,8 @@ public class SpriteOutline : MonoBehaviour
 
         if (spriteRenderer.bounds.IntersectRay(ray))    //Should enable outline from ClickAndDrag, to only outline the clickable (fore-most) object.
         {
+
+
             if (GameManagerScript.Instance != null)
             {
                 mode = GameManagerScript.Instance.GetOutlineMode();
