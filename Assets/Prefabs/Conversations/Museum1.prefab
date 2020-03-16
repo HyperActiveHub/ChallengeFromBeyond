@@ -18,8 +18,10 @@ GameObject:
   - component: {fileID: 4009392490914662144}
   - component: {fileID: 2433329000135562089}
   - component: {fileID: 4955962821441059890}
+  - component: {fileID: 7351002001377710782}
+  - component: {fileID: 6275121076135693812}
   m_Layer: 0
-  m_Name: Conversation (1)
+  m_Name: Museum1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,20 +54,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 624.9932, y: 340.23273}
+  scrollPos: {x: -61.629166, y: 129.02046}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 408
-  zoom: 0.45466077
+  zoom: 0.9046606
   scrollViewRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 0
     height: 0
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 2616324344750246482}
   selectedCommands: []
-  variables: []
+  variables:
+  - {fileID: 7351002001377710782}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -101,6 +105,7 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
+  - {fileID: 6275121076135693812}
   - {fileID: 4955962821441059890}
   - {fileID: 2278126042628812787}
   - {fileID: 6998556583821611337}
@@ -122,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  indentLevel: 0
+  indentLevel: 1
   storyText: 'It seems to be a collection. It is pretty common for the rich to have
     those of some sort.
 
@@ -152,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
-  indentLevel: 0
+  indentLevel: 1
   storyText: What is this?
   description: 
   character: {fileID: 0}
@@ -179,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 22
-  indentLevel: 0
+  indentLevel: 1
   display: 1
   stage: {fileID: 0}
   character: {fileID: 0}
@@ -209,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 23
-  indentLevel: 0
+  indentLevel: 1
   display: 1
   stage: {fileID: 0}
   character: {fileID: 0}
@@ -239,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 34
-  indentLevel: 0
+  indentLevel: 1
   storyText: Jasper backs closer to Maybelle and his previous excitement has changed
     to discomfort. I take the lead, stepping into the centre of the room.
   description: 
@@ -267,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 36
-  indentLevel: 0
+  indentLevel: 1
   storyText: 'I am trying to comfort Jasper but genuinly I do not feel right either. '
   description: 
   character: {fileID: 0}
@@ -294,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 35
-  indentLevel: 0
+  indentLevel: 1
   storyText: Jasper is quickly inside with Maybelle and I soon after. We all stop
     right past the door, dazzled about the room.
   description: 
@@ -309,3 +314,82 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
+--- !u!114 &7351002001377710782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408445679276308494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 2
+  key: Conversations
+  value: 0
+--- !u!114 &6275121076135693812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408445679276308494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 37
+  indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 7351002001377710782}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 6
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  animatorData:
+    animatorRef: {fileID: 0}
+    animatorVal: {fileID: 0}
+  audioSourceData:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 0}
+  colorData:
+    colorRef: {fileID: 0}
+    colorVal: {r: 0, g: 0, b: 0, a: 0}
+  gameObjectData:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
+  materialData:
+    materialRef: {fileID: 0}
+    materialVal: {fileID: 0}
+  objectData:
+    objectRef: {fileID: 0}
+    objectVal: {fileID: 0}
+  rigidbody2DData:
+    rigidbody2DRef: {fileID: 0}
+    rigidbody2DVal: {fileID: 0}
+  spriteData:
+    spriteRef: {fileID: 0}
+    spriteVal: {fileID: 0}
+  textureData:
+    textureRef: {fileID: 0}
+    textureVal: {fileID: 0}
+  transformData:
+    transformRef: {fileID: 0}
+    transformVal: {fileID: 0}
+  vector2Data:
+    vector2Ref: {fileID: 0}
+    vector2Val: {x: 0, y: 0}
+  vector3Data:
+    vector3Ref: {fileID: 0}
+    vector3Val: {x: 0, y: 0, z: 0}
