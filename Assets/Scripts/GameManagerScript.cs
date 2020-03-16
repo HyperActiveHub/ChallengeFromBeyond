@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//TEMP, REMOVE LATER
-//[ExecuteInEditMode]
-//TEMP, REMOVE LATER
 public class GameManagerScript : MonoBehaviour
 {
     public static GameManagerScript Instance
@@ -32,37 +29,33 @@ public class GameManagerScript : MonoBehaviour
     public float transisionTime = 1;
     [HideInInspector] public bool hasAwakened;
 
+    InventoryUI inventoryUI = null;
+
     private void Awake()
     {
         if (_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(this);
-            FindObjectOfType<InventoryUI>().inventory.itemDataInInventory.Clear();
-            print("Cleared saved inventory");
+            inventoryUI = FindObjectOfType<InventoryUI>();
+
+            if(inventoryUI == null)
+            {
+                Debug.LogWarning("Missing inventory in scene.", this);
+            }
+            else
+            {
+                inventoryUI.inventory.itemDataInInventory.Clear();
+                print("Cleared saved inventory");
+            }
         }
         else if (_instance != null)
         {
             Destroy(this.gameObject);
         }
 
-        
-
-        //if (/*game started.*/)
-        //{
-        //FindObjectOfType<InventoryUI>().inventory.itemDataInInventory.Clear();
-        //print("ree");
-        //}
-
         litOutlineMat = Resources.Load<Material>(litMatPath);
         unlitOutlineMat = Resources.Load<Material>(unlitMatPath);
-
-        ///Make a new item (temp for testing purposes)
-        //GameObject item = new GameObject("someItem");
-        //item.AddComponent<Item>().SetItem(Resources.Load<ItemData>("Items/I_Lamp_Stand"));
-        //item.GetComponent<Item>().inventoryObject = Resources.FindObjectsOfTypeAll<InventoryObject>()[0];
-        //item.GetComponent<SpriteRenderer>().sortingOrder = 5;
-
 
     }
 
@@ -86,12 +79,10 @@ public class GameManagerScript : MonoBehaviour
         }
         transision.SetTrigger("Start");
 
-        var inv = FindObjectOfType<InventoryUI>().inventory;
-
-        inv.itemDataInInventory.Clear();
-        foreach (var item in inv.itemsInInventory)  //Save itemData to re-initialize inventory on next scene.
+        inventoryUI.inventory.itemDataInInventory.Clear();
+        foreach (var item in inventoryUI.inventory.itemsInInventory)
         {
-            inv.itemDataInInventory.Add(item.GetComponent<Item>().itemData);
+            inventoryUI.inventory.itemDataInInventory.Add(item.GetComponent<Item>().itemData);
         }
 
         yield return new WaitForSeconds(transisionTime);
