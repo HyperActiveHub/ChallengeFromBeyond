@@ -21,6 +21,10 @@ GameObject:
   - component: {fileID: 1077545431153383087}
   - component: {fileID: 7263675327502049269}
   - component: {fileID: 3737017293906174723}
+  - component: {fileID: 8800259666855265094}
+  - component: {fileID: 7498651003608537523}
+  - component: {fileID: 1194233753775947194}
+  - component: {fileID: 7290288718874822331}
   m_Layer: 0
   m_Name: KeyDialog1
   m_TagString: Untagged
@@ -55,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 1.6826348, y: 113.54783}
+  scrollPos: {x: -1.4272674, y: 218.24786}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 408
@@ -68,10 +72,10 @@ MonoBehaviour:
     height: 0
   selectedBlocks:
   - {fileID: 8080777797522283734}
-  selectedCommands:
-  - {fileID: 3737017293906174723}
+  selectedCommands: []
   variables:
   - {fileID: 1077545431153383087}
+  - {fileID: 8800259666855265094}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -105,9 +109,11 @@ MonoBehaviour:
   itemId: 0
   blockName: Intro
   description: 
-  eventHandler: {fileID: 0}
+  eventHandler: {fileID: 7290288718874822331}
   commandList:
+  - {fileID: 7498651003608537523}
   - {fileID: 7263675327502049269}
+  - {fileID: 1194233753775947194}
   - {fileID: 3737017293906174723}
   - {fileID: 7254562533852541406}
   - {fileID: 606562882835235377}
@@ -130,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  indentLevel: 1
+  indentLevel: 2
   storyText: 'I believe it is the key for a door.
 
 '
@@ -159,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
-  indentLevel: 1
+  indentLevel: 2
   storyText: What is in there?
   description: 
   character: {fileID: 0}
@@ -186,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 22
-  indentLevel: 1
+  indentLevel: 2
   display: 1
   stage: {fileID: 0}
   character: {fileID: 0}
@@ -216,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 23
-  indentLevel: 1
+  indentLevel: 2
   display: 1
   stage: {fileID: 0}
   character: {fileID: 0}
@@ -246,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 28
-  indentLevel: 1
+  indentLevel: 2
   storyText: The key is robust, heavy and cold in my hands as I pick it up.
   description: 
   character: {fileID: 0}
@@ -273,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 34
-  indentLevel: 1
+  indentLevel: 2
   storyText: The drawer opens and inside lies a key and next to it a small tile.
   description: 
   character: {fileID: 0}
@@ -300,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 69
-  indentLevel: 1
+  indentLevel: 2
   storyText: We must show Maybelle!
   description: 
   character: {fileID: 0}
@@ -406,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 78
-  indentLevel: 1
+  indentLevel: 2
   variable: {fileID: 1077545431153383087}
   setOperator: 2
   booleanData:
@@ -457,3 +463,113 @@ MonoBehaviour:
   vector3Data:
     vector3Ref: {fileID: 0}
     vector3Val: {x: 0, y: 0, z: 0}
+--- !u!114 &8800259666855265094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620760159418027590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: Unlocked
+  value: 0
+--- !u!114 &7498651003608537523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620760159418027590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 79
+  indentLevel: 0
+  key: CodeLock
+  variable: {fileID: 8800259666855265094}
+--- !u!114 &1194233753775947194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620760159418027590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 80
+  indentLevel: 1
+  compareOperator: 0
+  variable: {fileID: 8800259666855265094}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  animatorData:
+    animatorRef: {fileID: 0}
+    animatorVal: {fileID: 0}
+  audioSourceData:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 0}
+  colorData:
+    colorRef: {fileID: 0}
+    colorVal: {r: 0, g: 0, b: 0, a: 0}
+  gameObjectData:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
+  materialData:
+    materialRef: {fileID: 0}
+    materialVal: {fileID: 0}
+  objectData:
+    objectRef: {fileID: 0}
+    objectVal: {fileID: 0}
+  rigidbody2DData:
+    rigidbody2DRef: {fileID: 0}
+    rigidbody2DVal: {fileID: 0}
+  spriteData:
+    spriteRef: {fileID: 0}
+    spriteVal: {fileID: 0}
+  textureData:
+    textureRef: {fileID: 0}
+    textureVal: {fileID: 0}
+  transformData:
+    transformRef: {fileID: 0}
+    transformVal: {fileID: 0}
+  vector2Data:
+    vector2Ref: {fileID: 0}
+    vector2Val: {x: 0, y: 0}
+  vector3Data:
+    vector3Ref: {fileID: 0}
+    vector3Val: {x: 0, y: 0, z: 0}
+--- !u!114 &7290288718874822331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620760159418027590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 8080777797522283734}
+  suppressBlockAutoSelect: 0
+  waitForFrames: 1
