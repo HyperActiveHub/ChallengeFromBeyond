@@ -30,6 +30,7 @@ public class GameManagerScript : MonoBehaviour
     [HideInInspector] public bool hasAwakened;
 
     InventoryUI inventoryUI = null;
+    PlayerController playerController = null;
 
     private void Awake()
     {
@@ -56,6 +57,13 @@ public class GameManagerScript : MonoBehaviour
 
         litOutlineMat = Resources.Load<Material>(litMatPath);
         unlitOutlineMat = Resources.Load<Material>(unlitMatPath);
+
+        playerController = FindObjectOfType<PlayerController>();
+
+        if(playerController == null)
+        {
+            Debug.LogWarning("Player controller not found, scene is missing the player object.");
+        }
 
     }
 
@@ -90,6 +98,11 @@ public class GameManagerScript : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(name);
     }
 
+    public void SetPlayerMovement(bool value)
+    {
+        playerController.canMove = value;
+    }
+
     private void Start()
     {
 
@@ -97,6 +110,5 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
-
     }
 }
