@@ -18,7 +18,7 @@ public class ClickAndDrag : MonoBehaviour
     const float interactAtPercent = 0.45f;
 
     [Tooltip("How much the player is allowed to move the gameobject and it will still register as a click.")]
-    [SerializeField] private float clickTolerance = 13.0f;
+    [SerializeField] private float clickTolerance = 1.0f;
 
     //[Tooltip("How far the object should move towards the camera while being moved. (Used to prevent unwanted intersections)")]
     //[SerializeField] private float zOffset = -1;
