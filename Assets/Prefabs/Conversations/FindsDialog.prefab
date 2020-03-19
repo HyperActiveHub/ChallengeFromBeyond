@@ -69,6 +69,9 @@ GameObject:
   - component: {fileID: 8639417702718835213}
   - component: {fileID: 7588246247691941502}
   - component: {fileID: 9090410018232702260}
+  - component: {fileID: 837400049164396212}
+  - component: {fileID: 5917996885173510657}
+  - component: {fileID: 8597030288892096587}
   m_Layer: 0
   m_Name: FindsDialog
   m_TagString: Untagged
@@ -119,6 +122,7 @@ MonoBehaviour:
   selectedCommands: []
   variables:
   - {fileID: 8639417702718835213}
+  - {fileID: 837400049164396212}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -154,7 +158,9 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
+  - {fileID: 5917996885173510657}
   - {fileID: 7588246247691941502}
+  - {fileID: 8597030288892096587}
   - {fileID: 9090410018232702260}
   - {fileID: 584414901325284293}
   - {fileID: 3051187579851821384}
@@ -179,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  indentLevel: 1
+  indentLevel: 2
   storyText: 'There is a combination lock on one of the drawers in the common room,
     have you noticed it?
 
@@ -209,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
-  indentLevel: 1
+  indentLevel: 2
   storyText: Did you find anything?
   description: 
   character: {fileID: 0}
@@ -519,7 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 22
-  indentLevel: 1
+  indentLevel: 2
   display: 1
   stage: {fileID: 0}
   character: {fileID: 0}
@@ -549,7 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 23
-  indentLevel: 1
+  indentLevel: 2
   display: 1
   stage: {fileID: 0}
   character: {fileID: 0}
@@ -579,7 +585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 28
-  indentLevel: 1
+  indentLevel: 2
   storyText: Yes dear, I have. Any idea what the combination may be?
   description: 
   character: {fileID: 0}
@@ -606,7 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 29
-  indentLevel: 1
+  indentLevel: 2
   display: 1
   stage: {fileID: 0}
   character: {fileID: 0}
@@ -636,7 +642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 30
-  indentLevel: 1
+  indentLevel: 2
   text: No, how would I?
   description: 
   targetBlock: {fileID: 3210280706359626314}
@@ -661,7 +667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 31
-  indentLevel: 1
+  indentLevel: 2
   text: Do you?
   description: 
   targetBlock: {fileID: 2858698824048615881}
@@ -742,7 +748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 34
-  indentLevel: 1
+  indentLevel: 2
   storyText: Maybelle have stayed put, supporting her weight on a folded umbrella,
     spinning an earth globe. Without raising her eyes to me she speaks.
   description: 
@@ -1746,7 +1752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 78
-  indentLevel: 1
+  indentLevel: 2
   variable: {fileID: 8639417702718835213}
   setOperator: 2
   booleanData:
@@ -1755,6 +1761,101 @@ MonoBehaviour:
   integerData:
     integerRef: {fileID: 0}
     integerVal: 1
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  animatorData:
+    animatorRef: {fileID: 0}
+    animatorVal: {fileID: 0}
+  audioSourceData:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 0}
+  colorData:
+    colorRef: {fileID: 0}
+    colorVal: {r: 0, g: 0, b: 0, a: 0}
+  gameObjectData:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
+  materialData:
+    materialRef: {fileID: 0}
+    materialVal: {fileID: 0}
+  objectData:
+    objectRef: {fileID: 0}
+    objectVal: {fileID: 0}
+  rigidbody2DData:
+    rigidbody2DRef: {fileID: 0}
+    rigidbody2DVal: {fileID: 0}
+  spriteData:
+    spriteRef: {fileID: 0}
+    spriteVal: {fileID: 0}
+  textureData:
+    textureRef: {fileID: 0}
+    textureVal: {fileID: 0}
+  transformData:
+    transformRef: {fileID: 0}
+    transformVal: {fileID: 0}
+  vector2Data:
+    vector2Ref: {fileID: 0}
+    vector2Val: {x: 0, y: 0}
+  vector3Data:
+    vector3Ref: {fileID: 0}
+    vector3Val: {x: 0, y: 0, z: 0}
+--- !u!114 &837400049164396212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072753433947351211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: Interacted
+  value: 0
+--- !u!114 &5917996885173510657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072753433947351211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 79
+  indentLevel: 0
+  key: CodeLockInteraction
+  variable: {fileID: 837400049164396212}
+--- !u!114 &8597030288892096587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072753433947351211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 80
+  indentLevel: 1
+  compareOperator: 0
+  variable: {fileID: 837400049164396212}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
   floatData:
     floatRef: {fileID: 0}
     floatVal: 0
