@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPosition;
     public Transform target;
     private bool isMoving;
+    public bool canMove = true;
 
     [FMODUnity.EventRef]
     public string InputFootsteps;
@@ -33,7 +34,17 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetTrigger("WakeUp");
             GameManagerScript.Instance.hasAwakened = true;
+            StartCoroutine(CanMoveAfterWakeUp());
         }
+    }
+
+    IEnumerator CanMoveAfterWakeUp()
+    {
+        canMove = false;
+        yield return new WaitForEndOfFrame();
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9 && !anim.IsInTransition(0));
+        canMove = true;
     }
 
     public void Start()
@@ -63,7 +74,7 @@ public class PlayerController : MonoBehaviour
         StoneParameter.setValue(StoneValue);
 
         //Vid Musklick så sätts musens position till target position, om musen inte är över inventoryt.
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canMove)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
