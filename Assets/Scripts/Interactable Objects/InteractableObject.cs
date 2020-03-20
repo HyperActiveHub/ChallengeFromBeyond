@@ -90,6 +90,7 @@ public class InteractableObject : MonoBehaviour
         SetInspectText(inspectText);
         BoxCollider2D col = GetComponent<BoxCollider2D>();
         col.size = GetComponent<SpriteRenderer>().bounds.size;      //Set the box collider to be the same as the sr bounds
+        col.size = Vector2.Scale(Vector2.one / transform.localScale, col.size); //also take the scale of the object into account
     }
 
     public void DisableGameObject(GameObject gameObject)
