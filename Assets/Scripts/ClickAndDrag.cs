@@ -18,7 +18,7 @@ public class ClickAndDrag : MonoBehaviour
     const float interactAtPercent = 0.45f;
 
     [Tooltip("How much the player is allowed to move the gameobject and it will still register as a click.")]
-    [SerializeField] private float clickTolerance = 13.0f;
+    [SerializeField] private float clickTolerance = 1.0f;
 
     //[Tooltip("How far the object should move towards the camera while being moved. (Used to prevent unwanted intersections)")]
     //[SerializeField] private float zOffset = -1;
@@ -146,35 +146,40 @@ public class ClickAndDrag : MonoBehaviour
             {
                 item.GetComponent<SpriteRenderer>().enabled = false;
                 otherItem.GetComponent<SpriteRenderer>().enabled = false;
-                anim.SetBool("isPickingUp", true);
+                anim.SetTrigger("isPickingUp");
             }
             else    //Only walk to the item if atleast one of the items isnt in inventory (if both items are in ineventory, theres nowhere to walk to)
             {
                 player.GetComponent<PlayerController>().target.transform.position = position;
                 yield return new WaitUntil(() => Vector2.Distance(player.position, position) <= minDist);
-                anim.SetBool("isPickingUp", true);
+                anim.SetTrigger("isPickingUp");
             }
         }
         else    //Atleast one object isnt an item
         {
             player.GetComponent<PlayerController>().target.transform.position = position;
             yield return new WaitUntil(() => Vector2.Distance(player.position, position) <= minDist);
-            anim.SetBool("isPickingUp", true);
+            anim.SetTrigger("isPickingUp");
         }
 
-        yield return new WaitForEndOfFrame();   //temporary? to prevent the animator from entering the same (pickup) animation state again.
-        anim.SetBool("isPickingUp", false);
+
+        yield return new WaitForEndOfFrame();
+        GameManagerScript.Instance.SetPlayerMovement(false);
+        print("cant move");
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > interactAtPercent && !anim.IsInTransition(0));
         var action = interaction.Invoke(otherItem);
 
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && !anim.IsInTransition(0));
+        GameManagerScript.Instance.SetPlayerMovement(true);
+        print("can move again");
 
         if (action == null)
         {
             //The object could not be interacted with, inform the player.
             ResetClick();
         }
-        else if(otherItem != null)    //if object was clicked (otherItem == null), nothing should be consumed
+        else if (otherItem != null)    //if object was clicked (otherItem == null), nothing should be consumed
             ConsumeItem(action, otherGameObject, otherItem);
     }
 
