@@ -103,6 +103,22 @@ public class GameManagerScript : MonoBehaviour
         playerController.canMove = value;
     }
 
+    //need to read these bool on scene load, to set if puzzle should be interactable or not
+    public void PipePuzzleDone()
+    {
+        //set bool true
+    }
+
+    public void SlidePuzzleDone()
+    {
+        //set bool true
+    }
+
+    public void CodeLockDone()
+    {
+        //set bool true
+    }
+
     private void Start()
     {
 
@@ -110,5 +126,7 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
+
     }
+
 }

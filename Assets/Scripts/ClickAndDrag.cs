@@ -39,6 +39,16 @@ public class ClickAndDrag : MonoBehaviour
         itemComponent = GetComponent<Item>();
     }
 
+    private void OnEnable()
+    {
+        GetComponent<SpriteOutline>().enabled = true;
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<SpriteOutline>().enabled = false;
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))

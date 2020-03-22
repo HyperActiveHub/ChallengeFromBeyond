@@ -32,6 +32,8 @@ public class SpriteOutline : MonoBehaviour
 
         isLit = UseLighting;
         SetMaterial(isLit);
+
+        enabled = GetComponent<ClickAndDrag>().enabled;
     }
 
     void OnEnable()
