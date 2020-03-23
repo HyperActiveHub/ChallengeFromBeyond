@@ -10,6 +10,8 @@ public class PipePuzzle : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Camera puzzleCamera = null;
+    [FMODUnity.EventRef]
+    public string pipeTurnSoundPath;
     [SerializeField] private PipeTile inflowPipe = null;
     [SerializeField] private List<PipeTile> outflowPipes = null;
     [SerializeField] private Array2D pipeTiles;
@@ -174,6 +176,8 @@ public class PipePuzzle : MonoBehaviour
                 {
                     pipeTile.Rotate();
                     ValidateFlow();
+
+                    FMODUnity.RuntimeManager.PlayOneShot(pipeTurnSoundPath);
                 }
             }
         }
