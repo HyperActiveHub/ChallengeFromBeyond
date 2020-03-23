@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.10.00">
     <object class="ParameterPreset" id="{d2f124a1-7c47-495a-9365-4298568fbcc2}">
         <property name="name">
-            <value>Parameter 1</value>
+            <value>VoiceTypeJasper</value>
         </property>
         <relationship name="folder">
             <destination>{030b007a-37f7-4ef6-9c64-a0dde956f70c}</destination>
@@ -12,8 +12,14 @@
         </relationship>
     </object>
     <object class="GameParameter" id="{1950859c-c42a-4948-8aa2-26ceee03fe57}">
+        <property name="minimum">
+            <value>10</value>
+        </property>
+        <property name="maximum">
+            <value>30</value>
+        </property>
         <property name="initialValue">
-            <value>0</value>
+            <value>10</value>
         </property>
     </object>
 </objects>

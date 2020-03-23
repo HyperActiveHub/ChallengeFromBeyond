@@ -61,7 +61,7 @@
     <object class="MarkerTrack" id="{cea1b1d6-7a42-46c8-9357-a96dceaa34f4}"/>
     <object class="GroupTrack" id="{fdfc67a7-bae5-48a5-838f-c925bdbd47fb}">
         <relationship name="modules">
-            <destination>{a70e3620-f210-4432-b586-1ddb09ec14bd}</destination>
+            <destination>{07bced9a-052a-4fdf-bee9-9e165e2eed16}</destination>
         </relationship>
         <relationship name="mixerGroup">
             <destination>{7f27cd2e-12bc-40bc-b341-85885a425a11}</destination>
@@ -77,8 +77,8 @@
     </object>
     <object class="Timeline" id="{4120245a-18c7-4606-b266-b9190a1a9eb3}">
         <relationship name="modules">
-            <destination>{a70e3620-f210-4432-b586-1ddb09ec14bd}</destination>
             <destination>{a6fcd9cb-189b-4fef-b4a3-a67bc16a85b3}</destination>
+            <destination>{07bced9a-052a-4fdf-bee9-9e165e2eed16}</destination>
         </relationship>
         <relationship name="markers">
             <destination>{d7ad854e-9267-4c64-bdf5-38b4209de2d1}</destination>
@@ -101,15 +101,12 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{b96b4629-c0bf-44cd-a029-4f3f63d995d8}"/>
-    <object class="SingleSound" id="{a70e3620-f210-4432-b586-1ddb09ec14bd}">
+    <object class="SingleSound" id="{07bced9a-052a-4fdf-bee9-9e165e2eed16}">
         <property name="length">
-            <value>6.5</value>
-        </property>
-        <property name="volume">
-            <value>10</value>
+            <value>6.46</value>
         </property>
         <relationship name="audioFile">
-            <destination>{55134c20-e1c5-4b09-9891-79b71971c45c}</destination>
+            <destination>{d8a90080-9eaf-442e-b7e6-703d60fd14e3}</destination>
         </relationship>
     </object>
     <object class="EventMixerGroup" id="{7f27cd2e-12bc-40bc-b341-85885a425a11}">
@@ -131,7 +128,7 @@
     </object>
     <object class="SoundScatterer" id="{a6fcd9cb-189b-4fef-b4a3-a67bc16a85b3}">
         <property name="length">
-            <value>6.6060580863463798</value>
+            <value>6.46</value>
         </property>
         <property name="spawnRate">
             <value>20</value>
@@ -168,7 +165,7 @@
             <value>0</value>
         </property>
         <property name="length">
-            <value>6.5</value>
+            <value>6.46</value>
         </property>
         <relationship name="timeline">
             <destination>{4120245a-18c7-4606-b266-b9190a1a9eb3}</destination>

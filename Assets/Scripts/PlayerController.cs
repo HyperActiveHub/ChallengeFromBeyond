@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPosition;
     public Transform target;
     private bool isMoving;
-    public bool canMove = true;
+    public bool canMove;
 
     [FMODUnity.EventRef]
     public string InputFootsteps;
@@ -33,18 +33,9 @@ public class PlayerController : MonoBehaviour
         if (GameManagerScript.Instance.hasAwakened == false)
         {
             anim.SetTrigger("WakeUp");
+            canMove = false;
             GameManagerScript.Instance.hasAwakened = true;
-            StartCoroutine(CanMoveAfterWakeUp());
         }
-    }
-
-    IEnumerator CanMoveAfterWakeUp()
-    {
-        canMove = false;
-        yield return new WaitForEndOfFrame();
-
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9 && !anim.IsInTransition(0));
-        canMove = true;
     }
 
     public void Start()
@@ -59,17 +50,18 @@ public class PlayerController : MonoBehaviour
         FootstepsEvent.getParameter("Wood", out WoodParameter);
         FootstepsEvent.getParameter("Stone", out StoneParameter);
 
-
         InvokeRepeating("CallFootsteps", 0, 0.5f);
-
-        
     }
-
-
-
 
     void Update()
     {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp_Left") || anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp_Right") || anim.GetCurrentAnimatorStateInfo(0).IsName("WakingUp"))
+        {
+            canMove = false;
+        }
+        else
+            canMove = true;
+
         WoodParameter.setValue(WoodValue);
         StoneParameter.setValue(StoneValue);
 
@@ -93,6 +85,7 @@ public class PlayerController : MonoBehaviour
             {
                 target.position = mousePos;
             }
+
         }
 
         //kollar om spelaren rör sig
@@ -143,16 +136,11 @@ public class PlayerController : MonoBehaviour
 
         }
 
-
         DetermineTerrain(backgroundTilemap);
-
-
         transform.localScale += scalechage;
-
         lastPositionY = transform.position.y;
         lastPositionX = transform.position.x;
         lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
-
     }
 
     private IEnumerator IsMoving()
@@ -170,7 +158,6 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = true;
         }
-
     }
 
     void CallFootsteps()
@@ -180,12 +167,10 @@ public class PlayerController : MonoBehaviour
             FootstepsEvent.start();
             //Debug.Log("Souning");
         }
-
     }
 
     private void DetermineTerrain(GameObject background)
     {
-
         float fadetime = 10;
         //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.back, 100.0f);
         GameObject hit = background;
@@ -213,6 +198,5 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("Background Object not assigned.", this);
         }
-
     }
 }
