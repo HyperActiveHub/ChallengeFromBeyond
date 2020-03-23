@@ -103,7 +103,7 @@ public class ClickAndDrag : MonoBehaviour
             {
                 if (Vector2.Distance((Vector2)initialPosition, (Vector2)transform.position) < clickTolerance)   //Does this MouseUp register as a click?
                 {
-                    if (interactableObjectComponent != null)
+                    if (interactableObjectComponent != null && player.GetComponent<PlayerController>().canMove)
                     {
                         IEnumerator routine = TriggerWhenClose(interactableObjectComponent.Interact, interactableObjectComponent.proximityRange, gameObject, null);
                         StartCoroutine(routine);
@@ -118,8 +118,11 @@ public class ClickAndDrag : MonoBehaviour
             {
                 InteractableObject otherInteractableObject = otherGameObject.GetComponent<InteractableObject>();
 
-                IEnumerator routine = TriggerWhenClose(otherInteractableObject.Interact, otherInteractableObject.proximityRange, otherGameObject, gameObject.GetComponent<Item>());
-                StartCoroutine(routine);
+                if (player.GetComponent<PlayerController>().canMove)
+                {
+                    IEnumerator routine = TriggerWhenClose(otherInteractableObject.Interact, otherInteractableObject.proximityRange, otherGameObject, gameObject.GetComponent<Item>());
+                    StartCoroutine(routine);
+                }
                 return; //is this needed?
             }
         }
@@ -172,17 +175,10 @@ public class ClickAndDrag : MonoBehaviour
             anim.SetTrigger("isPickingUp");
         }
 
-
         yield return new WaitForEndOfFrame();
-        GameManagerScript.Instance.SetPlayerMovement(false);
-        print("cant move");
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > interactAtPercent && !anim.IsInTransition(0));
         var action = interaction.Invoke(otherItem);
-
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && !anim.IsInTransition(0));
-        GameManagerScript.Instance.SetPlayerMovement(true);
-        print("can move again");
 
         if (action == null)
         {
