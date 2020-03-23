@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour
 {
-    bool conditionMet;
+    public bool conditionMet;
 
     public void ChangeScene(string sceneName)
     {

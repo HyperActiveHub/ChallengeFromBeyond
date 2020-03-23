@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
@@ -32,6 +33,8 @@ public class GameManagerScript : MonoBehaviour
     InventoryUI inventoryUI = null;
     PlayerController playerController = null;
 
+    PipePuzzle pipePuzzle;
+
     private void Awake()
     {
         if (_instance == null)
@@ -40,7 +43,7 @@ public class GameManagerScript : MonoBehaviour
             DontDestroyOnLoad(this);
             inventoryUI = FindObjectOfType<InventoryUI>();
 
-            if(inventoryUI == null)
+            if (inventoryUI == null)
             {
                 Debug.LogWarning("Missing inventory in scene.", this);
             }
@@ -60,7 +63,7 @@ public class GameManagerScript : MonoBehaviour
 
         playerController = FindObjectOfType<PlayerController>();
 
-        if(playerController == null)
+        if (playerController == null)
         {
             Debug.LogWarning("Player controller not found, scene is missing the player object.");
         }
@@ -103,11 +106,33 @@ public class GameManagerScript : MonoBehaviour
         playerController.canMove = value;
     }
 
+    private void OnLevelLoad(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.Contains("Boiler"))
+        {
+            if (pipePzleDone)
+            {
+                FindObjectOfType<PipePuzzle>().onWin.Invoke();
+
+                var bucket = Resources.Load<ItemData>("ItemsData/I_Bucket_w");
+                if(inventoryUI.inventory.itemDataInInventory.Contains(bucket))
+                {
+                    FindObjectOfType<DoorScript>().ConditionMet();
+                    print("bucket is in inventory");
+                }
+            }
+        }
+    }
+
     //need to read these bool on scene load, to set if puzzle should be interactable or not
+    public bool pipePzleDone;
     public void PipePuzzleDone()
     {
         //set bool true
+        pipePzleDone = true;
     }
+
+
 
     public void SlidePuzzleDone()
     {
@@ -126,7 +151,16 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
+    }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnLevelLoad;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelLoad;
     }
 
 }

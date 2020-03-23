@@ -14,7 +14,7 @@ public class PipePuzzle : MonoBehaviour
     [SerializeField] private List<PipeTile> outflowPipes = null;
     [SerializeField] private Array2D pipeTiles;
 
-    [SerializeField] private UnityEvent onWin;
+    [SerializeField] public UnityEvent onWin;
 
     private void OnEnable()
     {
