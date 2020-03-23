@@ -110,28 +110,46 @@ public class GameManagerScript : MonoBehaviour
     {
         if (scene.name.Contains("Boiler"))
         {
-            if (pipePzleDone)
-            {
-                FindObjectOfType<PipePuzzle>().onWin.Invoke();
-
-                var bucket = Resources.Load<ItemData>("ItemsData/I_Bucket_w");
-                if(inventoryUI.inventory.itemDataInInventory.Contains(bucket))
-                {
-                    FindObjectOfType<DoorScript>().ConditionMet();
-                    print("bucket is in inventory");
-                }
-            }
+            BoilerLoaded();
         }
+        else if (scene.name.Contains("Lounge"))
+        {
+
+        }
+        else if (scene.name.Contains("Study"))
+        {
+
+        }
+        else if(scene.name.Contains("Museum"))
+        {
+
+        }
+
     }
 
     //need to read these bool on scene load, to set if puzzle should be interactable or not
-    public bool pipePzleDone;
+    public static bool pipePzleDone;
     public void PipePuzzleDone()
     {
         //set bool true
         pipePzleDone = true;
     }
 
+    void BoilerLoaded()
+    {
+        if (pipePzleDone)
+        {
+            print("puzzle already done.");
+            FindObjectOfType<PipePuzzle>().onWin.Invoke();
+        }
+
+        var bucket = Resources.Load<ItemData>("ItemsData/I_Bucket_w");
+        if (inventoryUI.inventory.itemDataInInventory.Contains(bucket))
+        {
+            FindObjectOfType<DoorScript>().ConditionMet();
+            print("bucket is in inventory");
+        }
+    }
 
 
     public void SlidePuzzleDone()
@@ -162,5 +180,4 @@ public class GameManagerScript : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnLevelLoad;
     }
-
 }
