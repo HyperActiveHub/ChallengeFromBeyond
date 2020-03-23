@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 2366161}
   - component: {fileID: 2366163}
   - component: {fileID: 2366162}
+  - component: {fileID: 2366164}
   m_Layer: 0
   m_Name: Puff (1)
   m_TagString: Untagged
@@ -222,6 +223,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2366164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8d167a8e78f438388ff7d49d6f6425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/Boiler/Steam Puff
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &35003788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,6 +1366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 493778250}
+  - component: {fileID: 493778251}
   m_Layer: 0
   m_Name: Random Steam puffs
   m_TagString: Untagged
@@ -1365,6 +1390,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &493778251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493778249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8586a966963ddd74ea9bcbcfa2a925b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &506752037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2276,6 +2313,7 @@ GameObject:
   - component: {fileID: 733451506}
   - component: {fileID: 733451505}
   - component: {fileID: 733451504}
+  - component: {fileID: 733451507}
   m_Layer: 0
   m_Name: Steam Blockage
   m_TagString: Untagged
@@ -2366,6 +2404,29 @@ Transform:
   m_Father: {fileID: 194394934}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 37.638}
+--- !u!114 &733451507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733451503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8d167a8e78f438388ff7d49d6f6425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/Boiler/Steam Blockage
+  PlayEvent: 11
+  StopEvent: 12
+  CollisionTag: 
+  AllowFadeout: 0
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 3.6000001
+  OverrideMaxDistance: 20
 --- !u!1 &739515352
 GameObject:
   m_ObjectHideFlags: 0
@@ -5860,7 +5921,7 @@ PrefabInstance:
     - target: {fileID: 7404132067391422796, guid: 23c345e11140841f790e356323cca48f,
         type: 3}
       propertyPath: onWin.m_PersistentCalls.m_Calls.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7404132067391422796, guid: 23c345e11140841f790e356323cca48f,
         type: 3}
@@ -6042,6 +6103,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7404132067391422796, guid: 23c345e11140841f790e356323cca48f,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7404132067391422796, guid: 23c345e11140841f790e356323cca48f,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7404132067391422796, guid: 23c345e11140841f790e356323cca48f,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_Target
+      value: 
+      objectReference: {fileID: 493778249}
+    - target: {fileID: 7404132067391422796, guid: 23c345e11140841f790e356323cca48f,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7404132067391422796, guid: 23c345e11140841f790e356323cca48f,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7404132067391422797, guid: 23c345e11140841f790e356323cca48f,
         type: 3}
@@ -6792,6 +6878,7 @@ GameObject:
   - component: {fileID: 1833712551}
   - component: {fileID: 1833712553}
   - component: {fileID: 1833712552}
+  - component: {fileID: 1833712554}
   m_Layer: 0
   m_Name: Puff
   m_TagString: Untagged
@@ -6882,6 +6969,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1833712554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833712550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8d167a8e78f438388ff7d49d6f6425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/Boiler/Steam Puff
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &1918617842 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2119930557748211057, guid: 5ad0e247906414741aca6f7d8d5951d6,
