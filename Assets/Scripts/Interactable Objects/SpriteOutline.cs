@@ -23,7 +23,7 @@ public class SpriteOutline : MonoBehaviour
         {
             spriteRenderer.material = GameManagerScript.Instance.unlitOutlineMat;
         }
-        Debug.Log("Changed material to '" + spriteRenderer.sharedMaterial.name + "' (sprite outline).", this);
+        //Debug.Log("Changed material to '" + spriteRenderer.sharedMaterial.name + "' (sprite outline).", this);
     }
 
     private void Awake()
