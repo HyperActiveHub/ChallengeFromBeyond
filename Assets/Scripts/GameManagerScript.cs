@@ -121,20 +121,23 @@ public class GameManagerScript : MonoBehaviour
         }
         else if (scene.name.Contains("Lounge"))
         {
-
+            MuseumLoaded();
         }
         else if (scene.name.Contains("Study"))
         {
 
         }
-        else if(scene.name.Contains("Museum"))
+        else if (scene.name.Contains("Museum"))
         {
 
         }
 
     }
 
-    //need to read these bool on scene load, to set if puzzle should be interactable or not
+    //need to read these bools on scene load, to set puzzles and interactables to their correct states
+    #region scene-specific helper functions
+
+    #region Boiler Room
     public void PipePuzzleDone()
     {
         //set bool true
@@ -149,16 +152,13 @@ public class GameManagerScript : MonoBehaviour
     public static bool isLampAssembled;
     void BoilerLoaded()
     {
+        GameObject.Find("Assembled Lamp").SetActive(isLampAssembled);
+
         if (pipePzleDone)
         {
             print("puzzle already done.");
             FindObjectOfType<PipePuzzle>().onWin.Invoke();
         }
-
-
-        GameObject.Find("Assembled Lamp").SetActive(isLampAssembled);
-        
-
 
         var bucket = Resources.Load<ItemData>("ItemsData/I_Bucket_w");
         if (bucket.isUsed)
@@ -166,20 +166,37 @@ public class GameManagerScript : MonoBehaviour
             FindObjectOfType<DoorScript>().ConditionMet();
             print("bucket is in inventory");
         }
-
-
     }
+    #endregion
 
+    #region Museum Room
+    public static bool slidePuzzleDone;
+    void MuseumLoaded()
+    {
+        //if(slidePuzzleDone)
+        //set slidepuzzle win
+    }
 
     public void SlidePuzzleDone()
     {
-        //set bool true
+        slidePuzzleDone = true;
     }
+    #endregion
 
+    #region Study Room
+    public static bool codeLockDone;
+    public void StudyLoaded()
+    {
+        //if(codeLockDone)
+        //set codelock win?
+    }
     public void CodeLockDone()
     {
-        //set bool true
+        codeLockDone = true;
     }
+    #endregion
+
+    #endregion
 
     private void Start()
     {
