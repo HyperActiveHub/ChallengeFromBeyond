@@ -52,6 +52,13 @@ public class GameManagerScript : MonoBehaviour
                 inventoryUI.inventory.itemDataInInventory.Clear();
                 print("Cleared saved inventory");
             }
+
+            var items = Resources.LoadAll<ItemData>("ItemsData");
+            foreach (var item in items)
+            {
+                item.Reset();
+            }
+
         }
         else if (_instance != null)
         {
@@ -128,13 +135,18 @@ public class GameManagerScript : MonoBehaviour
     }
 
     //need to read these bool on scene load, to set if puzzle should be interactable or not
-    public static bool pipePzleDone;
     public void PipePuzzleDone()
     {
         //set bool true
         pipePzleDone = true;
     }
+    public void AssembledLamp()
+    {
+        isLampAssembled = true;
+    }
 
+    public static bool pipePzleDone;
+    public static bool isLampAssembled;
     void BoilerLoaded()
     {
         if (pipePzleDone)
@@ -143,12 +155,19 @@ public class GameManagerScript : MonoBehaviour
             FindObjectOfType<PipePuzzle>().onWin.Invoke();
         }
 
+
+        GameObject.Find("Assembled Lamp").SetActive(isLampAssembled);
+        
+
+
         var bucket = Resources.Load<ItemData>("ItemsData/I_Bucket_w");
-        if (inventoryUI.inventory.itemDataInInventory.Contains(bucket))
+        if (bucket.isUsed)
         {
             FindObjectOfType<DoorScript>().ConditionMet();
             print("bucket is in inventory");
         }
+
+
     }
 
 
