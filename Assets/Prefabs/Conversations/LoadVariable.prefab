@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8144532672083486816}
   - component: {fileID: 8144532672083486823}
   - component: {fileID: 2070246556846850052}
+  - component: {fileID: 6260177898872442329}
   m_Layer: 0
   m_Name: LoadVariable
   m_TagString: Untagged
@@ -63,7 +64,8 @@ MonoBehaviour:
     height: 0
   selectedBlocks:
   - {fileID: 8144532672083486820}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 6260177898872442329}
   variables:
   - {fileID: 8144532672083486826}
   - {fileID: 8144532672083486816}
@@ -102,6 +104,7 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 2070246556846850052}
   commandList:
+  - {fileID: 6260177898872442329}
   - {fileID: 8144532672083486827}
   - {fileID: 8144532672083486823}
   suppressAllAutoSelections: 0
@@ -182,3 +185,18 @@ MonoBehaviour:
   parentBlock: {fileID: 8144532672083486820}
   suppressBlockAutoSelect: 0
   waitForFrames: 1
+--- !u!114 &6260177898872442329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144532672083486825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ca476c254ea6846b822a3fe7a5fe22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 3
+  indentLevel: 0
+  talker: 0
