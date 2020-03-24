@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{82d0656a-342f-4e3a-9580-f5dad5c87a2e}">
+        <property name="name">
+            <value>MaybelleVoiceclip</value>
+        </property>
+        <relationship name="folder">
+            <destination>{030b007a-37f7-4ef6-9c64-a0dde956f70c}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{25bebf5a-f8df-46c4-84f4-97ec095ee67f}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{25bebf5a-f8df-46c4-84f4-97ec095ee67f}">
+        <property name="minimum">
+            <value>1</value>
+        </property>
+        <property name="maximum">
+            <value>7</value>
+        </property>
+        <property name="initialValue">
+            <value>1</value>
+        </property>
+        <property name="isExposedRecursively">
+            <value>false</value>
+        </property>
+    </object>
+</objects>
