@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 8800259666855265094}
   - component: {fileID: 7498651003608537523}
   - component: {fileID: 1194233753775947194}
-  - component: {fileID: 7290288718874822331}
+  - component: {fileID: 4751507787509784087}
   m_Layer: 0
   m_Name: KeyDialog1
   m_TagString: Untagged
@@ -109,7 +109,7 @@ MonoBehaviour:
   itemId: 0
   blockName: Intro
   description: 
-  eventHandler: {fileID: 7290288718874822331}
+  eventHandler: {fileID: 4751507787509784087}
   commandList:
   - {fileID: 7498651003608537523}
   - {fileID: 7263675327502049269}
@@ -558,7 +558,7 @@ MonoBehaviour:
   vector3Data:
     vector3Ref: {fileID: 0}
     vector3Val: {x: 0, y: 0, z: 0}
---- !u!114 &7290288718874822331
+--- !u!114 &4751507787509784087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -567,9 +567,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8620760159418027590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ff5d850a887844fe87ae7d366d3ab5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 8080777797522283734}
   suppressBlockAutoSelect: 0
-  waitForFrames: 1

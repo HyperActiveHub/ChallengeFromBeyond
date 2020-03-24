@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1130485461}
+  selectedFlowchart: {fileID: 488579692}
 --- !u!4 &179252227
 Transform:
   m_ObjectHideFlags: 1
@@ -3137,7 +3137,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 551.7538
     y: 135.03749
-    width: 135.51721
+    width: 136.20688
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5425,6 +5425,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8831451110678598181, guid: ad1fc8f692231cc4db3df4bf88526b69,
+        type: 3}
+      propertyPath: nodeRect.y
+      value: 136
+      objectReference: {fileID: 0}
     - target: {fileID: 8831451110678598182, guid: ad1fc8f692231cc4db3df4bf88526b69,
         type: 3}
       propertyPath: m_Name

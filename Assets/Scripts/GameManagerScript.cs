@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
@@ -32,6 +33,8 @@ public class GameManagerScript : MonoBehaviour
     InventoryUI inventoryUI = null;
     PlayerController playerController = null;
 
+    PipePuzzle pipePuzzle;
+
     private void Awake()
     {
         if (_instance == null)
@@ -40,7 +43,7 @@ public class GameManagerScript : MonoBehaviour
             DontDestroyOnLoad(this);
             inventoryUI = FindObjectOfType<InventoryUI>();
 
-            if(inventoryUI == null)
+            if (inventoryUI == null)
             {
                 Debug.LogWarning("Missing inventory in scene.", this);
             }
@@ -49,6 +52,13 @@ public class GameManagerScript : MonoBehaviour
                 inventoryUI.inventory.itemDataInInventory.Clear();
                 print("Cleared saved inventory");
             }
+
+            var items = Resources.LoadAll<ItemData>("ItemsData");
+            foreach (var item in items)
+            {
+                item.Reset();
+            }
+
         }
         else if (_instance != null)
         {
@@ -60,7 +70,7 @@ public class GameManagerScript : MonoBehaviour
 
         playerController = FindObjectOfType<PlayerController>();
 
-        if(playerController == null)
+        if (playerController == null)
         {
             Debug.LogWarning("Player controller not found, scene is missing the player object.");
         }
@@ -103,6 +113,91 @@ public class GameManagerScript : MonoBehaviour
         playerController.canMove = value;
     }
 
+    private void OnLevelLoad(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.Contains("Boiler"))
+        {
+            BoilerLoaded();
+        }
+        else if (scene.name.Contains("Lounge"))
+        {
+            MuseumLoaded();
+        }
+        else if (scene.name.Contains("Study"))
+        {
+
+        }
+        else if (scene.name.Contains("Museum"))
+        {
+
+        }
+
+    }
+
+    //need to read these bools on scene load, to set puzzles and interactables to their correct states
+    #region scene-specific helper functions
+
+    #region Boiler Room
+    public void PipePuzzleDone()
+    {
+        //set bool true
+        pipePzleDone = true;
+    }
+    public void AssembledLamp()
+    {
+        isLampAssembled = true;
+    }
+
+    public static bool pipePzleDone;
+    public static bool isLampAssembled;
+    void BoilerLoaded()
+    {
+        GameObject.Find("Assembled Lamp").SetActive(isLampAssembled);
+
+        if (pipePzleDone)
+        {
+            print("puzzle already done.");
+            FindObjectOfType<PipePuzzle>().onWin.Invoke();
+        }
+
+        var bucket = Resources.Load<ItemData>("ItemsData/I_Bucket_w");
+        if (bucket.isUsed)
+        {
+            FindObjectOfType<DoorScript>().ConditionMet();
+            print("bucket is in inventory");
+        }
+    }
+    #endregion
+
+    #region Museum Room
+    public static bool slidePuzzleDone;
+    void MuseumLoaded()
+    {
+        //if(slidePuzzleDone)
+        //set slidepuzzle win
+    }
+
+    public void SlidePuzzleDone()
+    {
+        slidePuzzleDone = true;
+    }
+    #endregion
+
+    #region Study Room
+    public static bool codeLockDone;
+    public void StudyLoaded()
+    {
+        //if(codeLockDone)
+        //set codelock win?
+    }
+    public void CodeLockDone()
+    {
+        codeLockDone = true;
+    }
+    #endregion
+
+    #endregion
+
     private void Start()
     {
 
@@ -110,5 +205,15 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnLevelLoad;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelLoad;
     }
 }

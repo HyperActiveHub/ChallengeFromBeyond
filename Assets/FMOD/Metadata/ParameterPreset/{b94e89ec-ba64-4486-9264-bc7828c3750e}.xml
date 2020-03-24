@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{b94e89ec-ba64-4486-9264-bc7828c3750e}">
+        <property name="name">
+            <value>ArloVoiceclip</value>
+        </property>
+        <relationship name="folder">
+            <destination>{030b007a-37f7-4ef6-9c64-a0dde956f70c}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{eac51b34-33f5-4194-80c2-6e21cec94903}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{eac51b34-33f5-4194-80c2-6e21cec94903}">
+        <property name="minimum">
+            <value>1</value>
+        </property>
+        <property name="maximum">
+            <value>8</value>
+        </property>
+        <property name="initialValue">
+            <value>1</value>
+        </property>
+        <property name="isExposedRecursively">
+            <value>false</value>
+        </property>
+    </object>
+</objects>
