@@ -50,21 +50,26 @@ public class Item : MonoBehaviour
         //need to keep track of if item is already picked-up, used or others. Prevent items from spawning in scenes if already used/picked up.
         //currently, if items are used, they will spawn in scenes. 
         //Duplicates will NOT spawn if the item exists already, hopefully in inventory.
-        foreach (var item in items)
+        if(itemData.isUsed && !isInInventory)
         {
-            //unsure of itemID usage...
-            if (item.itemData == itemData && gameObject != item.gameObject)  //same itemData, but not same object
-            {
-                Debug.LogWarning("A copy of item: '" + itemData.displayText + "' was found in the scene, and was removed.");
-                if (isInInventory)
-                {
-                    Destroy(item.gameObject);
-                }
-                else
-                    Destroy(gameObject);
-            }
-
+            Debug.LogWarning("Item: '" + itemData.displayText + "' has already been picked up. Additional item removed from scene.");
+            Destroy(gameObject);
         }
+
+        //foreach (var item in items)
+        //{
+        //    //unsure of itemID usage...
+        //    if (item.itemData == itemData && gameObject != item.gameObject)  //same itemData, but not same object
+        //    {
+        //        Debug.LogWarning("A copy of item: '" + itemData.displayText + "' was found in the scene, and was removed.");
+        //        if (isInInventory)
+        //        {
+        //            Destroy(item.gameObject);
+        //        }
+        //        else
+        //            Destroy(gameObject);
+        //    }
+        //}
 
         itemData.itemID = gameObject.GetInstanceID();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -161,6 +166,11 @@ public class Item : MonoBehaviour
     public void InsertThisToInventory()
     {
         InsertToInventory(this.gameObject);
+    }
+
+    public void SetIsUsed()
+    {
+        itemData.isUsed = true;
     }
 
     public void ResetTransform()

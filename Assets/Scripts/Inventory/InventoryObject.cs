@@ -32,6 +32,7 @@ public class InventoryObject : ScriptableObject
         }
 
         itemComponent.isInInventory = true;
+        itemComponent.itemData.isUsed = true;
         itemsInInventory.Add(item);
         //itemDataInInventory.Add(item.GetComponent<Item>().itemData);    //adds itself again..
 

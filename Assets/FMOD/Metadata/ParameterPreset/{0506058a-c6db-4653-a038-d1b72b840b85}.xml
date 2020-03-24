@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{0506058a-c6db-4653-a038-d1b72b840b85}">
+        <property name="name">
+            <value>VoiceTypeArlo</value>
+        </property>
+        <relationship name="folder">
+            <destination>{030b007a-37f7-4ef6-9c64-a0dde956f70c}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{f5b0d961-46e9-45d0-a485-31e4522782dc}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{f5b0d961-46e9-45d0-a485-31e4522782dc}">
+        <property name="minimum">
+            <value>10</value>
+        </property>
+        <property name="maximum">
+            <value>30</value>
+        </property>
+        <property name="initialValue">
+            <value>10</value>
+        </property>
+    </object>
+</objects>
