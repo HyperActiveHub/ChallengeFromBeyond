@@ -75,6 +75,8 @@ public class ST_PuzzleTile : MonoBehaviour
 
                 if (hit.collider == GetComponent<Collider>())
                 {
+//                    transform.parent.GetComponent<ST_PuzzleDisplay>().SlidingEvent.start();
+                    FMODUnity.RuntimeManager.PlayOneShot(transform.parent.GetComponent<ST_PuzzleDisplay>().InputSliderSound);
                     LaunchPositionCoroutine(transform.parent.GetComponent<ST_PuzzleDisplay>().GetTargetLocation(this));
                 }
             }
