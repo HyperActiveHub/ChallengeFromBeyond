@@ -121,18 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &84152715 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 84152717, guid: 5306806576bd3d44aac7650c7ce7260d,
-    type: 3}
-  m_PrefabInstance: {fileID: 25076225263671828}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8d167a8e78f438388ff7d49d6f6425, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &84152716 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 25076225158038931, guid: 5306806576bd3d44aac7650c7ce7260d,
@@ -1319,12 +1307,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3ea28631eddd744c9c789b8a3c474b2, type: 3}
---- !u!1 &371932102 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3493711581906138011, guid: 5306806576bd3d44aac7650c7ce7260d,
-    type: 3}
-  m_PrefabInstance: {fileID: 25076225263671828}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &404862440
 GameObject:
   m_ObjectHideFlags: 0
@@ -3664,50 +3646,6 @@ MonoBehaviour:
     onInteraction:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 84152715}
-          m_MethodName: Stop
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 371932102}
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1195733797}
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 84152716}
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Die
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 1159225599}
           m_MethodName: SetInspectText
           m_Mode: 5
@@ -3728,6 +3666,17 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Splash
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1254100359}
+          m_MethodName: SetFireAnimator
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 84152716}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Animator, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!114 &1159225600
@@ -3756,12 +3705,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickTolerance: 1
---- !u!1 &1195733797 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3493711581962756005, guid: 5306806576bd3d44aac7650c7ce7260d,
-    type: 3}
-  m_PrefabInstance: {fileID: 25076225263671828}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1206003071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3957,12 +3900,36 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 706958128}
+--- !u!4 &1247165517 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 25076225158038941, guid: 5306806576bd3d44aac7650c7ce7260d,
+    type: 3}
+  m_PrefabInstance: {fileID: 25076225263671828}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1254100355 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6940688997662719843, guid: 6a7c657d4159e8d4daaa38e44227e81d,
+    type: 3}
+  m_PrefabInstance: {fileID: 480048712}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1254100357 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6940688997662719841, guid: 6a7c657d4159e8d4daaa38e44227e81d,
     type: 3}
   m_PrefabInstance: {fileID: 480048712}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1254100359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254100355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77f0773eb262cf4cabffa1c7b512a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1273708480
 GameObject:
   m_ObjectHideFlags: 0
@@ -4979,6 +4946,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1733616338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1733616339}
+  - component: {fileID: 1733616340}
+  m_Layer: 0
+  m_Name: Fire Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1733616339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733616338}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.25, y: -0.60600007, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1247165517}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1733616340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733616338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8d167a8e78f438388ff7d49d6f6425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/CommonRoom/Eldstad
+  PlayEvent: 11
+  StopEvent: 12
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &1756381924 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5148937262897284246, guid: bfe49b4b39193784f8fa03629aecc093,
@@ -6354,6 +6375,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 84152717, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
+      propertyPath: Preload
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 25076225158038940, guid: 5306806576bd3d44aac7650c7ce7260d,
         type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -6449,6 +6474,41 @@ PrefabInstance:
       propertyPath: m_ShadowVolumeIntensity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3493711581906138009, guid: 5306806576bd3d44aac7650c7ce7260d,
+        type: 3}
+      propertyPath: m_LightVolumeOpacity
+      value: 0.043
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493711581906138009, guid: 5306806576bd3d44aac7650c7ce7260d,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 5.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493711581906138009, guid: 5306806576bd3d44aac7650c7ce7260d,
+        type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493711581906138009, guid: 5306806576bd3d44aac7650c7ce7260d,
+        type: 3}
+      propertyPath: m_FalloffIntensity
+      value: 0.304
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493711581906138011, guid: 5306806576bd3d44aac7650c7ce7260d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493711581962756005, guid: 5306806576bd3d44aac7650c7ce7260d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493711581962756005, guid: 5306806576bd3d44aac7650c7ce7260d,
+        type: 3}
+      propertyPath: m_Name
+      value: Extinguish Sound
+      objectReference: {fileID: 0}
     - target: {fileID: 3493711582028042818, guid: 5306806576bd3d44aac7650c7ce7260d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6524,7 +6584,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 84152717, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
 --- !u!1001 &138216403057194473
 PrefabInstance:
