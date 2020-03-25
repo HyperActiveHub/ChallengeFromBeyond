@@ -130,6 +130,16 @@ public class InventoryUI : MonoBehaviour
         inventoryIsActive = !inventoryIsActive;
     }
 
+    public void ExpandInventory()
+    {
+        if (animator != null)
+        {
+            inventoryIsActive = true;
+            animator.SetBool(animationParameter, inventoryIsActive);
+        }
+
+    }
+
     #region Inventory Updates and Sorting
     public void SortInventory()
     {
