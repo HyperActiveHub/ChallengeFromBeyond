@@ -39,6 +39,7 @@ public class InventoryObject : ScriptableObject
         if (onInventoryUpdate != null)
         {
             onInventoryUpdate.Invoke();
+            item.SendMessageUpwards("PlayNewItemAnim", SendMessageOptions.RequireReceiver);
         }
 
         if(sortingOrder != -1)  //better to set sortingLayer to an item-specific one
@@ -49,6 +50,8 @@ public class InventoryObject : ScriptableObject
                 spriteRenderer.sortingOrder = sortingOrder;
             }
         }
+
+
     }
 
     public void RemoveFromInventory(GameObject item)
