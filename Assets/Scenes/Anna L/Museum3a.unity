@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -150,8 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 425904322971260791, guid: 1f617f1fddd6f9744b20dad4c149396c,
-    type: 3}
+  selectedFlowchart: {fileID: 0}
 --- !u!4 &178831026
 Transform:
   m_ObjectHideFlags: 1
@@ -852,7 +851,8 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 1170266874119551478}
   selectedCommands: []
   variables: []
   description: 
@@ -3006,6 +3006,11 @@ PrefabInstance:
       propertyPath: toPosition
       value: 
       objectReference: {fileID: 1170266874031928154}
+    - target: {fileID: 425904322971260791, guid: 1f617f1fddd6f9744b20dad4c149396c,
+        type: 3}
+      propertyPath: selectedBlocks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1169829468060360619, guid: 1f617f1fddd6f9744b20dad4c149396c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3124,7 +3129,7 @@ PrefabInstance:
     - target: {fileID: 6280894247240304867, guid: 1f617f1fddd6f9744b20dad4c149396c,
         type: 3}
       propertyPath: m_Name
-      value: Museum2
+      value: Museum3a
       objectReference: {fileID: 0}
     - target: {fileID: 6375949770879786140, guid: 1f617f1fddd6f9744b20dad4c149396c,
         type: 3}
