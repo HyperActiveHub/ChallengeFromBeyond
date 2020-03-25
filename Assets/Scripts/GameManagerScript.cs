@@ -121,7 +121,7 @@ public class GameManagerScript : MonoBehaviour
         }
         else if (scene.name.Contains("Lounge"))
         {
-            MuseumLoaded();
+            LoungeLoaded();
         }
         else if (scene.name.Contains("Study"))
         {
@@ -129,7 +129,7 @@ public class GameManagerScript : MonoBehaviour
         }
         else if (scene.name.Contains("Museum"))
         {
-
+            MuseumLoaded();
         }
 
     }
@@ -165,6 +165,43 @@ public class GameManagerScript : MonoBehaviour
         {
             FindObjectOfType<DoorScript>().ConditionMet();
             print("bucket is in inventory");
+        }
+    }
+    #endregion
+
+    #region Lounge
+    void LoungeLoaded()
+    {
+        var loungeDoors = FindObjectsOfType<DoorScript>();
+        DoorScript museumDoor = null;
+
+        foreach (DoorScript door in loungeDoors)
+        {
+            if (door.name.Contains("Museum"))
+            {
+                museumDoor = door;
+            }
+        }
+
+        if (museumDoor == null)
+        {
+            Debug.LogError("Museum Door not found in Lounge.", this);
+        }
+        else
+        {
+            var museumKey = Resources.Load<ItemData>("ItemsData/I_Key");
+            if (museumKey == null)
+            {
+                Debug.LogError("Museum key not found in resources.");
+            }
+            else
+            {
+                if (inventoryUI.inventory.itemDataInInventory.Contains(museumKey))
+                {
+                    museumDoor.ConditionMet();
+                }
+            }
+
         }
     }
     #endregion
