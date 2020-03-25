@@ -34,11 +34,13 @@ public class ST_PuzzleDisplay : MonoBehaviour
     private Vector3 Scale;
     private Vector3 Position;
 
-    // has the puzzle been completed?
-    public bool Complete = false;
-
     [FMODUnity.EventRef]
     public string InputSliderSound;
+
+    public bool Complete = false;
+    bool triggeredComplete;
+
+    public UnityEngine.Events.UnityEvent OnComplete;
 
     void Start()
     {
@@ -62,10 +64,15 @@ public class ST_PuzzleDisplay : MonoBehaviour
             TileDisplayArray[0, 0].GetComponent<ST_PuzzleTile>().Active = true;
             TileDisplayArray[0, 0].GetComponent<ST_PuzzleTile>().GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
             TileDisplayArray[0, 0].GetComponent<ST_PuzzleTile>().GetComponent<MeshRenderer>().enabled = true;
-            if (SeperationBetweenTiles > 0f)
+
+            if (SeperationBetweenTiles > 0.001f)
             {
                 SeperationBetweenTiles = Mathf.Lerp(SeperationBetweenTiles, 0f, Time.deltaTime * 2);
-
+            }
+            else if(triggeredComplete == false)
+            {
+                triggeredComplete = true;
+                OnComplete.Invoke();
             }
 
             for (int j = Height - 1; j >= 0; j--)
@@ -91,6 +98,7 @@ public class ST_PuzzleDisplay : MonoBehaviour
 
                 }
             }
+
 
         }
 
