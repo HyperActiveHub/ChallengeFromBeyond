@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 825226119}
+  selectedFlowchart: {fileID: 488579692}
 --- !u!4 &179252227
 Transform:
   m_ObjectHideFlags: 1
@@ -1135,10 +1135,8 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks:
-  - {fileID: 488579681}
-  selectedCommands:
-  - {fileID: 488579697}
+  selectedBlocks: []
+  selectedCommands: []
   variables:
   - {fileID: 488579684}
   - {fileID: 488579691}
@@ -1485,8 +1483,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 2
   indentLevel: 0
-  managerScript: {fileID: 0}
-  Name: 
   switchTo: 1
 --- !u!114 &825226117
 MonoBehaviour:
@@ -1502,8 +1498,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 1
   indentLevel: 0
-  managerScript: {fileID: 0}
-  Name: 
   switchTo: 0
 --- !u!114 &825226118
 MonoBehaviour:
@@ -1945,8 +1939,7 @@ MonoBehaviour:
     height: 0
   selectedBlocks:
   - {fileID: 1130485462}
-  selectedCommands:
-  - {fileID: 1130485469}
+  selectedCommands: []
   variables:
   - {fileID: 1130485466}
   description: 
@@ -2099,7 +2092,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &1130485469
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -5886,6 +5879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2070246556846850052, guid: f3ea28631eddd744c9c789b8a3c474b2, type: 3}
+    - {fileID: 5822547635156048818, guid: f3ea28631eddd744c9c789b8a3c474b2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f3ea28631eddd744c9c789b8a3c474b2, type: 3}
 --- !u!1 &8144532672432108093 stripped
 GameObject:
@@ -5914,9 +5908,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8144532672432108093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ff5d850a887844fe87ae7d366d3ab5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 8144532672432108094}
   suppressBlockAutoSelect: 0
-  waitForFrames: 1

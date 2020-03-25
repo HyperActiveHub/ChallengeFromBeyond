@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 4955962821441059890}
   - component: {fileID: 7351002001377710782}
   - component: {fileID: 6275121076135693812}
-  - component: {fileID: 6506861385769374150}
+  - component: {fileID: 5986490012264495180}
   m_Layer: 0
   m_Name: Museum1
   m_TagString: Untagged
@@ -104,7 +104,7 @@ MonoBehaviour:
   itemId: 0
   blockName: Intro
   description: 
-  eventHandler: {fileID: 6506861385769374150}
+  eventHandler: {fileID: 5986490012264495180}
   commandList:
   - {fileID: 6275121076135693812}
   - {fileID: 4955962821441059890}
@@ -394,7 +394,7 @@ MonoBehaviour:
   vector3Data:
     vector3Ref: {fileID: 0}
     vector3Val: {x: 0, y: 0, z: 0}
---- !u!114 &6506861385769374150
+--- !u!114 &5986490012264495180
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -403,9 +403,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4408445679276308494}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ff5d850a887844fe87ae7d366d3ab5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 2616324344750246482}
   suppressBlockAutoSelect: 0
-  waitForFrames: 1
