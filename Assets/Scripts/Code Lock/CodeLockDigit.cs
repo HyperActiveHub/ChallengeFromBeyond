@@ -76,6 +76,8 @@ public class CodeLockDigit : MonoBehaviour
         nextDigitImage.gameObject.SetActive(false);
         currentDigitImage.gameObject.SetActive(true);
         animationComplete = true;
+        codeLockReference.onUpdate.Invoke();
+        GetComponent<FMODUnity.StudioEventEmitter>().Play();
     }
 
     public void Increment()
@@ -87,7 +89,6 @@ public class CodeLockDigit : MonoBehaviour
         
         currentDigit = (currentDigit + 1) % 10;
         StartCoroutine(AnimIncreaseNumber(posUnderDigit, posAboveDigit));
-        codeLockReference.onUpdate.Invoke();
     }
 
     public void Decrease()
@@ -103,6 +104,5 @@ public class CodeLockDigit : MonoBehaviour
             currentDigit = 9;
         }
         StartCoroutine(AnimIncreaseNumber(posAboveDigit, posUnderDigit));
-        codeLockReference.onUpdate.Invoke();
     }
 }
