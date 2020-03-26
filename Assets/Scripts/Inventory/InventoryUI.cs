@@ -151,7 +151,11 @@ public class InventoryUI : MonoBehaviour
 
         if (inventoryIsActive)
         {
-            GetComponentsInChildren<FMODUnity.StudioEventEmitter>()[1].Play();
+            var a = GetComponentsInChildren<FMODUnity.StudioEventEmitter>();
+            if (a != null && a.Length >= 2)
+            {
+                a[1].Play();
+            }
             animator.SetTrigger("ShowNew");
         }
         else

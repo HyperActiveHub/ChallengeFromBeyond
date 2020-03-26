@@ -35,13 +35,19 @@ public class GameManagerScript : MonoBehaviour
 
     PipePuzzle pipePuzzle;
 
+    public InventoryUI GetInventoryUI()
+    {
+        return FindObjectOfType<InventoryUI>();
+
+    }
+
     private void Awake()
     {
         if (_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(this);
-            inventoryUI = FindObjectOfType<InventoryUI>();
+            inventoryUI = GetInventoryUI();
 
             if (inventoryUI == null)
             {
@@ -73,6 +79,8 @@ public class GameManagerScript : MonoBehaviour
         if (playerController == null)
         {
             Debug.LogWarning("Player controller not found, scene is missing the player object.");
+
+
         }
 
     }
@@ -102,6 +110,8 @@ public class GameManagerScript : MonoBehaviour
         }
         transision.SetTrigger("Start");
 
+        inventoryUI = GetInventoryUI();
+
         if (inventoryUI != null)
         {
             inventoryUI.inventory.itemDataInInventory.Clear();
@@ -110,6 +120,8 @@ public class GameManagerScript : MonoBehaviour
                 inventoryUI.inventory.itemDataInInventory.Add(item.GetComponent<Item>().itemData);
             }
         }
+        else
+            Debug.LogError("inventory missing", this);
 
         yield return new WaitForSeconds(transisionTime);
 
@@ -206,7 +218,13 @@ public class GameManagerScript : MonoBehaviour
             }
             else
             {
-                if (inventoryUI.inventory.itemDataInInventory.Contains(museumKey))
+
+                inventoryUI = GetInventoryUI();
+                if (inventoryUI == null)
+                {
+                    Debug.LogError("inventory not found", this);
+                }
+                else if (inventoryUI.inventory.itemDataInInventory.Contains(museumKey))
                 {
                     Debug.Log("Inventory contained the museum key, museum door is now open.");
                     museumDoor.ConditionMet();
