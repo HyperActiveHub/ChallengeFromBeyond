@@ -2558,6 +2558,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 359678868}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1033888747 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8249929287815250298, guid: 6a7c657d4159e8d4daaa38e44227e81d,
+    type: 3}
+  m_PrefabInstance: {fileID: 480048712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d9726de91a91242987104ba167b153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1102080439
 GameObject:
   m_ObjectHideFlags: 0
@@ -5815,7 +5827,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1159225599, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
       propertyPath: interactions.Array.data[1].onInteraction.m_PersistentCalls.m_Calls.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1159225599, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
       propertyPath: sayObject
@@ -5911,6 +5923,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1159225599, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
       propertyPath: interactions.Array.data[1].onInteraction.m_PersistentCalls.m_Calls.Array.data[6].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159225599, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
+      propertyPath: interactions.Array.data[1].onInteraction.m_PersistentCalls.m_Calls.Array.data[7].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159225599, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
+      propertyPath: interactions.Array.data[1].onInteraction.m_PersistentCalls.m_Calls.Array.data[7].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159225599, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
+      propertyPath: interactions.Array.data[1].onInteraction.m_PersistentCalls.m_Calls.Array.data[7].m_Target
+      value: 
+      objectReference: {fileID: 1033888747}
+    - target: {fileID: 1159225599, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
+      propertyPath: interactions.Array.data[1].onInteraction.m_PersistentCalls.m_Calls.Array.data[7].m_MethodName
+      value: FireWasPutOut
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159225599, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
+      propertyPath: interactions.Array.data[1].onInteraction.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1652762905, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
@@ -6054,7 +6086,7 @@ PrefabInstance:
     - target: {fileID: 3493711582028042820, guid: 5306806576bd3d44aac7650c7ce7260d,
         type: 3}
       propertyPath: m_Name
-      value: Fireplace new
+      value: Fireplace
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}

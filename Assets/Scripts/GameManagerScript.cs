@@ -170,6 +170,8 @@ public class GameManagerScript : MonoBehaviour
     #endregion
 
     #region Lounge
+    public static bool firePutOut;
+
     void LoungeLoaded()
     {
         var loungeDoors = FindObjectsOfType<DoorScript>();
@@ -203,6 +205,18 @@ public class GameManagerScript : MonoBehaviour
             }
 
         }
+
+        GameObject fireplace = GameObject.Find("Fireplace");
+        if (fireplace != null)
+        {
+            if (firePutOut)
+            {
+                fireplace.GetComponent<InteractableObject>().interactions[1].onInteraction.Invoke();
+            }
+        }
+        else
+            Debug.LogError("fireplace wasnt found.", this);
+
     }
     #endregion
 

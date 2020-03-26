@@ -50,6 +50,13 @@ public class PlayerController : MonoBehaviour
         return canMove;
     }
 
+    //placing this here bcus fuck
+    public void FireWasPutOut()
+    {
+        GameManagerScript.firePutOut = true;
+
+    }
+
     private void Awake()
     {
         if (GameManagerScript.Instance.hasAwakened == false)
