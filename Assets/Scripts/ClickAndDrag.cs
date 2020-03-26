@@ -65,11 +65,13 @@ public class ClickAndDrag : MonoBehaviour
         {
             MouseUp();
         }
+
     }
 
     private void MouseDown()
     {
         //Discard future actions if selectedObject is this gameObject.
+        selectedObject = null;
         selectedObject = GetGameObjectUnderCursor();
         initialPosition = transform.position;
 
@@ -103,9 +105,9 @@ public class ClickAndDrag : MonoBehaviour
             {
                 if (Vector2.Distance((Vector2)initialPosition, (Vector2)transform.position) < clickTolerance)   //Does this MouseUp register as a click?
                 {
-                    if (interactableObjectComponent != null && player.GetComponent<PlayerController>().canMove)
+                    if (interactableObjectComponent != null && player.GetComponent<PlayerController>().CanPlayerInteract())
                     {
-                        IEnumerator routine = TriggerWhenClose(interactableObjectComponent.Interact, interactableObjectComponent.proximityRange, gameObject, null);
+                        IEnumerator routine = TriggerWhenClose(interactableObjectComponent, gameObject, null);
                         StartCoroutine(routine);
                     }
                 }
@@ -118,9 +120,9 @@ public class ClickAndDrag : MonoBehaviour
             {
                 InteractableObject otherInteractableObject = otherGameObject.GetComponent<InteractableObject>();
 
-                if (player.GetComponent<PlayerController>().canMove)
+                if (player.GetComponent<PlayerController>().CanPlayerInteract())
                 {
-                    IEnumerator routine = TriggerWhenClose(otherInteractableObject.Interact, otherInteractableObject.proximityRange, otherGameObject, gameObject.GetComponent<Item>());
+                    IEnumerator routine = TriggerWhenClose(otherInteractableObject, otherGameObject, gameObject.GetComponent<Item>());
                     StartCoroutine(routine);
                 }
                 return; //is this needed?
@@ -139,10 +141,13 @@ public class ClickAndDrag : MonoBehaviour
     /// <param name="minDist">How small the distance between the player and 'position' can be before invoking the interact-method.</param>
     /// <param name="position">The position from which to check the distance.</param>
     /// <param name="otherItem">The other item that interacts with this interactable-object.</param>
-    IEnumerator TriggerWhenClose(System.Func<Item, Interaction> interaction/*, AnimationClip interactAnim*/, float minDist, GameObject otherGameObject, Item otherItem)
+    IEnumerator TriggerWhenClose(InteractableObject otherInteractable, GameObject otherGameObject, Item otherItem)
     {
         Vector2 position = otherGameObject.transform.position;
         Item item = otherGameObject.GetComponent<Item>();
+
+        float minDist = otherInteractable.proximityRange;
+        System.Func<Item, Interaction> interaction = otherInteractable.Interact;
 
         if (otherItem != null)  //if using an item on an interactable object (possibly another item)
         {
@@ -168,21 +173,35 @@ public class ClickAndDrag : MonoBehaviour
                 anim.SetTrigger("isPickingUp");
             }
         }
+
         else    //Atleast one object isnt an item
         {
+
             player.GetComponent<PlayerController>().target.transform.position = position;
             yield return new WaitUntil(() => Vector2.Distance(player.position, position) <= minDist);
-            anim.SetTrigger("isPickingUp");
+
+            if (item != null)
+            {
+                anim.SetTrigger("isPickingUp");
+                yield return new WaitForEndOfFrame();
+                yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > interactAtPercent && !anim.IsInTransition(0));
+
+            }
+            else if (otherInteractable.playPickupAnim)
+            {
+                anim.SetTrigger("isPickingUp");
+                yield return new WaitForEndOfFrame();
+                yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > interactAtPercent && !anim.IsInTransition(0));
+            }
         }
 
-        yield return new WaitForEndOfFrame();
-
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > interactAtPercent && !anim.IsInTransition(0));
         var action = interaction.Invoke(otherItem);
 
         if (action == null)
         {
             //The object could not be interacted with, inform the player.
+            print("'That wont work..'");
+
             ResetClick();
         }
         else if (otherItem != null)    //if object was clicked (otherItem == null), nothing should be consumed

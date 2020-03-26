@@ -15,7 +15,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPosition;
     public Transform target;
     private bool isMoving;
-    public bool canMove;
+    public bool canTarget;
+    bool canMove = true;
+
 
     [FMODUnity.EventRef]
     public string InputFootsteps;
@@ -28,12 +30,39 @@ public class PlayerController : MonoBehaviour
 
     public GameObject backgroundTilemap;
 
+    bool canInteract = true;
+    public void SetCanInteract(bool value)
+    {
+        canInteract = value;
+    }
+
+    public bool CanPlayerInteract()
+    {
+        return canInteract;
+    }
+
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
+    }
+    public bool CanMove()
+    {
+        return canMove;
+    }
+
+    //placing this here bcus fuck
+    public void FireWasPutOut()
+    {
+        GameManagerScript.firePutOut = true;
+
+    }
+
     private void Awake()
     {
         if (GameManagerScript.Instance.hasAwakened == false)
         {
             anim.SetTrigger("WakeUp");
-            canMove = false;
+            canTarget = false;
             GameManagerScript.Instance.hasAwakened = true;
         }
     }
@@ -55,18 +84,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp_Left") || anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp_Right") || anim.GetCurrentAnimatorStateInfo(0).IsName("WakingUp"))
         {
-            canMove = false;
+            canTarget = false;
         }
         else
-            canMove = true;
+            canTarget = true;
 
         WoodParameter.setValue(WoodValue);
         StoneParameter.setValue(StoneValue);
 
         //Vid Musklick så sätts musens position till target position, om musen inte är över inventoryt.
-        if (Input.GetKeyDown(KeyCode.Mouse0) && canMove)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canTarget)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -81,7 +111,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (hitInventory == false)
+            if (hitInventory == false && canMove)
             {
                 target.position = mousePos;
             }
@@ -90,7 +120,6 @@ public class PlayerController : MonoBehaviour
 
         //kollar om spelaren rör sig
         StartCoroutine("IsMoving");
-
         target.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 
         distanceTravelled = Mathf.Abs(transform.position.y - lastPositionY);

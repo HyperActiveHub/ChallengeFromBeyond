@@ -13,7 +13,7 @@ Shader "Universal Render Pipeline/2D/Outline/Sprite-Lit-Outline"
 
 		//Outline values
 		[PerRendererData] _Outline("Outline", Float) = 0
-		[PerRendererData] _OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
+		//[PerRendererData] _OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
 	}
 
 		HLSLINCLUDE
@@ -28,49 +28,65 @@ Shader "Universal Render Pipeline/2D/Outline/Sprite-Lit-Outline"
 			Cull Off
 			ZWrite Off
 
-			Pass	//outline pass
-			{
-				Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" "PreviewType" = "Plane" "CanUseSpriteAtlas" = "True"}
+			//Pass	//outline pass
+			//{
+			//	Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" "PreviewType" = "Plane" "CanUseSpriteAtlas" = "True"}
 
-				CGPROGRAM
-				#pragma vertex SpriteVert
-				#pragma fragment frag
-				#pragma target 2.0
-				#pragma multi_compile_instancing
-				#pragma multi_compile _ ETC1_EXTERNAL_ALPHA
-				#include "UnitySprites.cginc"
+			//	CGPROGRAM
+			//	#pragma vertex SpriteVert
+			//	#pragma fragment frag
+			//	#pragma target 2.0
+			//	#pragma multi_compile_instancing
+			//	#pragma multi_compile _ ETC1_EXTERNAL_ALPHA
+			//	#include "UnitySprites.cginc"
 
-				float _Outline;
-				fixed4 _OutlineColor;
-				float4 _MainTex_TexelSize;
+			//	float _Outline;
+			//	fixed4 _OutlineColor;
+			//	float4 _MainTex_TexelSize;
 
-				fixed4 frag(v2f IN) : SV_Target
-				{
-					fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
+			//	fixed4 frag(v2f IN) : SV_Target
+			//	{
+			//		//fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
+			//		fixed4 c = tex2D(_MainTex, IN.texcoord);
 
-					//If outline is enabled and there is no pixel
-					if (_Outline == 1 && c.a == 0)
-					{
-						fixed4 pixelUp = tex2D(_MainTex, IN.texcoord + fixed2(0, _MainTex_TexelSize.y));
-						fixed4 pixelDown = tex2D(_MainTex, IN.texcoord - fixed2(0, _MainTex_TexelSize.y));
-						fixed4 pixelRight = tex2D(_MainTex, IN.texcoord + fixed2(_MainTex_TexelSize.x, 0));
-						fixed4 pixelLeft = tex2D(_MainTex, IN.texcoord - fixed2(_MainTex_TexelSize.x, 0));
+			//		//If outline is enabled and there is no pixel
+			//		if (_Outline == 1 && c.a == 0)
+			//		{
+			//			fixed4 pixelUp = tex2D(_MainTex, IN.texcoord + fixed2(0, _MainTex_TexelSize.y));
+			//			fixed4 pixelDown = tex2D(_MainTex, IN.texcoord - fixed2(0, _MainTex_TexelSize.y));
+			//			fixed4 pixelRight = tex2D(_MainTex, IN.texcoord + fixed2(_MainTex_TexelSize.x, 0));
+			//			fixed4 pixelLeft = tex2D(_MainTex, IN.texcoord - fixed2(_MainTex_TexelSize.x, 0));
 
-						float totA = pixelUp.a + pixelDown.a + pixelRight.a + pixelLeft.a;
+			//			float totA = pixelUp.a + pixelDown.a + pixelRight.a + pixelLeft.a;
 
-						//Ceck if any of the surrounding pixels are colored
-						if (totA > 0)
-						{
-							c.rgba = fixed4(1, 1, 1, 1) * _OutlineColor;
-						}
-					}
+			//			//Ceck if any of the surrounding pixels are colored
+			//			if (totA > 0)
+			//			{
+			//				c.rgba = fixed4(1, 1, 1, 1) * _OutlineColor;
+			//			}
+			//		}
+			//		else if (_Outline == 2 && c.a > 0)
+			//		{
+			//			fixed4 pixelUp = tex2D(_MainTex, IN.texcoord + fixed2(0, _MainTex_TexelSize.y));
+			//			fixed4 pixelDown = tex2D(_MainTex, IN.texcoord - fixed2(0, _MainTex_TexelSize.y));
+			//			fixed4 pixelRight = tex2D(_MainTex, IN.texcoord + fixed2(_MainTex_TexelSize.x, 0));
+			//			fixed4 pixelLeft = tex2D(_MainTex, IN.texcoord - fixed2(_MainTex_TexelSize.x, 0));
 
-					c.rgb *= c.a;
-					return c;
-				}
+			//			float totA = pixelUp.a * pixelDown.a * pixelRight.a * pixelLeft.a;
 
-				ENDCG
-			}
+			//			//Ceck if any of the surrounding pixels are colored
+			//			/*if (totA == 0)
+			//			{*/
+			//				c.rgba = fixed4(1, 1, 1, 1) * _OutlineColor;
+			//			//}
+			//		}
+
+			//		c.rgb *= c.a;
+			//		return c;
+			//	}
+
+			//	ENDCG
+			//}
 			Pass
 			{
 				Tags { "LightMode" = "Universal2D" }
@@ -109,6 +125,7 @@ Shader "Universal Render Pipeline/2D/Outline/Sprite-Lit-Outline"
 				SAMPLER(sampler_NormalMap);
 				half4 _MainTex_ST;
 				half4 _NormalMap_ST;
+				float _Outline;
 
 				#if USE_SHAPE_LIGHT_TYPE_0
 				SHAPE_LIGHT(0)
@@ -144,8 +161,16 @@ Shader "Universal Render Pipeline/2D/Outline/Sprite-Lit-Outline"
 				{
 					half4 main = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
 					half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, i.uv);
+					
+					if (_Outline != 0)
+					{
+						return CombinedShapeLightShared(main, mask, half2(0, 0));
 
-					return CombinedShapeLightShared(main, mask, i.lightingUV);
+					}
+					else
+					{
+						return CombinedShapeLightShared(main, mask, i.lightingUV);
+					}
 				}
 				ENDHLSL
 			}
