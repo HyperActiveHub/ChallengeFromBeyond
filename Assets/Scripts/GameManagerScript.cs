@@ -156,15 +156,15 @@ public class GameManagerScript : MonoBehaviour
         isLampAssembled = true;
     }
 
-    public static bool pipePzleDone;
-    public static bool isLampAssembled;
+    public static bool pipePzleDone = false;
+    public static bool isLampAssembled = false;
     void BoilerLoaded()
     {
         GameObject.Find("Assembled Lamp").SetActive(isLampAssembled);
 
         if (pipePzleDone)
         {
-            print("puzzle already done.");
+            Debug.Log("puzzle already done.");
             FindObjectOfType<PipePuzzle>().onWin.Invoke();
         }
 
@@ -172,7 +172,7 @@ public class GameManagerScript : MonoBehaviour
         if (bucket.isUsed)
         {
             FindObjectOfType<DoorScript>().ConditionMet();
-            print("bucket is in inventory");
+            Debug.Log("bucket is in inventory, door is open.");
         }
     }
     #endregion
@@ -208,6 +208,7 @@ public class GameManagerScript : MonoBehaviour
             {
                 if (inventoryUI.inventory.itemDataInInventory.Contains(museumKey))
                 {
+                    Debug.Log("Inventory contained the museum key, museum door is now open.");
                     museumDoor.ConditionMet();
                 }
             }
