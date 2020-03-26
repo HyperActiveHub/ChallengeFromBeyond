@@ -82,6 +82,11 @@ public class GameManagerScript : MonoBehaviour
         return (float)outlineMode;
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     public void ChangeScene(string sceneName)
     {
         StartCoroutine(LoadLevel(sceneName));
@@ -97,10 +102,13 @@ public class GameManagerScript : MonoBehaviour
         }
         transision.SetTrigger("Start");
 
-        inventoryUI.inventory.itemDataInInventory.Clear();
-        foreach (var item in inventoryUI.inventory.itemsInInventory)
+        if (inventoryUI != null)
         {
-            inventoryUI.inventory.itemDataInInventory.Add(item.GetComponent<Item>().itemData);
+            inventoryUI.inventory.itemDataInInventory.Clear();
+            foreach (var item in inventoryUI.inventory.itemsInInventory)
+            {
+                inventoryUI.inventory.itemDataInInventory.Add(item.GetComponent<Item>().itemData);
+            }
         }
 
         yield return new WaitForSeconds(transisionTime);
