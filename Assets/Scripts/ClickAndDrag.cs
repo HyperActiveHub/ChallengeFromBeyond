@@ -105,7 +105,7 @@ public class ClickAndDrag : MonoBehaviour
             {
                 if (Vector2.Distance((Vector2)initialPosition, (Vector2)transform.position) < clickTolerance)   //Does this MouseUp register as a click?
                 {
-                    //if (interactableObjectComponent != null && player.GetComponent<PlayerController>().CanMove()) //nasty bug.
+                    if (interactableObjectComponent != null && player.GetComponent<PlayerController>().CanPlayerInteract())
                     {
                         IEnumerator routine = TriggerWhenClose(interactableObjectComponent, gameObject, null);
                         StartCoroutine(routine);
@@ -120,7 +120,7 @@ public class ClickAndDrag : MonoBehaviour
             {
                 InteractableObject otherInteractableObject = otherGameObject.GetComponent<InteractableObject>();
 
-                //if (player.GetComponent<PlayerController>().CanMove())    //nasty bug.
+                if (player.GetComponent<PlayerController>().CanPlayerInteract())
                 {
                     IEnumerator routine = TriggerWhenClose(otherInteractableObject, otherGameObject, gameObject.GetComponent<Item>());
                     StartCoroutine(routine);

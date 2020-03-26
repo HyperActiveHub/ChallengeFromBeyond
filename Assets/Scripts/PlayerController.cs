@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool canTarget;
     bool canMove = true;
 
+
     [FMODUnity.EventRef]
     public string InputFootsteps;
     FMOD.Studio.EventInstance FootstepsEvent;
@@ -28,6 +29,17 @@ public class PlayerController : MonoBehaviour
     private float StoneValue;
 
     public GameObject backgroundTilemap;
+
+    bool canInteract = true;
+    public void SetCanInteract(bool value)
+    {
+        canInteract = value;
+    }
+
+    public bool CanPlayerInteract()
+    {
+        return canInteract;
+    }
 
     public void SetCanMove(bool value)
     {
@@ -65,6 +77,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp_Left") || anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp_Right") || anim.GetCurrentAnimatorStateInfo(0).IsName("WakingUp"))
         {
             canTarget = false;

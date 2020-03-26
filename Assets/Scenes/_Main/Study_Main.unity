@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 1
+  playPickupAnim: 0
   sayObject: {fileID: 0}
   inspectText: 
   insightWorth: 0
@@ -330,7 +331,7 @@ MonoBehaviour:
             m_BoolArgument: 1
           m_CallState: 2
         - m_Target: {fileID: 264998879}
-          m_MethodName: set_enabled
+          m_MethodName: SetCanMove
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -342,6 +343,17 @@ MonoBehaviour:
           m_CallState: 2
         - m_Target: {fileID: 1818291929}
           m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 264998879}
+          m_MethodName: SetCanInteract
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1570,6 +1582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 1.2
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: "\"Sep, 1860; Egyptian Museum Opens After Studies Has Concluded. After
     returning from Egypt, Sir Francis Ducan has decided to carry on by sharing his
@@ -2045,6 +2058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 3.45
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: "\"The monster will seap its origin by missteps, \r\ngiving the humane
     a possibility to turn the table.\r\nLook for change in ones core.\""
@@ -2332,6 +2346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 1.44
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: "\"May 1862; Locals Complain About Chanting. In recent months there
     have been numerous reports of strange chants in the outskirts of the city. Police
@@ -3026,6 +3041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 3.67
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: "\"Desperation will be when the possession and \rholder duel over
     influence.\""
@@ -4067,6 +4083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 2.16
+  playPickupAnim: 0
   sayObject: {fileID: 0}
   inspectText: 
   insightWorth: 0
@@ -4249,6 +4266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 1.26
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: "\"It might once more run lose. Possessing the first to come its way,
     letting not even the thickest skin hold back\r its impact. In human form it wonders
@@ -5356,6 +5374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 2.11
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: '"The house is now constructed to not let any possessed out by luck
     or chance. To let it condemn the City once more, breathing selves will have to
@@ -5999,6 +6018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 3.23
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: "\"Apr, <b><i>1859</i></b>; Revelations in the East of Egypt. It has
     been a bit less than a month since Sir Francis arrived\r in Egypt, determined
@@ -8442,6 +8462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 2.03
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: '"Oct, 1865; Egyptian Museum to Close Down - Owner Declines to State
     a Reason Why."'
@@ -8648,6 +8669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 3.41
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: "\"Nov, 1858; New Archeological Site Found. During a recent earthquake
     in Egypt a ravine opened up in the\r eastern desert, revealing evidence of a
@@ -8857,6 +8879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 1.04
+  playPickupAnim: 0
   sayObject: {fileID: 388279221}
   inspectText: "\"The keeping of the fallen whose hope is all out should by Egyptian
     tradition be in the hollowed figure covered\r by scales. As to honor the beholder
@@ -9379,10 +9402,80 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4903340307795870681}
     m_Modifications:
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 264998879}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetCanMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 264998879}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetCanInteract
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564616, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463143564726, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
         type: 3}
       propertyPath: onWin.m_PersistentCalls.m_Calls.Array.size
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
         type: 3}
@@ -9427,6 +9520,66 @@ PrefabInstance:
     - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
         type: 3}
       propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[6].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[7].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[7].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[7].m_Target
+      value: 
+      objectReference: {fileID: 264998879}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[7].m_MethodName
+      value: SetCanMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_Target
+      value: 
+      objectReference: {fileID: 264998879}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_MethodName
+      value: SetCanInteract
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095112, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[8].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1084082463307095113, guid: 1082001f659f743b784f1888cda56a39,
@@ -9538,6 +9691,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Codelock Puzzle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084082463307095222, guid: 1082001f659f743b784f1888cda56a39,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1082001f659f743b784f1888cda56a39, type: 3}

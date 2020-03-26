@@ -39,7 +39,7 @@ public class CodeLockDigit : MonoBehaviour
 
     private void Start()
     {
-        initialPosCurrentDigit = currentDigitImage.rectTransform.position;
+        initialPosCurrentDigit = currentDigitImage.transform.position;
         posUnderDigit = initialPosCurrentDigit + new Vector3(0, -200.0f);
         posAboveDigit = initialPosCurrentDigit + new Vector3(0, 200.0f);
     }
@@ -59,17 +59,19 @@ public class CodeLockDigit : MonoBehaviour
             timeSinceAnimationStart += Time.deltaTime;
             float lerpPosition = animationCurve.Evaluate(timeSinceAnimationStart / totalAnimationLength);
 
-            nextDigitImage.rectTransform.anchoredPosition = Vector3.Lerp(nextDigitStart, initialPosCurrentDigit, lerpPosition);
+            nextDigitImage.rectTransform.anchoredPosition = Vector3.Lerp(nextDigitStart, currentDigitImage.rectTransform.anchoredPosition, lerpPosition);
             nextDigitImage.rectTransform.anchoredPosition = new Vector2(0.0f, nextDigitImage.rectTransform.anchoredPosition.y);
 
-            currentDigitImage.rectTransform.anchoredPosition = Vector3.Lerp(initialPosCurrentDigit, currentDigitEnd, lerpPosition);
+            currentDigitImage.rectTransform.anchoredPosition = Vector3.Lerp(currentDigitImage.rectTransform.anchoredPosition, currentDigitEnd, lerpPosition);
+            currentDigitImage.rectTransform.anchoredPosition = new Vector2(0, currentDigitImage.rectTransform.anchoredPosition.y);
             nextDigitImage.rectTransform.anchoredPosition = new Vector2(0.0f, nextDigitImage.rectTransform.anchoredPosition.y);
 
             yield return null;
         }
         //Clean up.
-        currentDigitImage.rectTransform.position = initialPosCurrentDigit;
-        nextDigitImage.rectTransform.position = posUnderDigit;
+        //currentDigitImage.rectTransform.position = initialPosCurrentDigit;
+        currentDigitImage.rectTransform.anchoredPosition = Vector2.zero;
+        //nextDigitImage.rectTransform.position = posUnderDigit;
 
         currentDigitImage.sprite = sprites[currentDigit];
 
@@ -88,6 +90,11 @@ public class CodeLockDigit : MonoBehaviour
         }
         
         currentDigit = (currentDigit + 1) % 10;
+
+        //initialPosCurrentDigit = currentDigitImage.rectTransform.position;
+        //posUnderDigit = initialPosCurrentDigit + new Vector3(0, -200.0f);
+        //posAboveDigit = initialPosCurrentDigit + new Vector3(0, 200.0f);
+
         StartCoroutine(AnimIncreaseNumber(posUnderDigit, posAboveDigit));
     }
 
@@ -103,6 +110,11 @@ public class CodeLockDigit : MonoBehaviour
         {
             currentDigit = 9;
         }
+
+        //initialPosCurrentDigit = currentDigitImage.rectTransform.position;
+        //posUnderDigit = initialPosCurrentDigit + new Vector3(0, -200.0f);
+        //posAboveDigit = initialPosCurrentDigit + new Vector3(0, 200.0f);
+
         StartCoroutine(AnimIncreaseNumber(posAboveDigit, posUnderDigit));
     }
 }
