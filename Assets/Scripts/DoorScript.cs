@@ -9,10 +9,13 @@ public class DoorScript : MonoBehaviour
     public void ChangeScene(string sceneName)
     {
         if (conditionMet)
+        {
             GameManagerScript.Instance.ChangeScene(sceneName);
+            GetComponent<FMODUnity.StudioEventEmitter>().Play();
+        }
         else
         {
-            string say = "I think I've missed something...";
+            string say = GetComponent<InteractableObject>().inspectText;
             var interact = GetComponent<InteractableObject>();
             interact.inspectText = say;
             interact.InspectDialog();

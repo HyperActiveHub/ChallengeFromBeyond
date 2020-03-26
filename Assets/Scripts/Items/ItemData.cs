@@ -16,6 +16,7 @@ public class ItemData : ScriptableObject
     {
         hideFlags = HideFlags.DontUnloadUnusedAsset;    //without this, the asset will be unloaded if the current scene doesnt contian a reference to it, meaning changed data is lost 
                                                         //(isPickedUp is reset to false once the asset is present in the current scene).
+
     }
 
     public void Reset()

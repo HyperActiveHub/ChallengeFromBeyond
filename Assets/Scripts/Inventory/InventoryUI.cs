@@ -96,7 +96,7 @@ public class InventoryUI : MonoBehaviour
         foreach (var item in itemDatas)
         {
             GameObject newItem = Resources.Load<GameObject>("ItemPrefabs/" + item.displayText);
-            if(newItem == null)
+            if (newItem == null)
             {
                 Debug.LogError("Item prefab not found. Make sure that the item is prefabbed in Resources/ItemPrefabs, " +
                     "and has the exact same name as 'displayText' on its itemData.", this);
@@ -124,10 +124,46 @@ public class InventoryUI : MonoBehaviour
     {
         if (animator != null)
         {
-            animator.SetBool(animationParameter, inventoryIsActive);
+            //animator.SetBool(animationParameter, inventoryIsActive);
+            if (inventoryIsActive)
+            {
+                animator.SetTrigger("Close");
+            }
+            else
+                animator.SetTrigger("Open");
         }
 
         inventoryIsActive = !inventoryIsActive;
+    }
+
+    public void ExpandInventory()
+    {
+        if (animator != null)
+        {
+            inventoryIsActive = true;
+            //animator.SetBool(animationParameter, inventoryIsActive);
+            animator.SetTrigger("Open");
+        }
+    }
+
+    public void PlayNewItemAnim()
+    {
+
+        if (inventoryIsActive)
+        {
+            var a = GetComponentsInChildren<FMODUnity.StudioEventEmitter>();
+            if (a != null && a.Length >= 2)
+            {
+                a[1].Play();
+            }
+            animator.SetTrigger("ShowNew");
+        }
+        else
+        {
+            animator.SetTrigger("Open");
+            inventoryIsActive = true;
+            animator.SetTrigger("ShowNewAndSound");
+        }
     }
 
     #region Inventory Updates and Sorting

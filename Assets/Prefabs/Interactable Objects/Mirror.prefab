@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7072253321185066927}
   - component: {fileID: 7072253321185066926}
   - component: {fileID: 7072253321185066921}
-  - component: {fileID: 8052128132341675317}
   m_Layer: 0
   m_Name: Mirror
   m_TagString: Untagged
@@ -152,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 2.21
+  playPickupAnim: 0
   sayObject: {fileID: 0}
   inspectText: A mirror, but ... it doesnt seem to be.. working?
   insightWorth: 0.1
@@ -208,7 +208,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Did i hear this get cracked earlier?
+          m_StringArgument: Broken..
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 7072253321185066914}
@@ -234,37 +234,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8052128132341675317}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8052128132341675317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7072253321185066920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8d167a8e78f438388ff7d49d6f6425, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: event:/Interaction/Extinguish
-  PlayEvent: 0
-  StopEvent: 0
-  CollisionTag: 
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20

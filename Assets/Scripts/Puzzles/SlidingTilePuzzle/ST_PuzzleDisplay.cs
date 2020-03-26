@@ -34,24 +34,22 @@ public class ST_PuzzleDisplay : MonoBehaviour
     private Vector3 Scale;
     private Vector3 Position;
 
-    // has the puzzle been completed?
-    public bool Complete = false;
-
     [FMODUnity.EventRef]
     public string InputSliderSound;
+
+    public bool Complete = false;
+    public bool triggeredComplete;
+
+    public UnityEngine.Events.UnityEvent OnComplete;
 
     void Start()
     {
 
-        //SlidingEvent = FMODUnity.RuntimeManager.CreateInstance(InputSliderSound);
         // create the games puzzle tiles from the provided image.
         CreatePuzzleTiles();
 
         // mix up the puzzle.
         StartCoroutine(JugglePuzzle());
-
-        //ADD ON WIN UNITYEVENT AND RESET PLAYER-SORTINGLAYER TO TESTPLAYER
-        //trigger dialog about needing the scarab to put in
 
     }
 
@@ -62,10 +60,18 @@ public class ST_PuzzleDisplay : MonoBehaviour
             TileDisplayArray[0, 0].GetComponent<ST_PuzzleTile>().Active = true;
             TileDisplayArray[0, 0].GetComponent<ST_PuzzleTile>().GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
             TileDisplayArray[0, 0].GetComponent<ST_PuzzleTile>().GetComponent<MeshRenderer>().enabled = true;
-            if (SeperationBetweenTiles > 0f)
+
+            if (SeperationBetweenTiles > 0.001f)
             {
                 SeperationBetweenTiles = Mathf.Lerp(SeperationBetweenTiles, 0f, Time.deltaTime * 2);
-
+            }
+            else if (triggeredComplete == false)
+            {
+                triggeredComplete = true;
+                OnComplete.Invoke();
+                //trigger dialog about needing the scarab to put in
+                GameManagerScript.slidePuzzleDone = true;
+                return;
             }
 
             for (int j = Height - 1; j >= 0; j--)
@@ -91,6 +97,7 @@ public class ST_PuzzleDisplay : MonoBehaviour
 
                 }
             }
+
 
         }
 
@@ -356,5 +363,27 @@ public class ST_PuzzleDisplay : MonoBehaviour
         }
 
 
+    }
+
+    public void DisableTiles()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
+    public void SetActiveIfCompleted(GameObject gameObject)
+    {
+        if (Complete)
+        {
+            gameObject.SetActive(true);
+        }
+    }
+
+    public void ScarabInsert()
+    {
+        GameManagerScript.scarabInserted = true;
+        print("Scarab was recorded as inserted");
     }
 }

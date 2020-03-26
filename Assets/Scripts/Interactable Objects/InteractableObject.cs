@@ -10,6 +10,7 @@ public class InteractableObject : MonoBehaviour
     [Header("Inspect")]
     [Tooltip("How close the player must be to interact with this object")]
     [Range(0.5f, 5)] public float proximityRange = 1;
+    public bool playPickupAnim;
     [Tooltip("Drag the flowchart here. It needs to contain a block with a 'Say' command.")]
     [SerializeField] Fungus.Say sayObject;
     [TextArea] public string inspectText;
