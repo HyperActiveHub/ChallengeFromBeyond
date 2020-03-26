@@ -38,22 +38,18 @@ public class ST_PuzzleDisplay : MonoBehaviour
     public string InputSliderSound;
 
     public bool Complete = false;
-    bool triggeredComplete;
+    public bool triggeredComplete;
 
     public UnityEngine.Events.UnityEvent OnComplete;
 
     void Start()
     {
 
-        //SlidingEvent = FMODUnity.RuntimeManager.CreateInstance(InputSliderSound);
         // create the games puzzle tiles from the provided image.
         CreatePuzzleTiles();
 
         // mix up the puzzle.
         StartCoroutine(JugglePuzzle());
-
-        //ADD ON WIN UNITYEVENT AND RESET PLAYER-SORTINGLAYER TO TESTPLAYER
-        //trigger dialog about needing the scarab to put in
 
     }
 
@@ -69,10 +65,13 @@ public class ST_PuzzleDisplay : MonoBehaviour
             {
                 SeperationBetweenTiles = Mathf.Lerp(SeperationBetweenTiles, 0f, Time.deltaTime * 2);
             }
-            else if(triggeredComplete == false)
+            else if (triggeredComplete == false)
             {
                 triggeredComplete = true;
                 OnComplete.Invoke();
+                //trigger dialog about needing the scarab to put in
+                GameManagerScript.slidePuzzleDone = true;
+                return;
             }
 
             for (int j = Height - 1; j >= 0; j--)
@@ -364,5 +363,27 @@ public class ST_PuzzleDisplay : MonoBehaviour
         }
 
 
+    }
+
+    public void DisableTiles()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
+    public void SetActiveIfCompleted(GameObject gameObject)
+    {
+        if (Complete)
+        {
+            gameObject.SetActive(true);
+        }
+    }
+
+    public void ScarabInsert()
+    {
+        GameManagerScript.scarabInserted = true;
+        print("Scarab was recorded as inserted");
     }
 }

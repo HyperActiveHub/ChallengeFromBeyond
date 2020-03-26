@@ -110,7 +110,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void SetPlayerMovement(bool value)
     {
-        playerController.canMove = value;
+        playerController.SetCanMove(value);
     }
 
     private void OnLevelLoad(Scene scene, LoadSceneMode mode)
@@ -208,11 +208,36 @@ public class GameManagerScript : MonoBehaviour
 
     #region Museum Room
     public static bool slidePuzzleDone;
+    public static bool scarabInserted;
+
     void MuseumLoaded()
     {
-        //if(slidePuzzleDone)
-        //set slidepuzzle win
+        var slidingPuzzle = FindObjectOfType<ST_PuzzleDisplay>();
+        slidingPuzzle.gameObject.SetActive(false);
+
+        if (slidePuzzleDone)
+        {
+            slidingPuzzle.Complete = true;
+            slidingPuzzle.triggeredComplete = true;
+            slidingPuzzle.OnComplete.Invoke();
+
+            var sDone = GameObject.Find("SlidingDone");
+
+            if (sDone != null)
+                sDone.SetActive(false);
+            else
+                Debug.LogError("SlidingDone object not found.", this);
+
+            if (scarabInserted)
+            {
+                //sDone.GetComponent<InteractableObject>().interactions[1].interactedWithItem = null;
+                sDone.GetComponent<InteractableObject>().interactions[1].onInteraction.Invoke();    //when scarab is inserted.
+            }
+        }
+
+
     }
+
 
     public void SlidePuzzleDone()
     {
