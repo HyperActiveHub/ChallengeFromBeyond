@@ -5,7 +5,7 @@
             <value>speldosa-insight-random</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>2</value>
         </property>
         <relationship name="folder">
             <destination>{93e8efa8-6850-4ec4-bf3d-f21a07ee886c}</destination>
@@ -139,6 +139,7 @@
     <object class="MixerBusEffectChain" id="{e21e3aa4-4740-42d5-818b-e43b7ca72326}">
         <relationship name="effects">
             <destination>{50017d23-a8c5-4b68-a714-f3d09189dd20}</destination>
+            <destination>{13f15c90-4754-49ec-bf4d-33918e909a2f}</destination>
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{d067d58a-252e-40fd-8b3f-e76f9378cb0b}"/>
@@ -170,5 +171,10 @@
     </object>
     <object class="MixerBusPanner" id="{01ea6c18-989b-43b8-8c80-2cf69e015fda}"/>
     <object class="MixerBusFader" id="{50017d23-a8c5-4b68-a714-f3d09189dd20}"/>
+    <object class="SpatialiserEffect" id="{13f15c90-4754-49ec-bf4d-33918e909a2f}">
+        <property name="minimumDistance">
+            <value>3.60000014</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{fe9038a1-65fd-4a11-bcde-1362a344d436}"/>
 </objects>
