@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 390637605}
   - component: {fileID: 390637606}
   - component: {fileID: 390637608}
+  - component: {fileID: 2687937235981724417}
   m_Layer: 0
   m_Name: Door_flat
   m_TagString: Untagged
@@ -146,6 +147,17 @@ MonoBehaviour:
             m_StringArgument: Lounge_LA
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 2687937235981724417}
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &390637605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +196,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684dcac8189ae1a49af923897855243c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  conditionMet: 0
+--- !u!114 &2687937235981724417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901626212354025083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8d167a8e78f438388ff7d49d6f6425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Interaction/Door
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &2901626213402505995
 GameObject:
   m_ObjectHideFlags: 0

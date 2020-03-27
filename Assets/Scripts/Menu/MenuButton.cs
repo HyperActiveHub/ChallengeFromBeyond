@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MenuButton : MonoBehaviour
 {
-	[SerializeField] MenuButtonController menuButtonController;
-	[SerializeField] ButtonFunction buttonFunction;
-	[SerializeField] SliderFunction sliderFunction;
-	[SerializeField] Animator animator;
-	[SerializeField] bool isSlider = false;
-	[SerializeField] AnimatorButtonFunctions animatorButtonFunctions;
-	[SerializeField] int thisIndex;
+    MenuButtonController menuButtonController;
+    ButtonFunction buttonFunction;
+    SliderFunction sliderFunction;
+    Animator animator;
+    bool isSlider = false;
+    AnimatorButtonFunctions animatorButtonFunctions;
+    int thisIndex;
 	private int sinceDroppedDown = 4;
 	public bool countUp = false;
 	private bool releasedButton = true;
@@ -34,91 +34,101 @@ public class MenuButton : MonoBehaviour
 		menuButtonController.inDropDown = true;
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-		if (sinceDroppedDown >= countDown && countUp && releasedButton)
-		{
-			menuButtonController.inDropDown = false;
-			countUp = false;
-		}
-		if (!menuButtonController.inDropDown)
-		{
-			if (animator)
-			{
-				if (menuButtonController.index == thisIndex)
-				{
-					selected();
-					if (!isSlider)
-					{
-						if (Input.GetAxis("Submit") == 1)
-						{
-							pressed();
-						}
-						else if (animator.GetBool("pressed"))
-						{
-							animator.SetBool("pressed", false);
-							animatorButtonFunctions.disableOnce = true;
-						}
-					}
-					else
-					{
-						float input = Input.GetAxis("Horizontal");
-						if (input != 0)
-						{
-							pressed();
-							if (sliderFunction)
-							{
-								sliderFunction.SetValue(input);
-							}
-						}
-						else if (animator.GetBool("pressed"))
-						{
-							animator.SetBool("pressed", false);
-							animatorButtonFunctions.disableOnce = true;
-						}
-					}
-				}
-				else
-				{
-					notSelected();
-				}
-			}
-			else
-			{
-				if (menuButtonController.index == thisIndex)
-				{
-					if (!isSlider)
-					{
-						if (Input.GetAxis("Submit") == 1)
-						{
-							pressed();
-						}
-					}
-					else
-					{
-						float input = Input.GetAxis("Horizontal");
-						if (input != 0)
-						{
-							if (sliderFunction)
-							{
-								sliderFunction.SetValue(input);
-							}
-						}
-					}
-				}
-			}
+    public void ChangeScene(string name)
+    {
+        GameManagerScript.Instance.ChangeScene(name);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    // Update is called once per frame
+ //   void Update()
+	//{
+	//	if (sinceDroppedDown >= countDown && countUp && releasedButton)
+	//	{
+	//		menuButtonController.inDropDown = false;
+	//		countUp = false;
+	//	}
+	//	if (!menuButtonController.inDropDown)
+	//	{
+	//		//if (animator)
+	//		//{
+	//		//	if (menuButtonController.index == thisIndex)
+	//		//	{
+	//		//		selected();
+	//		//		if (!isSlider)
+	//		//		{
+	//		//			if (Input.GetAxis("Submit") == 1)
+	//		//			{
+	//		//				pressed();
+	//		//			}
+	//		//			else if (animator.GetBool("pressed"))
+	//		//			{
+	//		//				animator.SetBool("pressed", false);
+	//		//				animatorButtonFunctions.disableOnce = true;
+	//		//			}
+	//		//		}
+	//		//		else
+	//		//		{
+	//		//			float input = Input.GetAxis("Horizontal");
+	//		//			if (input != 0)
+	//		//			{
+	//		//				pressed();
+	//		//				if (sliderFunction)
+	//		//				{
+	//		//					sliderFunction.SetValue(input);
+	//		//				}
+	//		//			}
+	//		//			else if (animator.GetBool("pressed"))
+	//		//			{
+	//		//				animator.SetBool("pressed", false);
+	//		//				animatorButtonFunctions.disableOnce = true;
+	//		//			}
+	//		//		}
+	//		//	}
+	//		//	else
+	//		//	{
+	//		//		notSelected();
+	//		//	}
+	//		//}
+	//		//else
+	//		//{
+	//		//	if (menuButtonController.index == thisIndex)
+	//		//	{
+	//		//		if (!isSlider)
+	//		//		{
+	//		//			if (Input.GetAxis("Submit") == 1)
+	//		//			{
+	//		//				pressed();
+	//		//			}
+	//		//		}
+	//		//		else
+	//		//		{
+	//		//			float input = Input.GetAxis("Horizontal");
+	//		//			if (input != 0)
+	//		//			{
+	//		//				if (sliderFunction)
+	//		//				{
+	//		//					sliderFunction.SetValue(input);
+	//		//				}
+	//		//			}
+	//		//		}
+	//		//	}
+	//		//}
 		
-		}
-		if (countUp)
-		{
-			sinceDroppedDown++;
-			if (Input.GetAxis("Submit") == 0)
-			{
-				releasedButton = true;
-			}
-		}
-	}
+	//	}
+	//	if (countUp)
+	//	{
+	//		sinceDroppedDown++;
+	//		if (Input.GetAxis("Submit") == 0)
+	//		{
+	//			releasedButton = true;
+	//		}
+	//	}
+	//}
 
 	private void selected()
 	{

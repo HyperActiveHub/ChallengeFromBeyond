@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8831451110678598187}
   - component: {fileID: 8831451110678598186}
   - component: {fileID: 8831451110678598181}
-  - component: {fileID: 8831451110678598180}
   - component: {fileID: 8831451110678598183}
   - component: {fileID: 1692516762463928709}
   - component: {fileID: 3467865637094016687}
+  - component: {fileID: 361879743843892079}
   m_Layer: 0
   m_Name: SaveVariable
   m_TagString: Untagged
@@ -63,8 +63,7 @@ MonoBehaviour:
     height: 0
   selectedBlocks:
   - {fileID: 8831451110678598181}
-  selectedCommands:
-  - {fileID: 1692516762463928709}
+  selectedCommands: []
   variables:
   - {fileID: 8831451110678598186}
   - {fileID: 3467865637094016687}
@@ -116,26 +115,11 @@ MonoBehaviour:
   itemId: 0
   blockName: Start
   description: 
-  eventHandler: {fileID: 8831451110678598180}
+  eventHandler: {fileID: 361879743843892079}
   commandList:
   - {fileID: 8831451110678598183}
   - {fileID: 1692516762463928709}
   suppressAllAutoSelections: 0
---- !u!114 &8831451110678598180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8831451110678598182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentBlock: {fileID: 8831451110678598181}
-  suppressBlockAutoSelect: 0
-  waitForFrames: 1
 --- !u!114 &8831451110678598183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,3 +167,17 @@ MonoBehaviour:
   scope: 2
   key: Conversations
   value: 0
+--- !u!114 &361879743843892079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8831451110678598182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff5d850a887844fe87ae7d366d3ab5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 8831451110678598181}
+  suppressBlockAutoSelect: 0

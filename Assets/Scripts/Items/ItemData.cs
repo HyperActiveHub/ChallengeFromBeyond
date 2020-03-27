@@ -10,6 +10,18 @@ public class ItemData : ScriptableObject
     [Tooltip("Will change to this sprite when item is added to inventory. Will not replace sprite if left empty.")]
     public Sprite itemSpriteInventory;
     public string displayText;
-    //need to keep track of if item is already picked-up, used or others. Prevent items from spawning in scenes if already used/picked up.
+    public bool isUsed;
 
+    private void OnEnable()
+    {
+        hideFlags = HideFlags.DontUnloadUnusedAsset;    //without this, the asset will be unloaded if the current scene doesnt contian a reference to it, meaning changed data is lost 
+                                                        //(isPickedUp is reset to false once the asset is present in the current scene).
+
+    }
+
+    public void Reset()
+    {
+        isUsed = false;
+        Debug.LogWarning("Unregistered as picked up", this);
+    }
 }

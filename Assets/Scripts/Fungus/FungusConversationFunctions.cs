@@ -18,7 +18,8 @@ public class FungusConversationFunctions : MonoBehaviour
         SayDialog = GameObject.Find("SayDialog");
         if (!SayDialog)
         {
-            SayDialog = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Fungus/Resources/Prefabs/SayDialog.prefab", typeof(GameObject));
+            //SayDialog = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Fungus/Resources/Prefabs/SayDialog.prefab", typeof(GameObject));
+            //cant use assetdatabase ingame.
             SayDialogPanel = SayDialog.transform.GetChild(0).gameObject;
             ChangeSayDialog("Player");
             StartCoroutine(LateStart(0.1f));

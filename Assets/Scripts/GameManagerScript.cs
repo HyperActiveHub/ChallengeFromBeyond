@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
@@ -32,15 +33,23 @@ public class GameManagerScript : MonoBehaviour
     InventoryUI inventoryUI = null;
     PlayerController playerController = null;
 
+    PipePuzzle pipePuzzle;
+
+    public InventoryUI GetInventoryUI()
+    {
+        return FindObjectOfType<InventoryUI>();
+
+    }
+
     private void Awake()
     {
         if (_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(this);
-            inventoryUI = FindObjectOfType<InventoryUI>();
+            inventoryUI = GetInventoryUI();
 
-            if(inventoryUI == null)
+            if (inventoryUI == null)
             {
                 Debug.LogWarning("Missing inventory in scene.", this);
             }
@@ -49,6 +58,13 @@ public class GameManagerScript : MonoBehaviour
                 inventoryUI.inventory.itemDataInInventory.Clear();
                 print("Cleared saved inventory");
             }
+
+            var items = Resources.LoadAll<ItemData>("ItemsData");
+            foreach (var item in items)
+            {
+                item.Reset();
+            }
+
         }
         else if (_instance != null)
         {
@@ -60,9 +76,11 @@ public class GameManagerScript : MonoBehaviour
 
         playerController = FindObjectOfType<PlayerController>();
 
-        if(playerController == null)
+        if (playerController == null)
         {
             Debug.LogWarning("Player controller not found, scene is missing the player object.");
+
+
         }
 
     }
@@ -70,6 +88,11 @@ public class GameManagerScript : MonoBehaviour
     public float GetOutlineMode()
     {
         return (float)outlineMode;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
     public void ChangeScene(string sceneName)
@@ -87,11 +110,18 @@ public class GameManagerScript : MonoBehaviour
         }
         transision.SetTrigger("Start");
 
-        inventoryUI.inventory.itemDataInInventory.Clear();
-        foreach (var item in inventoryUI.inventory.itemsInInventory)
+        inventoryUI = GetInventoryUI();
+
+        if (inventoryUI != null)
         {
-            inventoryUI.inventory.itemDataInInventory.Add(item.GetComponent<Item>().itemData);
+            inventoryUI.inventory.itemDataInInventory.Clear();
+            foreach (var item in inventoryUI.inventory.itemsInInventory)
+            {
+                inventoryUI.inventory.itemDataInInventory.Add(item.GetComponent<Item>().itemData);
+            }
         }
+        else
+            Debug.LogError("inventory missing", this);
 
         yield return new WaitForSeconds(transisionTime);
 
@@ -100,24 +130,176 @@ public class GameManagerScript : MonoBehaviour
 
     public void SetPlayerMovement(bool value)
     {
-        playerController.canMove = value;
+        playerController.SetCanMove(value);
     }
 
-    //need to read these bool on scene load, to set if puzzle should be interactable or not
+    private void OnLevelLoad(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.Contains("Boiler"))
+        {
+            BoilerLoaded();
+        }
+        else if (scene.name.Contains("Lounge"))
+        {
+            LoungeLoaded();
+        }
+        else if (scene.name.Contains("Study"))
+        {
+
+        }
+        else if (scene.name.Contains("Museum"))
+        {
+            MuseumLoaded();
+        }
+
+    }
+
+    //need to read these bools on scene load, to set puzzles and interactables to their correct states
+    #region scene-specific helper functions
+
+    #region Boiler Room
     public void PipePuzzleDone()
     {
         //set bool true
+        pipePzleDone = true;
     }
+    public void AssembledLamp()
+    {
+        isLampAssembled = true;
+    }
+
+    public static bool pipePzleDone = false;
+    public static bool isLampAssembled = false;
+    void BoilerLoaded()
+    {
+        GameObject.Find("Assembled Lamp").SetActive(isLampAssembled);
+
+        if (pipePzleDone)
+        {
+            Debug.Log("puzzle already done.");
+            FindObjectOfType<PipePuzzle>().onWin.Invoke();
+        }
+
+        var bucket = Resources.Load<ItemData>("ItemsData/I_Bucket_w");
+        if (bucket.isUsed)
+        {
+            FindObjectOfType<DoorScript>().ConditionMet();
+            Debug.Log("bucket is in inventory, door is open.");
+        }
+    }
+    #endregion
+
+    #region Lounge
+    public static bool firePutOut;
+
+    void LoungeLoaded()
+    {
+        var loungeDoors = FindObjectsOfType<DoorScript>();
+        DoorScript museumDoor = null;
+
+        foreach (DoorScript door in loungeDoors)
+        {
+            if (door.name.Contains("Museum"))
+            {
+                museumDoor = door;
+            }
+        }
+
+        if (museumDoor == null)
+        {
+            Debug.LogError("Museum Door not found in Lounge.", this);
+        }
+        else
+        {
+            var museumKey = Resources.Load<ItemData>("ItemsData/I_Key");
+            if (museumKey == null)
+            {
+                Debug.LogError("Museum key not found in resources.");
+            }
+            else
+            {
+
+                inventoryUI = GetInventoryUI();
+                if (inventoryUI == null)
+                {
+                    Debug.LogError("inventory not found", this);
+                }
+                else if (inventoryUI.inventory.itemDataInInventory.Contains(museumKey))
+                {
+                    Debug.Log("Inventory contained the museum key, museum door is now open.");
+                    museumDoor.ConditionMet();
+                }
+            }
+
+        }
+
+        GameObject fireplace = GameObject.Find("Fireplace");
+        if (fireplace != null)
+        {
+            if (firePutOut)
+            {
+                fireplace.GetComponent<InteractableObject>().interactions[1].onInteraction.Invoke();
+            }
+        }
+        else
+            Debug.LogError("fireplace wasnt found.", this);
+
+    }
+    #endregion
+
+    #region Museum Room
+    public static bool slidePuzzleDone;
+    public static bool scarabInserted;
+
+    void MuseumLoaded()
+    {
+        var slidingPuzzle = FindObjectOfType<ST_PuzzleDisplay>();
+        slidingPuzzle.gameObject.SetActive(false);
+
+        if (slidePuzzleDone)
+        {
+            slidingPuzzle.Complete = true;
+            slidingPuzzle.triggeredComplete = true;
+            slidingPuzzle.OnComplete.Invoke();
+
+            var sDone = GameObject.Find("SlidingDone");
+
+            if (sDone != null)
+                sDone.SetActive(false);
+            else
+                Debug.LogError("SlidingDone object not found.", this);
+
+            if (scarabInserted)
+            {
+                //sDone.GetComponent<InteractableObject>().interactions[1].interactedWithItem = null;
+                sDone.GetComponent<InteractableObject>().interactions[1].onInteraction.Invoke();    //when scarab is inserted.
+            }
+        }
+
+
+    }
+
 
     public void SlidePuzzleDone()
     {
-        //set bool true
+        slidePuzzleDone = true;
     }
+    #endregion
 
+    #region Study Room
+    public static bool codeLockDone;
+    public void StudyLoaded()
+    {
+        //if(codeLockDone)
+        //set codelock win?
+    }
     public void CodeLockDone()
     {
-        //set bool true
+        codeLockDone = true;
     }
+    #endregion
+
+    #endregion
 
     private void Start()
     {
@@ -126,7 +308,15 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
-
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnLevelLoad;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelLoad;
+    }
 }

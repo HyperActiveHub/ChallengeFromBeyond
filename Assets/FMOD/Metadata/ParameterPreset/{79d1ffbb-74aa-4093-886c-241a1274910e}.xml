@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{79d1ffbb-74aa-4093-886c-241a1274910e}">
+        <property name="name">
+            <value>JasperVoiceclip</value>
+        </property>
+        <relationship name="folder">
+            <destination>{030b007a-37f7-4ef6-9c64-a0dde956f70c}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{3c5959cf-100e-4539-9ebd-c9016cc69ce8}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{3c5959cf-100e-4539-9ebd-c9016cc69ce8}">
+        <property name="minimum">
+            <value>1</value>
+        </property>
+        <property name="maximum">
+            <value>9</value>
+        </property>
+        <property name="initialValue">
+            <value>1</value>
+        </property>
+        <property name="isExposedRecursively">
+            <value>false</value>
+        </property>
+    </object>
+</objects>
