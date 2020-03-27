@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -233,8 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 4772124611845861167, guid: cf13bd20be2697443b59c115f3cac313,
-    type: 3}
+  selectedFlowchart: {fileID: 6508760446002666310}
 --- !u!4 &882123977
 Transform:
   m_ObjectHideFlags: 1
@@ -3196,6 +3195,21 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1170266875983431648}
+    - target: {fileID: 155814403692985211, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1170266875983431648}
+    - target: {fileID: 155814403692985211, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: fromPosition
+      value: 
+      objectReference: {fileID: 1170266874154803751}
+    - target: {fileID: 155814403692985211, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: toPosition
+      value: 
+      objectReference: {fileID: 1170266875918111846}
     - target: {fileID: 290923081396244519, guid: cf13bd20be2697443b59c115f3cac313,
         type: 3}
       propertyPath: character
@@ -3266,6 +3280,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2075261618794697440, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: commandList.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075261618794697440, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: commandList.Array.data[6]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2253092729364605984, guid: cf13bd20be2697443b59c115f3cac313,
         type: 3}
       propertyPath: character
@@ -3306,6 +3330,31 @@ PrefabInstance:
       propertyPath: toPosition
       value: 
       objectReference: {fileID: 1170266875505669347}
+    - target: {fileID: 4565466335000882746, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1170266875983431648}
+    - target: {fileID: 4565466335000882746, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: fromPosition
+      value: 
+      objectReference: {fileID: 1170266874154803751}
+    - target: {fileID: 4565466335000882746, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: toPosition
+      value: 
+      objectReference: {fileID: 1170266875918111846}
+    - target: {fileID: 4772124611845861167, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: selectedBlocks.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4772124611845861167, guid: cf13bd20be2697443b59c115f3cac313,
+        type: 3}
+      propertyPath: selectedCommands.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5020538994606332804, guid: cf13bd20be2697443b59c115f3cac313,
         type: 3}
       propertyPath: character
@@ -3353,6 +3402,18 @@ PrefabInstance:
       objectReference: {fileID: 1170266875983431648}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf13bd20be2697443b59c115f3cac313, type: 3}
+--- !u!114 &6508760446002666310 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4772124611845861167, guid: cf13bd20be2697443b59c115f3cac313,
+    type: 3}
+  m_PrefabInstance: {fileID: 6508760446002666309}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9221990092834472394
 GameObject:
   m_ObjectHideFlags: 0
