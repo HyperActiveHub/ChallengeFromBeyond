@@ -18,6 +18,8 @@ public class PipePuzzle : MonoBehaviour
 
     [SerializeField] public UnityEvent onWin;
 
+    bool canTurn = true;
+
     private void OnEnable()
     {
         ValidateFlow();
@@ -70,12 +72,26 @@ public class PipePuzzle : MonoBehaviour
             {
                 if (InsightGlobal.InsightValue >= outflowPipes[i].requiredInsightLevel)
                 {
-                    onWin.Invoke();
+                    //onWin.Invoke();
+                    StartCoroutine(WinDiplay(0.25f));
                 }
             }
         }
     }
         
+    IEnumerator WinDiplay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        canTurn = false;
+        var soundEmmitter = GetComponent<FMODUnity.StudioEventEmitter>();
+        soundEmmitter.Play();
+        
+        yield return new WaitUntil(() => soundEmmitter.IsPlaying() == false);
+        onWin.Invoke();
+
+    }
+
 
     private void RecursiveValidation(PipeTile pipeTile)
     {
@@ -165,7 +181,7 @@ public class PipePuzzle : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canTurn)
         {
             RaycastHit2D hit = Physics2D.Raycast(puzzleCamera.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
 
