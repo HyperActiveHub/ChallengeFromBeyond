@@ -10,7 +10,11 @@ public class InteractableObject : MonoBehaviour
     [Header("Inspect")]
     [Tooltip("How close the player must be to interact with this object")]
     [Range(0.5f, 5)] public float proximityRange = 1;
-    public bool playPickupAnim;
+    public bool playAnim;
+    public string animTriggerName = "";
+    [Tooltip("This value specifies the percentage of the animation at which the interaction should happen.")]
+    [Range(0.2f, 0.9f)]
+    public float interactAtAnimProgress = 0.5f;
     [Tooltip("Drag the flowchart here. It needs to contain a block with a 'Say' command.")]
     [SerializeField] Fungus.Say sayObject;
     [TextArea] public string inspectText;
@@ -20,7 +24,6 @@ public class InteractableObject : MonoBehaviour
 
     [Header("Interactions")]
     public List<Interaction> interactions = new List<Interaction>();
-
 
     private void OnDrawGizmos()
     {
@@ -92,6 +95,12 @@ public class InteractableObject : MonoBehaviour
         BoxCollider2D col = GetComponent<BoxCollider2D>();
         col.size = GetComponent<SpriteRenderer>().bounds.size;      //Set the box collider to be the same as the sr bounds
         col.size = Vector2.Scale(Vector2.one / transform.localScale, col.size); //also take the scale of the object into account
+
+        if(animTriggerName == "")
+        {
+            playAnim = false;
+        }
+
     }
 
     public void DisableGameObject(GameObject gameObject)

@@ -15,7 +15,7 @@ public class ClickAndDrag : MonoBehaviour
     private Item itemComponent = null;
     private Transform player;
     private Animator anim;
-    const float interactAtPercent = 0.45f;
+    const float pickupAtPercent = 0.45f;
 
     [Tooltip("How much the player is allowed to move the gameobject and it will still register as a click.")]
     [SerializeField] private float clickTolerance = 1.0f;
@@ -170,7 +170,13 @@ public class ClickAndDrag : MonoBehaviour
             {
                 player.GetComponent<PlayerController>().target.transform.position = position;
                 yield return new WaitUntil(() => Vector2.Distance(player.position, position) <= minDist);
-                anim.SetTrigger("isPickingUp");
+
+                if(otherInteractable.playAnim)
+                {
+                    anim.SetTrigger(otherInteractable.animTriggerName);
+                    yield return new WaitForEndOfFrame();
+                    yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > pickupAtPercent && !anim.IsInTransition(0));
+                }
             }
         }
 
@@ -180,18 +186,18 @@ public class ClickAndDrag : MonoBehaviour
             player.GetComponent<PlayerController>().target.transform.position = position;
             yield return new WaitUntil(() => Vector2.Distance(player.position, position) <= minDist);
 
-            if (item != null)
+            if (item != null)   //only other object is an item, this means that an item is being picked up.
             {
                 anim.SetTrigger("isPickingUp");
                 yield return new WaitForEndOfFrame();
-                yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > interactAtPercent && !anim.IsInTransition(0));
+                yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > pickupAtPercent && !anim.IsInTransition(0));
 
             }
-            else if (otherInteractable.playPickupAnim)
+            else if (otherInteractable.playAnim)  //the object is not an item, just an interactable object
             {
-                anim.SetTrigger("isPickingUp");
+                anim.SetTrigger(otherInteractable.animTriggerName);
                 yield return new WaitForEndOfFrame();
-                yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > interactAtPercent && !anim.IsInTransition(0));
+                yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > otherInteractable.interactAtAnimProgress && !anim.IsInTransition(0));
             }
         }
 
