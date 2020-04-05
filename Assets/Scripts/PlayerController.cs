@@ -51,8 +51,12 @@ public class PlayerController : MonoBehaviour
     }
 
     //placing this here bcus fuck
-    public void FireWasPutOut()
+    public void FireWasPutOut(Animator anim)
     {
+        if (!GameManagerScript.firePutOut)
+        {
+            anim.SetTrigger("Splash");
+        }
         GameManagerScript.firePutOut = true;
 
     }

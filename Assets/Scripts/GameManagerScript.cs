@@ -239,6 +239,7 @@ public class GameManagerScript : MonoBehaviour
             if (firePutOut)
             {
                 fireplace.GetComponent<InteractableObject>().interactions[1].onInteraction.Invoke();
+                fireplace.GetComponentInChildren<Animator>().SetTrigger("Die");
             }
         }
         else
