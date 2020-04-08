@@ -34,6 +34,7 @@ public class GameManagerScript : MonoBehaviour
     PlayerController playerController = null;
 
     PipePuzzle pipePuzzle;
+    string lastSceneName;
 
     public InventoryUI GetInventoryUI()
     {
@@ -74,15 +75,18 @@ public class GameManagerScript : MonoBehaviour
         litOutlineMat = Resources.Load<Material>(litMatPath);
         unlitOutlineMat = Resources.Load<Material>(unlitMatPath);
 
+        GetPlayer();
+
+    }
+
+    void GetPlayer()
+    {
         playerController = FindObjectOfType<PlayerController>();
 
         if (playerController == null)
         {
             Debug.LogWarning("Player controller not found, scene is missing the player object.");
-
-
         }
-
     }
 
     public float GetOutlineMode()
@@ -125,7 +129,8 @@ public class GameManagerScript : MonoBehaviour
 
         yield return new WaitForSeconds(transisionTime);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(name);
+        lastSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(name);
     }
 
     public void SetPlayerMovement(bool value)
@@ -133,8 +138,60 @@ public class GameManagerScript : MonoBehaviour
         playerController.SetCanMove(value);
     }
 
+    Vector2 GetEntryPoint(out Vector2 doorPos)
+    {
+        if (lastSceneName != "")
+        {
+            var doors = FindObjectsOfType<DoorScript>();
+
+            foreach (var door in doors)
+            {
+                if (door.NextRoom == lastSceneName)
+                {
+                    doorPos = door.transform.position;
+                    return door.GetSpawnPos();
+                }
+            }
+
+            Debug.LogWarning("Entry-door not found.", this);
+        }
+        else
+            Debug.LogWarning("No last scene name set.", this);
+
+        doorPos = Vector2.zero;
+        return playerController.transform.position;
+    }
+
+    void MovePlayerToEntry()
+    {
+        Vector2 doorPos;
+        Vector2 offset = Vector2.zero;
+        Vector2 spawnPoint = GetEntryPoint(out doorPos);
+        playerController.transform.position = spawnPoint;
+
+        if (doorPos != Vector2.zero)
+        {
+            offset = (spawnPoint - doorPos) * 0.25f;
+
+            if(Mathf.Abs(offset.x) > 0.01f)     //Essentially spawnPoint.x != 0
+            {
+                offset.y = 0;
+            }
+        }
+
+        playerController.target.position = spawnPoint + offset;  //added offset makes the player walk outward from door.
+
+        Camera.main.transform.position = new Vector3(spawnPoint.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
+    }
+
     private void OnLevelLoad(Scene scene, LoadSceneMode mode)
     {
+        if (!scene.name.Contains("Start") && !scene.name.Contains("End"))
+        {
+            GetPlayer();
+            MovePlayerToEntry();
+        }
+
         if (scene.name.Contains("Boiler"))
         {
             BoilerLoaded();
