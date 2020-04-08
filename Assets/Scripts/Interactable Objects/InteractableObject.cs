@@ -31,6 +31,32 @@ public class InteractableObject : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, proximityRange);
     }
 
+    private void OnMouseEnter()
+    {
+        if (GetComponent<ClickAndDrag>().enabled)
+        {
+            if (GetComponent<Item>() == null && GetComponent<DoorScript>() == null)
+            {
+                if (CompareTag("Puzzle"))
+                {
+                    GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.puzzleCursor);
+                }
+                else
+                    GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.inspectCursor);
+            }
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.defaultCursor);
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.defaultCursor);
+    }
+
     public void SetInspectText(string newInspectText)
     {
         inspectText = newInspectText;
@@ -63,7 +89,7 @@ public class InteractableObject : MonoBehaviour
         var obj = GetComponent<FMODUnity.StudioEventEmitter>();
         if (obj.enabled)
         {
-            if(obj.IsPlaying())
+            if (obj.IsPlaying())
             {
                 obj.Stop();
             }
@@ -96,7 +122,7 @@ public class InteractableObject : MonoBehaviour
         col.size = GetComponent<SpriteRenderer>().bounds.size;      //Set the box collider to be the same as the sr bounds
         col.size = Vector2.Scale(Vector2.one / transform.localScale, col.size); //also take the scale of the object into account
 
-        if(animTriggerName == "")
+        if (animTriggerName == "")
         {
             playAnim = false;
         }

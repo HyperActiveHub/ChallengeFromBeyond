@@ -35,8 +35,109 @@ public class GameManagerScript : MonoBehaviour
 
     PipePuzzle pipePuzzle;
     string lastSceneName;
-
     bool restart;
+
+    Texture2D defaultMouse, bag, bubble, bubbleText, click, inspect, left, right, puzzle;
+    public enum CursorType { defaultCursor, bagCursor, bubbleCursor, bubbleTextCursor, clickCursor, inspectCursor, leftCursor, rightCursor, puzzleCursor };
+
+
+
+    void LoadMouseTextures()
+    {
+        var mouseTextures = Resources.LoadAll<Texture2D>("MouseTextures");
+
+        foreach (var texture in mouseTextures)
+        {
+            switch (texture.name)
+            {
+                case "Mouse":
+                    defaultMouse = texture;
+                    break;
+
+                case "Mouse_bag":
+                    bag = texture;
+                    break;
+
+                case "Mouse_bubble":
+                    bubble = texture;
+                    break;
+
+                case "Mouse_bubble_text":
+                    bubbleText = texture;
+                    break;
+
+                case "Mouse_front":
+                    click = texture;
+                    break;
+
+                case "Mouse_glass":
+                    inspect = texture;
+                    break;
+
+                case "Mouse_left":
+                    left = texture;
+                    break;
+
+                case "Mouse_puzzle":
+                    puzzle = texture;
+                    break;
+
+                case "Mouse_right":
+                    right = texture;
+                    break;
+
+                default:
+                    Debug.LogError("Texture name didnt match any texture in GM.", this);
+                    break;
+            }
+        }
+    }
+
+    public void SetCursor(CursorType cursor)
+    {
+        switch(cursor)
+        {
+            case CursorType.defaultCursor:
+                Cursor.SetCursor(defaultMouse, Vector2.zero, CursorMode.Auto);
+                break;
+
+            case CursorType.bagCursor:
+                Cursor.SetCursor(bag, Vector2.zero, CursorMode.Auto);
+                break;
+
+            case CursorType.bubbleCursor:
+                Cursor.SetCursor(bubble, Vector2.zero, CursorMode.Auto);
+                break;
+
+            case CursorType.bubbleTextCursor:
+                Cursor.SetCursor(bubbleText, Vector2.zero, CursorMode.Auto);
+                break;
+
+            case CursorType.clickCursor:
+                Cursor.SetCursor(click, Vector2.zero, CursorMode.Auto);
+                break;
+
+            case CursorType.inspectCursor:
+                Cursor.SetCursor(inspect, Vector2.zero, CursorMode.Auto);
+                break;
+
+            case CursorType.leftCursor:
+                Cursor.SetCursor(left, Vector2.zero, CursorMode.Auto);
+                break;
+
+            case CursorType.rightCursor:
+                Cursor.SetCursor(right, Vector2.zero, CursorMode.Auto);
+                break;
+
+            case CursorType.puzzleCursor:
+                Cursor.SetCursor(puzzle, Vector2.zero, CursorMode.Auto);
+                break;
+
+            default:
+                Debug.LogError("Cursor Type not set-up.", this);
+                break;
+        }
+    }
 
     public InventoryUI GetInventoryUI()
     {
@@ -74,6 +175,8 @@ public class GameManagerScript : MonoBehaviour
 
         litOutlineMat = Resources.Load<Material>(litMatPath);
         unlitOutlineMat = Resources.Load<Material>(unlitMatPath);
+
+        LoadMouseTextures();
     }
 
     void GetPlayer()
