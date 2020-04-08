@@ -95,42 +95,43 @@ public class GameManagerScript : MonoBehaviour
 
     public void SetCursor(CursorType cursor)
     {
+        Vector2 offset = new Vector2(20, 10);
         switch(cursor)
         {
             case CursorType.defaultCursor:
-                Cursor.SetCursor(defaultMouse, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(defaultMouse, offset, CursorMode.Auto);
                 break;
 
             case CursorType.bagCursor:
-                Cursor.SetCursor(bag, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(bag, offset, CursorMode.Auto);
                 break;
 
             case CursorType.bubbleCursor:
-                Cursor.SetCursor(bubble, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(bubble, offset, CursorMode.Auto);
                 break;
 
             case CursorType.bubbleTextCursor:
-                Cursor.SetCursor(bubbleText, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(bubbleText, offset, CursorMode.Auto);
                 break;
 
             case CursorType.clickCursor:
-                Cursor.SetCursor(click, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(click, offset, CursorMode.Auto);
                 break;
 
             case CursorType.inspectCursor:
-                Cursor.SetCursor(inspect, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(inspect, offset, CursorMode.Auto);
                 break;
 
             case CursorType.leftCursor:
-                Cursor.SetCursor(left, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(left, offset, CursorMode.Auto);
                 break;
 
             case CursorType.rightCursor:
-                Cursor.SetCursor(right, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(right, offset, CursorMode.Auto);
                 break;
 
             case CursorType.puzzleCursor:
-                Cursor.SetCursor(puzzle, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(puzzle, offset, CursorMode.Auto);
                 break;
 
             default:
