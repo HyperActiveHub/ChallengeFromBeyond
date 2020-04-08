@@ -353,7 +353,7 @@ public class GameManagerScript : MonoBehaviour
     #endregion
 
     #region Lounge
-    public static bool firePutOut;
+    public static bool firePutOut = false;
 
     void LoungeLoaded()
     {
@@ -412,8 +412,8 @@ public class GameManagerScript : MonoBehaviour
     #endregion
 
     #region Museum Room
-    public static bool slidePuzzleDone;
-    public static bool scarabInserted;
+    public static bool slidePuzzleDone = false;
+    public static bool scarabInserted = false;
 
     void MuseumLoaded()
     {
