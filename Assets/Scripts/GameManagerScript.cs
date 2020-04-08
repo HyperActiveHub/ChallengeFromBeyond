@@ -36,10 +36,28 @@ public class GameManagerScript : MonoBehaviour
     PipePuzzle pipePuzzle;
     string lastSceneName;
 
+    bool restart;
+
     public InventoryUI GetInventoryUI()
     {
         return FindObjectOfType<InventoryUI>();
 
+    }
+
+    public void RestartGame()
+    {
+        restart = true;
+
+        var inv = Resources.Load<InventoryObject>("Player Inventory");
+        inv.itemDataInInventory.Clear();
+
+        var items = Resources.LoadAll<ItemData>("ItemsData");
+        foreach (var item in items)
+        {
+            item.Reset();
+        }
+
+        ResetStatics();
     }
 
     private void Awake()
@@ -48,24 +66,6 @@ public class GameManagerScript : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(this);
-            inventoryUI = GetInventoryUI();
-
-            if (inventoryUI == null)
-            {
-                Debug.LogWarning("Missing inventory in scene.", this);
-            }
-            else
-            {
-                inventoryUI.inventory.itemDataInInventory.Clear();
-                print("Cleared saved inventory");
-            }
-
-            var items = Resources.LoadAll<ItemData>("ItemsData");
-            foreach (var item in items)
-            {
-                item.Reset();
-            }
-
         }
         else if (_instance != null)
         {
@@ -74,9 +74,6 @@ public class GameManagerScript : MonoBehaviour
 
         litOutlineMat = Resources.Load<Material>(litMatPath);
         unlitOutlineMat = Resources.Load<Material>(unlitMatPath);
-
-        GetPlayer();
-
     }
 
     void GetPlayer()
@@ -125,12 +122,18 @@ public class GameManagerScript : MonoBehaviour
             }
         }
         else
-            Debug.LogError("inventory missing", this);
+            Debug.LogWarning("inventory missing", this);
 
         yield return new WaitForSeconds(transisionTime);
 
         lastSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(name);
+
+        if (restart)
+        {
+            restart = false;
+            Destroy(gameObject);
+        }
     }
 
     public void SetPlayerMovement(bool value)
@@ -173,7 +176,7 @@ public class GameManagerScript : MonoBehaviour
         {
             offset = (spawnPoint - doorPos) * 0.25f;
 
-            if(Mathf.Abs(offset.x) > 0.01f)     //Essentially spawnPoint.x != 0
+            if (Mathf.Abs(offset.x) > 0.01f)     //Essentially spawnPoint.x != 0
             {
                 offset.y = 0;
             }
@@ -337,6 +340,14 @@ public class GameManagerScript : MonoBehaviour
 
     }
 
+    void ResetStatics()     //OBS: dont forget to add all static varibles here
+    {
+        pipePzleDone = false;
+        isLampAssembled = false;
+        firePutOut = false;
+        slidePuzzleDone = false;
+        scarabInserted = false;
+    }
 
     public void SlidePuzzleDone()
     {
@@ -358,15 +369,6 @@ public class GameManagerScript : MonoBehaviour
     #endregion
 
     #endregion
-
-    private void Start()
-    {
-
-    }
-
-    void Update()
-    {
-    }
 
     private void OnEnable()
     {

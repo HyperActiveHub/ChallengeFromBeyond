@@ -39,6 +39,11 @@ public class MenuButton : MonoBehaviour
         GameManagerScript.Instance.ChangeScene(name);
     }
 
+    public void RestartGame()
+    {
+        GameManagerScript.Instance.RestartGame();
+    }
+
     public void Quit()
     {
         Application.Quit();
