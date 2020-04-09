@@ -164,6 +164,8 @@ public class GameManagerScript : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+
         if (_instance == null)
         {
             _instance = this;
