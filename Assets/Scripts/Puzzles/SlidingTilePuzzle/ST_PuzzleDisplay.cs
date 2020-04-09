@@ -42,6 +42,8 @@ public class ST_PuzzleDisplay : MonoBehaviour
 
     public UnityEngine.Events.UnityEvent OnComplete;
 
+    public UnityEngine.Events.UnityEvent CompleteDialog;
+
     void Start()
     {
 
@@ -69,7 +71,7 @@ public class ST_PuzzleDisplay : MonoBehaviour
             {
                 triggeredComplete = true;
                 OnComplete.Invoke();
-                //trigger dialog about needing the scarab to put in
+                CompleteDialog.Invoke();
                 GameManagerScript.slidePuzzleDone = true;
                 return;
             }
