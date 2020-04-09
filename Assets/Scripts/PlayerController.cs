@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
             var hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
             foreach (var hit in hits)
             {
-                if (hit.collider.GetComponent<InventoryUI>() != null)
+                if (hit.collider.GetComponent<InventoryUI>() != null || hit.collider.GetComponent<Item>() != null)
                 {
                     hitInventory = true;
                 }

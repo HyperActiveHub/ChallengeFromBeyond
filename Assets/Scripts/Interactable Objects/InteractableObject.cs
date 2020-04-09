@@ -68,6 +68,12 @@ public class InteractableObject : MonoBehaviour
         sayObject.Execute();
     }
 
+    public void IncorrectUseOfItem(string say)
+    {
+        sayObject.SetStandardText(say);
+        sayObject.Execute();
+    }
+
     public void AddInsight()
     {
         if (!hasAddedInsight)
@@ -117,6 +123,11 @@ public class InteractableObject : MonoBehaviour
 
     private void Start()
     {
+        if(sayObject == null)
+        {
+            Debug.LogError("SayObject missing.", this);
+        }
+
         SetInspectText(inspectText);
         BoxCollider2D col = GetComponent<BoxCollider2D>();
         col.size = GetComponent<SpriteRenderer>().bounds.size;      //Set the box collider to be the same as the sr bounds
