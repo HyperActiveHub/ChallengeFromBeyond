@@ -16,6 +16,7 @@ public class DoorScript : MonoBehaviour
         {
             GameManagerScript.Instance.ChangeScene(NextRoom);
             GetComponent<FMODUnity.StudioEventEmitter>().Play();
+            GetComponent<ClickAndDrag>().enabled = false;
         }
         else
         {
