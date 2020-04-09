@@ -105,6 +105,7 @@ public class InventoryUI : MonoBehaviour
             newItem = Instantiate(newItem);
             newItem.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";
             newItem.GetComponent<SpriteOutline>().UseLighting = false;
+            newItem.GetComponent<InteractableObject>().sayObject = FindObjectOfType<DoorScript>().GetComponent<InteractableObject>().sayObject;
 
             inventory.AddToInventory(newItem);
             newItem.transform.localScale = Vector3.one;

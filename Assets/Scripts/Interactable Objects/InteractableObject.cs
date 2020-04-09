@@ -16,7 +16,7 @@ public class InteractableObject : MonoBehaviour
     [Range(0.2f, 0.9f)]
     public float interactAtAnimProgress = 0.5f;
     [Tooltip("Drag the flowchart here. It needs to contain a block with a 'Say' command.")]
-    [SerializeField] Fungus.Say sayObject;
+    [SerializeField] public Fungus.Say sayObject;
     [TextArea] public string inspectText;
     [Tooltip("How much insight is gained when inspecting this object (first level).")]
     [SerializeField] float insightWorth;
