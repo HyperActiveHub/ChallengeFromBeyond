@@ -110,6 +110,8 @@ public class ClickAndDrag : MonoBehaviour
                         IEnumerator routine = TriggerWhenClose(interactableObjectComponent, gameObject, null);
                         StartCoroutine(routine);
                     }
+
+                    ResetClick();
                 }
                 else
                 {
@@ -171,7 +173,7 @@ public class ClickAndDrag : MonoBehaviour
                 player.GetComponent<PlayerController>().target.transform.position = position;
                 yield return new WaitUntil(() => Vector2.Distance(player.position, position) <= minDist);
 
-                if(otherInteractable.playAnim)
+                if (otherInteractable.playAnim)
                 {
                     anim.SetTrigger(otherInteractable.animTriggerName);
                     yield return new WaitForEndOfFrame();
@@ -203,12 +205,14 @@ public class ClickAndDrag : MonoBehaviour
 
         var action = interaction.Invoke(otherItem);
 
+        //The object could not be interacted with
         if (action == null)
         {
-            //The object could not be interacted with, inform the player.
-            print("'That wont work..'");
-
+            interactableObjectComponent.IncorrectUseOfItem("That won't work..");
             ResetClick();
+            if (item != null)
+                item.GetComponent<SpriteRenderer>().enabled = true;
+            otherItem.GetComponent<SpriteRenderer>().enabled = true;
         }
         else if (otherItem != null)    //if object was clicked (otherItem == null), nothing should be consumed
             ConsumeItem(action, otherGameObject, otherItem);

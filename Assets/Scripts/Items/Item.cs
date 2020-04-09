@@ -153,7 +153,8 @@ public class Item : MonoBehaviour
         else
         {
             item.gameObject.SetActive(false);
-            item.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";    //temp
+            item.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";
+            item.GetComponent<InteractableObject>().sayObject = FindObjectOfType<DoorScript>().GetComponent<InteractableObject>().sayObject;
             inventoryObject.AddToInventory(item);
             item.GetComponent<SpriteOutline>().SetMaterial(false);
         }
@@ -176,7 +177,8 @@ public class Item : MonoBehaviour
         }
 
         itemObj.SetActive(false);
-        itemObj.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";    //temp
+        itemObj.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";
+        itemObj.GetComponent<InteractableObject>().sayObject = FindObjectOfType<DoorScript>().GetComponent<InteractableObject>().sayObject;
         inventoryObject.AddToInventory(itemObj);
         itemObj.GetComponent<SpriteOutline>().SetMaterial(false);
     }

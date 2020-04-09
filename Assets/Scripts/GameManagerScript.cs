@@ -96,7 +96,7 @@ public class GameManagerScript : MonoBehaviour
     public void SetCursor(CursorType cursor)
     {
         Vector2 offset = new Vector2(20, 10);
-        switch(cursor)
+        switch (cursor)
         {
             case CursorType.defaultCursor:
                 Cursor.SetCursor(defaultMouse, offset, CursorMode.Auto);
@@ -164,6 +164,8 @@ public class GameManagerScript : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+
         if (_instance == null)
         {
             _instance = this;
@@ -293,6 +295,8 @@ public class GameManagerScript : MonoBehaviour
 
     private void OnLevelLoad(Scene scene, LoadSceneMode mode)
     {
+        SetCursor(CursorType.defaultCursor);
+
         if (!scene.name.Contains("Start") && !scene.name.Contains("End"))
         {
             GetPlayer();
@@ -404,6 +408,21 @@ public class GameManagerScript : MonoBehaviour
             {
                 fireplace.GetComponent<InteractableObject>().interactions[1].onInteraction.Invoke();
                 fireplace.GetComponentInChildren<Animator>().SetTrigger("Die");
+
+                //avoid playing extinguish sound on Die-animation
+                for (int i = 0; i < fireplace.transform.childCount; i++)
+                {
+                    var child = fireplace.transform.GetChild(i);
+                    if (child.name == "Fireplace_Fire")
+                    {
+                        for (int j = 0; j < child.transform.childCount; j++)
+                        {
+                            var fireChild = child.transform.GetChild(i);
+                            if (fireChild.name == "Extinguish Sound")
+                                Destroy(fireChild.gameObject);
+                        }
+                    }
+                }
             }
         }
         else

@@ -196,7 +196,12 @@ PrefabInstance:
     - target: {fileID: 4356836699718165358, guid: e1283521cd286e046afd7d109c98e55e,
         type: 3}
       propertyPath: insightThresholds.Array.data[0]
-      value: 0.09
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4356836699718165358, guid: e1283521cd286e046afd7d109c98e55e,
+        type: 3}
+      propertyPath: changes.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: What awful hellspawn is this?
       objectReference: {fileID: 0}
     - target: {fileID: 4356836699718165359, guid: e1283521cd286e046afd7d109c98e55e,
         type: 3}
@@ -211,7 +216,7 @@ PrefabInstance:
     - target: {fileID: 4356836699718165359, guid: e1283521cd286e046afd7d109c98e55e,
         type: 3}
       propertyPath: inspectText
-      value: What...
+      value: Angelic.. doesnt quite fit in with the rest of the decor.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1283521cd286e046afd7d109c98e55e, type: 3}
@@ -249,7 +254,7 @@ Transform:
   m_Children:
   - {fileID: 725633083}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &15401084
 SpriteRenderer:
@@ -317,7 +322,7 @@ MonoBehaviour:
   playAnim: 1
   animTriggerName: interact
   interactAtAnimProgress: 0.75
-  sayObject: {fileID: 0}
+  sayObject: {fileID: 388279221}
   inspectText: 
   insightWorth: 0
   interactions:
@@ -703,7 +708,7 @@ Transform:
   - {fileID: 431618208}
   - {fileID: 524715071}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &203768779
 GameObject:
@@ -1251,7 +1256,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &355398046 stripped
 Transform:
@@ -2656,7 +2661,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &501709923
 SpriteRenderer:
@@ -3240,7 +3245,7 @@ Transform:
   m_Children:
   - {fileID: 2028869247}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &569329783 stripped
 RectTransform:
@@ -4091,7 +4096,7 @@ MonoBehaviour:
   playAnim: 0
   animTriggerName: 
   interactAtAnimProgress: 0.5
-  sayObject: {fileID: 0}
+  sayObject: {fileID: 388279221}
   inspectText: 
   insightWorth: 0
   interactions:
@@ -5969,7 +5974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8d167a8e78f438388ff7d49d6f6425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: event:/Interaction/BookFlip
+  Event: event:/Interaction/BookClose
   PlayEvent: 0
   StopEvent: 0
   CollisionTag: 
@@ -6710,7 +6715,7 @@ Transform:
   - {fileID: 422418310}
   - {fileID: 1445655345}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1364652517
 GameObject:
@@ -6840,7 +6845,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1395709060
 PrefabInstance:
@@ -7137,7 +7142,7 @@ Transform:
   - {fileID: 443781038}
   - {fileID: 620992180}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1445655344
 GameObject:
@@ -7690,7 +7695,7 @@ Transform:
   m_Children:
   - {fileID: 675543024}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1555190353
 PrefabInstance:
@@ -7848,7 +7853,7 @@ Transform:
   - {fileID: 1225969994}
   - {fileID: 976535550}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1629156228
 GameObject:
@@ -8995,6 +9000,11 @@ PrefabInstance:
       propertyPath: interactions.Array.data[0].onInteraction.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Lounge_Main
       objectReference: {fileID: 0}
+    - target: {fileID: 3868229341478532887, guid: 9517af98db4926b4fbf8b5b3ec525f24,
+        type: 3}
+      propertyPath: sayObject
+      value: 
+      objectReference: {fileID: 388279221}
     - target: {fileID: 3868229341478532907, guid: 9517af98db4926b4fbf8b5b3ec525f24,
         type: 3}
       propertyPath: conditionMet
@@ -9251,6 +9261,11 @@ PrefabInstance:
       propertyPath: sayObject
       value: 
       objectReference: {fileID: 388279221}
+    - target: {fileID: 3776088265662109783, guid: b9fa76d164972de4a98cc498141b79b8,
+        type: 3}
+      propertyPath: inspectText
+      value: A portrait of Sir Ducan. He thought very high of himself.
+      objectReference: {fileID: 0}
     - target: {fileID: 3776088265662109785, guid: b9fa76d164972de4a98cc498141b79b8,
         type: 3}
       propertyPath: m_Name
@@ -10030,7 +10045,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1984920940
 GameObject:
@@ -11597,7 +11612,7 @@ RectTransform:
   - {fileID: 569329783}
   - {fileID: 1818291930}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -193,6 +193,21 @@ PrefabInstance:
       propertyPath: sayObject
       value: 
       objectReference: {fileID: 1210688169}
+    - target: {fileID: 2360281777240588601, guid: 2c57ef1d5e54d89439caa9f6e2462ef6,
+        type: 3}
+      propertyPath: insightWorth
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2360281777240588602, guid: 2c57ef1d5e54d89439caa9f6e2462ef6,
+        type: 3}
+      propertyPath: insightThresholds.Array.data[0]
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2360281777240588602, guid: 2c57ef1d5e54d89439caa9f6e2462ef6,
+        type: 3}
+      propertyPath: changes.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: This just isn't right.
+      objectReference: {fileID: 0}
     - target: {fileID: 2360281777240588603, guid: 2c57ef1d5e54d89439caa9f6e2462ef6,
         type: 3}
       propertyPath: m_Name
@@ -200,79 +215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c57ef1d5e54d89439caa9f6e2462ef6, type: 3}
---- !u!1 &109616073
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 109616075}
-  - component: {fileID: 109616074}
-  m_Layer: 0
-  m_Name: Global Light 2D
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &109616074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109616073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_LightType: 4
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 0.9716981, g: 0.5669094, b: 0.1787558, a: 1}
-  m_Intensity: 0.4
-  m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000a5533288
-  m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 0
-  m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0
-  m_ShadowVolumeIntensity: 0
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
-  m_PointLightDistance: 3
-  m_PointLightQuality: 1
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
---- !u!4 &109616075
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109616073}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6017867, y: 0.16490455, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &155047212
+--- !u!43 &46381981
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -435,6 +378,78 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &109616073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 109616075}
+  - component: {fileID: 109616074}
+  m_Layer: 0
+  m_Name: Global Light 2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &109616074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109616073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 4
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0.9716981, g: 0.5669094, b: 0.1787558, a: 1}
+  m_Intensity: 0.4
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000a5533288
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+--- !u!4 &109616075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109616073}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.6017867, y: 0.16490455, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &163218442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +1028,10 @@ PrefabInstance:
       propertyPath: interactions.Array.data[0].onInteraction.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4025646267843494, guid: bfdff95ed24d73c46902ff987489ab7c, type: 3}
+      propertyPath: sayObject
+      value: 
+      objectReference: {fileID: 1210688169}
     - target: {fileID: 4025646267843495, guid: bfdff95ed24d73c46902ff987489ab7c, type: 3}
       propertyPath: sceneName
       value: Boiler_Main
@@ -2984,6 +3003,10 @@ PrefabInstance:
       propertyPath: interactions.Array.data[0].onInteraction.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 390637604, guid: 6e9e04a507ca8a4468d4e55292e13614, type: 3}
+      propertyPath: sayObject
+      value: 
+      objectReference: {fileID: 1210688169}
     - target: {fileID: 390637606, guid: 6e9e04a507ca8a4468d4e55292e13614, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3499,8 +3522,8 @@ MonoBehaviour:
   - {x: 0.026401779, y: 0.48504847, z: 0}
   - {x: -0.20455547, y: 0.7933344, z: 0}
   m_ShapePathHash: -1950335384
-  m_Mesh: {fileID: 155047212}
-  m_InstanceId: 42882
+  m_Mesh: {fileID: 46381981}
+  m_InstanceId: 171348
 --- !u!1 &1993240758
 GameObject:
   m_ObjectHideFlags: 0
@@ -3639,6 +3662,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mirror (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072253321185066926, guid: 06346d576795b1d459732d660b1b7107,
+        type: 3}
+      propertyPath: sayObject
+      value: 
+      objectReference: {fileID: 1210688169}
+    - target: {fileID: 7072253321185066926, guid: 06346d576795b1d459732d660b1b7107,
+        type: 3}
+      propertyPath: proximityRange
+      value: 3.63
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06346d576795b1d459732d660b1b7107, type: 3}
@@ -4194,8 +4227,20 @@ PrefabInstance:
       propertyPath: interactions.Array.data[0].onInteraction.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1652762906, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
+      propertyPath: sayObject
+      value: 
+      objectReference: {fileID: 1210688169}
     - target: {fileID: 1652762907, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
       propertyPath: UseLighting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733616340, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
+      propertyPath: TriggerOnce
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733616340, guid: 5306806576bd3d44aac7650c7ce7260d, type: 3}
+      propertyPath: AllowFadeout
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3493711581906138009, guid: 5306806576bd3d44aac7650c7ce7260d,
@@ -4346,7 +4391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   insightThresholds:
-  - 0.13
+  - 0.65
   changes:
   - m_PersistentCalls:
       m_Calls:
