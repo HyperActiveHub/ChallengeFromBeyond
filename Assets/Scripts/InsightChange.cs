@@ -31,11 +31,17 @@ public class InsightChange : MonoBehaviour
         }
     }
 
-    void Start()
+    private void OnEnable()
     {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += insightChange;
     }
 
-    void Update()
+    private void OnDisable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= insightChange;
+    }
+
+    void insightChange(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
         for (int i = 0; i < insightThresholds.Count; i++)
         {
@@ -48,6 +54,5 @@ public class InsightChange : MonoBehaviour
                 break;
             }
         }
-
     }
 }
