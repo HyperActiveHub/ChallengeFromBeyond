@@ -293,6 +293,8 @@ public class GameManagerScript : MonoBehaviour
 
     private void OnLevelLoad(Scene scene, LoadSceneMode mode)
     {
+        SetCursor(CursorType.defaultCursor);
+
         if (!scene.name.Contains("Start") && !scene.name.Contains("End"))
         {
             GetPlayer();
