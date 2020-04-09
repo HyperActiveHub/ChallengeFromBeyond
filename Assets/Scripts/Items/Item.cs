@@ -43,6 +43,24 @@ public class Item : MonoBehaviour
         }
     }
 
+    private void OnMouseEnter()
+    {
+        if(!isInInventory)
+        {
+            GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.bagCursor);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.defaultCursor);
+    }
+
+    private void OnMouseDrag()
+    {
+        GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.clickCursor);
+    }
+
     private void Start()
     {
         var items = FindObjectsOfType<Item>();

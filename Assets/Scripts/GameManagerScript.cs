@@ -34,11 +34,132 @@ public class GameManagerScript : MonoBehaviour
     PlayerController playerController = null;
 
     PipePuzzle pipePuzzle;
+    string lastSceneName;
+    bool restart;
+
+    Texture2D defaultMouse, bag, bubble, bubbleText, click, inspect, left, right, puzzle;
+    public enum CursorType { defaultCursor, bagCursor, bubbleCursor, bubbleTextCursor, clickCursor, inspectCursor, leftCursor, rightCursor, puzzleCursor };
+
+
+
+    void LoadMouseTextures()
+    {
+        var mouseTextures = Resources.LoadAll<Texture2D>("MouseTextures");
+
+        foreach (var texture in mouseTextures)
+        {
+            switch (texture.name)
+            {
+                case "Mouse":
+                    defaultMouse = texture;
+                    break;
+
+                case "Mouse_bag":
+                    bag = texture;
+                    break;
+
+                case "Mouse_bubble":
+                    bubble = texture;
+                    break;
+
+                case "Mouse_bubble_text":
+                    bubbleText = texture;
+                    break;
+
+                case "Mouse_front":
+                    click = texture;
+                    break;
+
+                case "Mouse_glass":
+                    inspect = texture;
+                    break;
+
+                case "Mouse_left":
+                    left = texture;
+                    break;
+
+                case "Mouse_puzzle":
+                    puzzle = texture;
+                    break;
+
+                case "Mouse_right":
+                    right = texture;
+                    break;
+
+                default:
+                    Debug.LogError("Texture name didnt match any texture in GM.", this);
+                    break;
+            }
+        }
+    }
+
+    public void SetCursor(CursorType cursor)
+    {
+        Vector2 offset = new Vector2(20, 10);
+        switch(cursor)
+        {
+            case CursorType.defaultCursor:
+                Cursor.SetCursor(defaultMouse, offset, CursorMode.Auto);
+                break;
+
+            case CursorType.bagCursor:
+                Cursor.SetCursor(bag, offset, CursorMode.Auto);
+                break;
+
+            case CursorType.bubbleCursor:
+                Cursor.SetCursor(bubble, offset, CursorMode.Auto);
+                break;
+
+            case CursorType.bubbleTextCursor:
+                Cursor.SetCursor(bubbleText, offset, CursorMode.Auto);
+                break;
+
+            case CursorType.clickCursor:
+                Cursor.SetCursor(click, offset, CursorMode.Auto);
+                break;
+
+            case CursorType.inspectCursor:
+                Cursor.SetCursor(inspect, offset, CursorMode.Auto);
+                break;
+
+            case CursorType.leftCursor:
+                Cursor.SetCursor(left, offset, CursorMode.Auto);
+                break;
+
+            case CursorType.rightCursor:
+                Cursor.SetCursor(right, offset, CursorMode.Auto);
+                break;
+
+            case CursorType.puzzleCursor:
+                Cursor.SetCursor(puzzle, offset, CursorMode.Auto);
+                break;
+
+            default:
+                Debug.LogError("Cursor Type not set-up.", this);
+                break;
+        }
+    }
 
     public InventoryUI GetInventoryUI()
     {
         return FindObjectOfType<InventoryUI>();
 
+    }
+
+    public void RestartGame()
+    {
+        restart = true;
+
+        var inv = Resources.Load<InventoryObject>("Player Inventory");
+        inv.itemDataInInventory.Clear();
+
+        var items = Resources.LoadAll<ItemData>("ItemsData");
+        foreach (var item in items)
+        {
+            item.Reset();
+        }
+
+        ResetStatics();
     }
 
     private void Awake()
@@ -47,24 +168,6 @@ public class GameManagerScript : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(this);
-            inventoryUI = GetInventoryUI();
-
-            if (inventoryUI == null)
-            {
-                Debug.LogWarning("Missing inventory in scene.", this);
-            }
-            else
-            {
-                inventoryUI.inventory.itemDataInInventory.Clear();
-                print("Cleared saved inventory");
-            }
-
-            var items = Resources.LoadAll<ItemData>("ItemsData");
-            foreach (var item in items)
-            {
-                item.Reset();
-            }
-
         }
         else if (_instance != null)
         {
@@ -74,15 +177,17 @@ public class GameManagerScript : MonoBehaviour
         litOutlineMat = Resources.Load<Material>(litMatPath);
         unlitOutlineMat = Resources.Load<Material>(unlitMatPath);
 
+        LoadMouseTextures();
+    }
+
+    void GetPlayer()
+    {
         playerController = FindObjectOfType<PlayerController>();
 
         if (playerController == null)
         {
             Debug.LogWarning("Player controller not found, scene is missing the player object.");
-
-
         }
-
     }
 
     public float GetOutlineMode()
@@ -121,11 +226,18 @@ public class GameManagerScript : MonoBehaviour
             }
         }
         else
-            Debug.LogError("inventory missing", this);
+            Debug.LogWarning("inventory missing", this);
 
         yield return new WaitForSeconds(transisionTime);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(name);
+        lastSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(name);
+
+        if (restart)
+        {
+            restart = false;
+            Destroy(gameObject);
+        }
     }
 
     public void SetPlayerMovement(bool value)
@@ -133,8 +245,60 @@ public class GameManagerScript : MonoBehaviour
         playerController.SetCanMove(value);
     }
 
+    Vector2 GetEntryPoint(out Vector2 doorPos)
+    {
+        if (lastSceneName != "")
+        {
+            var doors = FindObjectsOfType<DoorScript>();
+
+            foreach (var door in doors)
+            {
+                if (door.NextRoom == lastSceneName)
+                {
+                    doorPos = door.transform.position;
+                    return door.GetSpawnPos();
+                }
+            }
+
+            Debug.LogWarning("Entry-door not found.", this);
+        }
+        else
+            Debug.LogWarning("No last scene name set.", this);
+
+        doorPos = Vector2.zero;
+        return playerController.transform.position;
+    }
+
+    void MovePlayerToEntry()
+    {
+        Vector2 doorPos;
+        Vector2 offset = Vector2.zero;
+        Vector2 spawnPoint = GetEntryPoint(out doorPos);
+        playerController.transform.position = spawnPoint;
+
+        if (doorPos != Vector2.zero)
+        {
+            offset = (spawnPoint - doorPos) * 0.25f;
+
+            if (Mathf.Abs(offset.x) > 0.01f)     //Essentially spawnPoint.x != 0
+            {
+                offset.y = 0;
+            }
+        }
+
+        playerController.target.position = spawnPoint + offset;  //added offset makes the player walk outward from door.
+
+        Camera.main.transform.position = new Vector3(spawnPoint.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
+    }
+
     private void OnLevelLoad(Scene scene, LoadSceneMode mode)
     {
+        if (!scene.name.Contains("Start") && !scene.name.Contains("End"))
+        {
+            GetPlayer();
+            MovePlayerToEntry();
+        }
+
         if (scene.name.Contains("Boiler"))
         {
             BoilerLoaded();
@@ -190,7 +354,7 @@ public class GameManagerScript : MonoBehaviour
     #endregion
 
     #region Lounge
-    public static bool firePutOut;
+    public static bool firePutOut = false;
 
     void LoungeLoaded()
     {
@@ -239,6 +403,7 @@ public class GameManagerScript : MonoBehaviour
             if (firePutOut)
             {
                 fireplace.GetComponent<InteractableObject>().interactions[1].onInteraction.Invoke();
+                fireplace.GetComponentInChildren<Animator>().SetTrigger("Die");
             }
         }
         else
@@ -248,8 +413,8 @@ public class GameManagerScript : MonoBehaviour
     #endregion
 
     #region Museum Room
-    public static bool slidePuzzleDone;
-    public static bool scarabInserted;
+    public static bool slidePuzzleDone = false;
+    public static bool scarabInserted = false;
 
     void MuseumLoaded()
     {
@@ -279,6 +444,14 @@ public class GameManagerScript : MonoBehaviour
 
     }
 
+    void ResetStatics()     //OBS: dont forget to add all static varibles here
+    {
+        pipePzleDone = false;
+        isLampAssembled = false;
+        firePutOut = false;
+        slidePuzzleDone = false;
+        scarabInserted = false;
+    }
 
     public void SlidePuzzleDone()
     {
@@ -300,15 +473,6 @@ public class GameManagerScript : MonoBehaviour
     #endregion
 
     #endregion
-
-    private void Start()
-    {
-
-    }
-
-    void Update()
-    {
-    }
 
     private void OnEnable()
     {

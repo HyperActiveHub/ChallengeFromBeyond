@@ -152,6 +152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximityRange: 2.62
+  playAnim: 0
+  animTriggerName: 
+  interactAtAnimProgress: 0.5
   sayObject: {fileID: 0}
   inspectText: 
   insightWorth: 0
@@ -184,7 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684dcac8189ae1a49af923897855243c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conditionMet: 0
+  conditionMet: 1
+  NextRoom: Boiler_Main
+  spawnOffset: {x: 2, y: -1.12}
 --- !u!114 &5780389954120327682
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mouse : MonoBehaviour
 {
-    private SpriteRenderer renderer;
+      private SpriteRenderer sr;
     [System.Serializable]
     public enum mouseSprite
     {
@@ -19,6 +19,8 @@ public class Mouse : MonoBehaviour
         Puzzle
     }
 
+
+
     public Sprite Default, Bag, Bubble, BubbleText, Magnifier, Up, Left, Right, Puzzle;
 
     public static mouseSprite mouse;
@@ -30,45 +32,45 @@ public class Mouse : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
         Cursor.visible = false;
         mouse = previousMouse;
         switch (mouse)
         {
             case mouseSprite.Default:
-                renderer.sprite = Default;
+                sr.sprite = Default;
                 offset = defaultOffset;
                 break;
             case mouseSprite.Bag:
-                renderer.sprite = Bag;
+                sr.sprite = Bag;
                 offset = bagOffset;
                 break;
             case mouseSprite.Bubble:
-                renderer.sprite = Bubble;
+                sr.sprite = Bubble;
                 offset = bubbleOffset;
                 break;
             case mouseSprite.BubbleText:
-                renderer.sprite = BubbleText;
+                sr.sprite = BubbleText;
                 offset = bubbleTextOffset;
                 break;
             case mouseSprite.Magnifier:
-                renderer.sprite = Magnifier;
+                sr.sprite = Magnifier;
                 offset = magnifierOffset;
                 break;
             case mouseSprite.Front:
-                renderer.sprite = Up;
+                sr.sprite = Up;
                 offset = upOffset;
                 break;
             case mouseSprite.Left:
-                renderer.sprite = Left;
+                sr.sprite = Left;
                 offset = leftOffset;
                 break;
             case mouseSprite.Right:
-                renderer.sprite = Right;
+                sr.sprite = Right;
                 offset = rightOffset;
                 break;
             case mouseSprite.Puzzle:
-                renderer.sprite = Puzzle;
+                sr.sprite = Puzzle;
                 offset = puzzleOffset;
                 break;
             default:
@@ -80,40 +82,43 @@ public class Mouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Cursor.visible)
-        {
-            Cursor.visible = false;
-        }
+        //if (Cursor.visible)
+        //{
+        //    Cursor.visible = false;
+        //}
+
+
+
         if (previousMouse != mouse)
         {
             switch (mouse)
             {
                 case mouseSprite.Default:
-                    renderer.sprite = Default;
+                    sr.sprite = Default;
                     break;
                 case mouseSprite.Bag:
-                    renderer.sprite = Bag;
+                    sr.sprite = Bag;
                     break;
                 case mouseSprite.Bubble:
-                    renderer.sprite = Bubble;
+                    sr.sprite = Bubble;
                     break;
                 case mouseSprite.BubbleText:
-                    renderer.sprite = BubbleText;
+                    sr.sprite = BubbleText;
                     break;
                 case mouseSprite.Magnifier:
-                    renderer.sprite = Magnifier;
+                    sr.sprite = Magnifier;
                     break;
                 case mouseSprite.Front:
-                    renderer.sprite = Up;
+                    sr.sprite = Up;
                     break;
                 case mouseSprite.Left:
-                    renderer.sprite = Left;
+                    sr.sprite = Left;
                     break;
                 case mouseSprite.Right:
-                    renderer.sprite = Right;
+                    sr.sprite = Right;
                     break;
                 case mouseSprite.Puzzle:
-                    renderer.sprite = Puzzle;
+                    sr.sprite = Puzzle;
                     break;
                 default:
                     Debug.Log("NOTHING FOR MOUSE");
