@@ -15,7 +15,61 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPosition;
     public Transform target;
     private bool isMoving;
+    public bool canTarget;
+    bool canMove = true;
 
+
+    [FMODUnity.EventRef]
+    public string InputFootsteps;
+    FMOD.Studio.EventInstance FootstepsEvent;
+    FMOD.Studio.ParameterInstance WoodParameter;
+    FMOD.Studio.ParameterInstance StoneParameter;
+
+    private float WoodValue;
+    private float StoneValue;
+
+    public GameObject backgroundTilemap;
+
+    bool canInteract = true;
+    public void SetCanInteract(bool value)
+    {
+        canInteract = value;
+    }
+
+    public bool CanPlayerInteract()
+    {
+        return canInteract;
+    }
+
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
+    }
+    public bool CanMove()
+    {
+        return canMove;
+    }
+
+    //placing this here bcus fuck
+    public void FireWasPutOut(Animator anim)
+    {
+        if (!GameManagerScript.firePutOut)
+        {
+            anim.SetTrigger("Splash");
+        }
+        GameManagerScript.firePutOut = true;
+
+    }
+
+    private void Awake()
+    {
+        if (GameManagerScript.Instance.hasAwakened == false)
+        {
+            anim.SetTrigger("WakeUp");
+            canTarget = false;
+            GameManagerScript.Instance.hasAwakened = true;
+        }
+    }
 
     public void Start()
     {
@@ -24,30 +78,58 @@ public class PlayerController : MonoBehaviour
         lastPositionX = transform.position.x;
         lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
         targetPosition = transform.position;
-    }
 
+        FootstepsEvent = FMODUnity.RuntimeManager.CreateInstance(InputFootsteps);
+        FootstepsEvent.getParameter("Wood", out WoodParameter);
+        FootstepsEvent.getParameter("Stone", out StoneParameter);
+
+        InvokeRepeating("CallFootsteps", 0, 0.5f);
+    }
 
     void Update()
     {
 
-
-
-        //Vid Musklick så sätts musens position till target position
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp_Left") || anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp_Right") || anim.GetCurrentAnimatorStateInfo(0).IsName("WakingUp"))
         {
-            target.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+            canTarget = false;
+        }
+        else
+            canTarget = true;
+
+        WoodParameter.setValue(WoodValue);
+        StoneParameter.setValue(StoneValue);
+
+        //Vid Musklick så sätts musens position till target position, om musen inte är över inventoryt.
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canTarget)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            bool hitInventory = false;
+
+            var hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
+            foreach (var hit in hits)
+            {
+                if (hit.collider.GetComponent<InventoryUI>() != null || hit.collider.GetComponent<Item>() != null)
+                {
+                    hitInventory = true;
+                }
+            }
+
+            if (hitInventory == false && canMove)
+            {
+                target.position = mousePos;
+            }
 
         }
 
         //kollar om spelaren rör sig
         StartCoroutine("IsMoving");
-
         target.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 
         distanceTravelled = Mathf.Abs(transform.position.y - lastPositionY);
 
         scalechage = new Vector3(transform.localScale.x, transform.localScale.y) * distanceTravelled;
-                                   
+
         //Håller koll på om spelaren rör sig i de olika axlarna och sköter animationernas värde
         if ((transform.position.y - lastPositionY) > 0)
         {
@@ -75,7 +157,7 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isWalking", true);
             anim.SetFloat("input_x", (transform.position.x - lastPositionX));
         }
-         
+
         //Startar animationen om spelaren rör sig
         if (isMoving == false)
         {
@@ -84,15 +166,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("isWalking", true);
+
         }
-                                   
 
+        DetermineTerrain(backgroundTilemap);
         transform.localScale += scalechage;
-
         lastPositionY = transform.position.y;
         lastPositionX = transform.position.x;
         lastPosition = new Vector3(lastPositionX, lastPositionY, transform.position.z);
-
     }
 
     private IEnumerator IsMoving()
@@ -110,16 +191,45 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = true;
         }
-
     }
 
+    void CallFootsteps()
+    {
+        if (isMoving == true)
+        {
+            FootstepsEvent.start();
+            //Debug.Log("Souning");
+        }
+    }
 
+    private void DetermineTerrain(GameObject background)
+    {
+        float fadetime = 10;
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.back, 100.0f);
+        GameObject hit = background;
 
+        if (hit != null)
+        {
+            if (hit/*.transform.gameObject*/.tag == "wood")
+            {
+                //Debug.Log("WOOD");
+                WoodValue = Mathf.Lerp(WoodValue, 1f, Time.deltaTime * fadetime);
+                StoneValue = Mathf.Lerp(StoneValue, 0f, Time.deltaTime * fadetime);
+            }
+            else if (hit/*.transform.gameObject*/.tag == "stone")
+            {
+                //Debug.Log("STONE");
+                WoodValue = Mathf.Lerp(WoodValue, 0f, Time.deltaTime * fadetime);
+                StoneValue = Mathf.Lerp(StoneValue, 1f, Time.deltaTime * fadetime);
+            }
+            else
+            {
+                Debug.LogError("Floor is missing tag. Floor needs tags to determine what audio to play for footsteps.", this);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Background Object not assigned.", this);
+        }
+    }
 }
-
-
-
-
-
-
-

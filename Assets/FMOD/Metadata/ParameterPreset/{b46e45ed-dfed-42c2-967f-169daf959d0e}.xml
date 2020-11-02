@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{b46e45ed-dfed-42c2-967f-169daf959d0e}">
+        <property name="name">
+            <value>VoiceTypeJasper</value>
+        </property>
+        <relationship name="folder">
+            <destination>{030b007a-37f7-4ef6-9c64-a0dde956f70c}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{8d8d10b6-a420-43d2-9002-b4d6c0b76449}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{8d8d10b6-a420-43d2-9002-b4d6c0b76449}">
+        <property name="minimum">
+            <value>10</value>
+        </property>
+        <property name="maximum">
+            <value>30</value>
+        </property>
+        <property name="initialValue">
+            <value>10</value>
+        </property>
+    </object>
+</objects>

@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: 857b52fbaff0b7144b716003e9c4a328
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 130274018075111668
+    second: Bucket with water
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,17 +43,17 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 12, y: 7, z: 13, w: 9}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -120,9 +123,38 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
-    outline: []
-    physicsShape: []
+    sprites:
+    - serializedVersion: 2
+      name: Bucket with water
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 7
+        width: 40
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f074da7783dec100800000000000000
+      internalID: 130274018075111668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -19, y: -24}
+      - {x: -19, y: 21}
+      - {x: 20, y: 22}
+      - {x: 20, y: -24}
+    physicsShape:
+    - - {x: -21, y: -25}
+      - {x: -21, y: 24}
+      - {x: 20, y: 24}
+      - {x: 20, y: -25}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
@@ -130,9 +162,7 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 5059fb02cccb4da479b0214eb2650bdc, type: 3}
-      name: _NormalMap
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

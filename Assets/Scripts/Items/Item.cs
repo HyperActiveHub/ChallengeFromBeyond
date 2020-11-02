@@ -1,39 +1,101 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(ClickAndDrag))]
+[RequireComponent(typeof(InteractableObject))]
+[RequireComponent(typeof(SpriteOutline))]
 public class Item : MonoBehaviour
 {
-    [SerializeField] private ItemData itemData = null;
-
+    public ItemData itemData = null;
     private SpriteRenderer spriteRenderer = null;
+    [HideInInspector] public bool isInInventory = false;
+    [Tooltip("What order this object will be assigned when being added to inventory. A too low value might result in the item not being properly displayed in the inventory.")]
+    public InventoryObject inventoryObject = null;
 
     private void OnValidate()
     {
-        if(itemData == null)
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        if (itemData == null)
         {
             Debug.LogWarning("Item GameObject has no attached item. Please attach one.", this);
         }
+
+        if (spriteRenderer != null)
+        {
+            ReloadItem();
+        }
+
+        if (itemData.displayText == "")
+        {
+            Debug.LogWarning(string.Format("The item \"{0}\" is missing a proper display text.", itemData.name), this);
+        }
+
+        if (itemData.itemSprite == null)
+        {
+            Debug.LogWarning(string.Format("The item \"{0}\" is missing a sprite.", itemData.name), this);
+        }
+    }
+
+    private void OnMouseEnter()
+    {
+        if(!isInInventory)
+        {
+            GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.bagCursor);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.defaultCursor);
+    }
+
+    private void OnMouseDrag()
+    {
+        GameManagerScript.Instance.SetCursor(GameManagerScript.CursorType.clickCursor);
     }
 
     private void Start()
     {
-        itemData.itemID = gameObject.GetInstanceID();
+        var items = FindObjectsOfType<Item>();
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        //need to keep track of if item is already picked-up, used or others. Prevent items from spawning in scenes if already used/picked up.
+        //currently, if items are used, they will spawn in scenes. 
+        //Duplicates will NOT spawn if the item exists already, hopefully in inventory.
+        if(itemData.isUsed && !isInInventory)
+        {
+            Debug.LogWarning("Item: '" + itemData.displayText + "' has already been picked up. Additional item removed from scene.");
+            Destroy(gameObject);
+        }
 
-        ReloadItem();
-
-        //TODO: Should be done in editor and not in game. Fix when adding custom editor.
-        //if(itemData.itemSprite != null && spriteRenderer != null)
+        //foreach (var item in items)
         //{
-        //    spriteRenderer.sprite = itemData.itemSprite;
+        //    //unsure of itemID usage...
+        //    if (item.itemData == itemData && gameObject != item.gameObject)  //same itemData, but not same object
+        //    {
+        //        Debug.LogWarning("A copy of item: '" + itemData.displayText + "' was found in the scene, and was removed.");
+        //        if (isInInventory)
+        //        {
+        //            Destroy(item.gameObject);
+        //        }
+        //        else
+        //            Destroy(gameObject);
+        //    }
         //}
+
+        itemData.itemID = gameObject.GetInstanceID();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void ReloadItem()
     {
-        if(spriteRenderer != null)
+        if (spriteRenderer != null)
         {
             spriteRenderer.sprite = itemData.itemSprite;
         }
@@ -50,17 +112,107 @@ public class Item : MonoBehaviour
         ReloadItem();
     }
 
-    public void CombineWithItem(ItemData item)
+    public void CombineWithItem(GameObject prefab)
     {
-        this.itemData = item;
-        ReloadItem();
+        if (isInInventory)
+        {
+            inventoryObject.RemoveFromInventory(gameObject);
+        }
+
+        GameObject instantiatedObject = Instantiate(prefab, transform.position, Quaternion.identity);
+        instantiatedObject.name = itemData.displayText;
+        InsertToInventory(instantiatedObject);
+
+        Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Insert GameObject to the inventory.
+    /// </summary>
+    /// <param name="item">The item to insert to the inventory. If undefined, this object will be added to the inventory.</param>
 
+    public void InsertToInventory(GameObject item = null)
+    {
+        if (this.gameObject.GetComponent<Item>() == null)
+        {
+            Debug.LogError("Tried to add non-item GameObject to inventory!");
+            return;
+        }
 
+        if (inventoryObject == null)
+        {
+            Debug.LogError("This item does not have an attached inventory object. Can not add item to null-inventory", this);
+            return;
+        }
+
+        if (isInInventory)
+        {
+            Debug.Log("Item already in inventory, can not add item again.", this);
+            return;
+        }
+        else
+        {
+            item.gameObject.SetActive(false);
+            item.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";
+            item.GetComponent<InteractableObject>().sayObject = FindObjectOfType<DoorScript>().GetComponent<InteractableObject>().sayObject;
+            inventoryObject.AddToInventory(item);
+            item.GetComponent<SpriteOutline>().SetMaterial(false);
+        }
+    }
+
+    public void AddPrefabToInventory(GameObject prefab = null)
+    {
+        GameObject itemObj = Instantiate(prefab);
+
+        if (itemObj.gameObject.GetComponent<Item>() == null)
+        {
+            Debug.LogError("Tried to add non-item GameObject to inventory!");
+            return;
+        }
+
+        if (inventoryObject == null)
+        {
+            Debug.LogError("This item does not have an attached inventory object. Can not add item to null-inventory", this);
+            return;
+        }
+
+        itemObj.SetActive(false);
+        itemObj.GetComponent<SpriteRenderer>().sortingLayerName = "Inventory";
+        itemObj.GetComponent<InteractableObject>().sayObject = FindObjectOfType<DoorScript>().GetComponent<InteractableObject>().sayObject;
+        inventoryObject.AddToInventory(itemObj);
+        itemObj.GetComponent<SpriteOutline>().SetMaterial(false);
+    }
+
+    public void InsertThisToInventory()
+    {
+        InsertToInventory(this.gameObject);
+    }
+
+    public void SetIsUsed()
+    {
+        itemData.isUsed = true;
+    }
+
+    public void ResetTransform()
+    {
+        gameObject.transform.localScale = Vector3.one;
+        gameObject.transform.rotation = Quaternion.identity;
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Handles.Label(transform.position, itemData.displayText);
+    }
+#endif
     public static bool operator ==(Item item1, Item item2)
     {
-        return item1.itemData.itemID == item2.itemData.itemID;
+        if (item1 is null || item2 is null)
+        {
+            return item1 is null;
+        }
+
+        return item1.Equals(item2);
     }
 
     public static bool operator !=(Item item1, Item item2)
@@ -82,10 +234,4 @@ public class Item : MonoBehaviour
     {
         return itemData.displayText;
     }
-
-    public void PublicPrint(string printString)
-    {
-        Debug.Log(printString);
-    }
-
 }
